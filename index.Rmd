@@ -1,0 +1,5 @@
+---
+---
+
+<b> 2018.22.02 </b>
+A few days ago, I learnt that it is possible to keep a blog up and running using Github and RStudio from our instructor Eduardo Ariño de la Rubia.

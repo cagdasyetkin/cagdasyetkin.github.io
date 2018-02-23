@@ -232,39 +232,46 @@ $(document).ready(function () {
 
 <hr />
 <hr />
+<p><b> 2018.24.02 </b></p>
+<p>Today we are looking at a quick sentiment analysis of Game of Thrones novels</p>
+<p>Convert to Tidy format</p>
+<pre class="r"><code>Tidy_Thrones &lt;- Thrones %&gt;%
+  group_by(title) %&gt;%
+  mutate(linenumber = row_number(), ignore_case = TRUE) %&gt;%
+  ungroup() %&gt;%
+  unnest_tokens(word, text)</code></pre>
+<pre class="r"><code>GoTsentiment &lt;- Tidy_Thrones %&gt;%
+  inner_join(get_sentiments(&quot;bing&quot;)) %&gt;%
+  count(title, index = linenumber %/% 80, sentiment) %&gt;%
+  spread(sentiment, n, fill = 0) %&gt;%
+  mutate(sentiment = positive - negative)</code></pre>
+<pre class="r"><code>ggplot(GoTsentiment, aes(index, sentiment, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~title, ncol = 2, scales = &quot;free_x&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+<p>Is Game of Thrones series really this much negative?</p>
 <p><b> 2018.23.02 </b></p>
 <p>Let’s have a look at Game of Thrones, 5 huge volumes</p>
-<pre class="r"><code>library(gutenbergr)
-library(stringr)
-library(plyr)
-library(tidytext)
-library(ggplot2)
-library(ggthemes)
-library(gridExtra)
-library(scales)
-library(broom)
-library(purrr)</code></pre>
 <pre class="r"><code>GoT1 &lt;- readLines(&quot;GoT1.txt&quot;) %&gt;%
-  as.data.frame() %&gt;%
+  data_frame() %&gt;%
   mutate(title = &quot;A Game of Thrones&quot;)
 
 GoT2 &lt;- readLines(&quot;GoT2.txt&quot;) %&gt;%
-  as.data.frame() %&gt;%
+  data_frame() %&gt;%
   mutate(title = &quot;A Clash of Kings&quot;) 
 
 GoT3 &lt;- readLines(&quot;GoT3.txt&quot;) %&gt;%
-  as.data.frame() %&gt;%
+  data_frame() %&gt;%
   mutate(title = &quot;A Storm of Swords&quot;) 
 
 GoT4 &lt;- readLines(&quot;GoT4.txt&quot;) %&gt;%
-  as.data.frame() %&gt;%
+  data_frame() %&gt;%
   mutate(title = &quot;A Feast of Crows&quot;) 
 
 GoT5 &lt;- readLines(&quot;GoT5.txt&quot;) %&gt;%
-  as.data.frame() %&gt;%
+  data_frame() %&gt;%
   mutate(title = &quot;A Dance with Dragons&quot;) 
 
-library(dplyr)
 Thrones &lt;- bind_rows(list(GoT1, GoT2, GoT3, GoT4, GoT5)) 
 colnames(Thrones) &lt;- c(&quot;text&quot;, &quot;title&quot;)</code></pre>
 <p>Convert to Tidy format</p>
@@ -283,7 +290,7 @@ colnames(Thrones) &lt;- c(&quot;text&quot;, &quot;title&quot;)</code></pre>
           ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
           ggtitle(&quot;A Song of Ice and Fire&quot;) +
           theme_fivethirtyeight()</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
 <p>Now lets see tf-idf to see the most <strong>important</strong> words in these books.</p>
 <pre class="r"><code>Tidy_Thrones &lt;- Tidy_Thrones %&gt;%
   anti_join(stop_words) %&gt;%
@@ -302,11 +309,11 @@ head(Tidy_Thrones)</code></pre>
 ##   title                word      n  total      tf   idf tf_idf
 ##   &lt;chr&gt;                &lt;chr&gt; &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 A Storm of Swords    lord   1880 163031 0.0115      0      0
-## 2 A Dance with Dragons lord   1541 168861 0.00913     0      0
-## 3 A Feast of Crows     lord   1473 123616 0.0119      0      0
+## 2 A Dance with Dragons lord   1541 168863 0.00913     0      0
+## 3 A Feast of Crows     lord   1473 123624 0.0119      0      0
 ## 4 A Storm of Swords    ser    1468 163031 0.00900     0      0
 ## 5 A Clash of Kings     lord   1420 126874 0.0112      0      0
-## 6 A Feast of Crows     ser    1391 123616 0.0113      0      0</code></pre>
+## 6 A Feast of Crows     ser    1391 123624 0.0113      0      0</code></pre>
 <pre class="r"><code>Tidy_Thrones %&gt;%
   select(-total) %&gt;%
   arrange(desc(tf_idf)) %&gt;%
@@ -332,7 +339,7 @@ head(Tidy_Thrones)</code></pre>
         facet_wrap(~title, ncol = 2, scales = &quot;free&quot;) +
         theme_fivethirtyeight() + ggtitle(&quot;A Song of Ice and Fire&quot;) +
         coord_flip()</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="768" /></p>
 <p>Looks like I will need to do <strong>a bit</strong> cleaning :)</p>
 <p><b> 2018.22.02 </b> A few days ago, I learnt that it is possible to keep a blog up and running using Github and RStudio from our instructor Eduardo Ariño de la Rubia.</p>
 

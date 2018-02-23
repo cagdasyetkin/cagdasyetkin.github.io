@@ -2,14 +2,14 @@
 
 ---
 
-<b> 2018.23.02 </b>
+<b> 2018.24.02 </b>
 
-Let's have a look at Game of Thrones, 5 huge volumes
+Today we are looking at a quick sentiment analysis of Game of Thrones novels
 
-```{r, warning=FALSE, message=FALSE}
-library(gutenbergr)
+```{r, warning=FALSE, message=FALSE, results='hide', echo=FALSE}
 library(stringr)
-library(plyr)
+library(dplyr)
+library(tidyr)
 library(tidytext)
 library(ggplot2)
 library(ggthemes)
@@ -19,28 +19,95 @@ library(broom)
 library(purrr)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 GoT1 <- readLines("GoT1.txt") %>%
-  as.data.frame() %>%
+  data_frame() %>%
   mutate(title = "A Game of Thrones")
 
 GoT2 <- readLines("GoT2.txt") %>%
-  as.data.frame() %>%
+  data_frame() %>%
   mutate(title = "A Clash of Kings") 
 
 GoT3 <- readLines("GoT3.txt") %>%
-  as.data.frame() %>%
+  data_frame() %>%
   mutate(title = "A Storm of Swords") 
 
 GoT4 <- readLines("GoT4.txt") %>%
-  as.data.frame() %>%
+  data_frame() %>%
   mutate(title = "A Feast of Crows") 
 
 GoT5 <- readLines("GoT5.txt") %>%
-  as.data.frame() %>%
+  data_frame() %>%
   mutate(title = "A Dance with Dragons") 
 
-library(dplyr)
+Thrones <- bind_rows(list(GoT1, GoT2, GoT3, GoT4, GoT5)) 
+colnames(Thrones) <- c("text", "title")
+
+
+GoT_stopwords <- data_frame(word = c("i'll", "don't", "he's", "it's",
+                                     "i'm", "he'd", "man's"), lexicon = 'GoT')
+
+```
+
+Convert to Tidy format
+```{r, message=FALSE}
+Tidy_Thrones <- Thrones %>%
+  group_by(title) %>%
+  mutate(linenumber = row_number(), ignore_case = TRUE) %>%
+  ungroup() %>%
+  unnest_tokens(word, text)
+
+```
+
+```{r, message=FALSE}
+
+GoTsentiment <- Tidy_Thrones %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(title, index = linenumber %/% 80, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+```
+
+
+```{r, fig.width=8,fig.height=6}
+
+ggplot(GoTsentiment, aes(index, sentiment, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~title, ncol = 2, scales = "free_x")
+
+```
+
+
+Is Game of Thrones series really this much negative?
+
+
+
+<b> 2018.23.02 </b>
+
+Let's have a look at Game of Thrones, 5 huge volumes
+
+```{r, warning=FALSE, message=FALSE}
+GoT1 <- readLines("GoT1.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Game of Thrones")
+
+GoT2 <- readLines("GoT2.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Clash of Kings") 
+
+GoT3 <- readLines("GoT3.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Storm of Swords") 
+
+GoT4 <- readLines("GoT4.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Feast of Crows") 
+
+GoT5 <- readLines("GoT5.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Dance with Dragons") 
+
 Thrones <- bind_rows(list(GoT1, GoT2, GoT3, GoT4, GoT5)) 
 colnames(Thrones) <- c("text", "title")
 

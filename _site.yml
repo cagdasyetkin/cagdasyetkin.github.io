@@ -3,10 +3,10 @@ output_dir: '.'
 navbar:
   title: Cagdas Yetkin
   left:
-  - text: Writing
-    href: research.html
-  - text: Speaking
-    href: talks.html
+  - text: Quiz
+    href: quiz.html
+  - text: Final Project
+    href: final.html
   - text: Programming
     href: software.html
   - text: Teaching

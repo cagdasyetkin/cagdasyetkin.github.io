@@ -1,5 +1,130 @@
 ---
+
 ---
+
+<b> 2018.23.02 </b>
+
+Let's have a look at Game of Thrones, 5 huge volumes
+
+```{r, warning=FALSE, message=FALSE}
+library(gutenbergr)
+library(stringr)
+library(plyr)
+library(tidytext)
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+library(scales)
+library(broom)
+library(purrr)
+```
+
+```{r, warning=FALSE, message=FALSE}
+GoT1 <- readLines("GoT1.txt") %>%
+  as.data.frame() %>%
+  mutate(title = "A Game of Thrones")
+
+GoT2 <- readLines("GoT2.txt") %>%
+  as.data.frame() %>%
+  mutate(title = "A Clash of Kings") 
+
+GoT3 <- readLines("GoT3.txt") %>%
+  as.data.frame() %>%
+  mutate(title = "A Storm of Swords") 
+
+GoT4 <- readLines("GoT4.txt") %>%
+  as.data.frame() %>%
+  mutate(title = "A Feast of Crows") 
+
+GoT5 <- readLines("GoT5.txt") %>%
+  as.data.frame() %>%
+  mutate(title = "A Dance with Dragons") 
+
+library(dplyr)
+Thrones <- bind_rows(list(GoT1, GoT2, GoT3, GoT4, GoT5)) 
+colnames(Thrones) <- c("text", "title")
+
+
+```
+
+Convert to Tidy format
+```{r, message=FALSE}
+Tidy_Thrones <- Thrones %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+```
+Have a look at the top 10 words in these books
+```{r, results=FALSE}
+Tidy_Thrones %>%
+  count(word, sort = TRUE) %>%
+  head(10)
+  
+```
+
+Looks like lots of lords, sirs and ladies around Jon Snow and Tyrion Lennister :)
+
+```{r, fig.width=4,fig.height=3}
+
+Tidy_Thrones %>%
+          count(word, sort = TRUE) %>%
+          filter(n > 2300) %>%
+          mutate(word = reorder(word, n)) %>%
+          ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
+          ggtitle("A Song of Ice and Fire") +
+          theme_fivethirtyeight()
+```
+
+Now lets see tf-idf to see the most **important** words in these books.
+
+```{r, message=FALSE}
+Tidy_Thrones <- Tidy_Thrones %>%
+  anti_join(stop_words) %>%
+  count(title, word, sort = TRUE) %>%
+  ungroup()
+
+Tidy_Thrones_total_words <- Tidy_Thrones %>% 
+  group_by(title) %>% 
+  summarize(total = sum(n))
+
+Tidy_Thrones <- left_join(Tidy_Thrones, Tidy_Thrones_total_words)
+
+```
+
+```{r}
+Tidy_Thrones <- Tidy_Thrones %>%
+  bind_tf_idf(word, title, n)
+head(Tidy_Thrones)
+
+```
+
+```{r}
+Tidy_Thrones %>%
+  select(-total) %>%
+  arrange(desc(tf_idf)) %>%
+  head()
+
+```
+
+
+```{r, fig.height=12, fig.width=8, message=FALSE}
+
+Tidy_Thrones %>%
+        arrange(desc(tf_idf)) %>%
+        mutate(word = factor(word, levels = rev(unique(word)))) %>% 
+        group_by(title) %>% 
+        top_n(10) %>% 
+        ungroup %>%
+        ggplot(aes(word, tf_idf, fill = title)) +
+        geom_col(show.legend = FALSE) +
+        labs(x = NULL, y = "tf-idf") +
+        facet_wrap(~title, ncol = 2, scales = "free") +
+        theme_fivethirtyeight() + ggtitle("A Song of Ice and Fire") +
+        coord_flip()
+```
+
+Looks like I will need to do **a bit** cleaning :)
 
 <b> 2018.22.02 </b>
 A few days ago, I learnt that it is possible to keep a blog up and running using Github and RStudio from our instructor Eduardo Ariño de la Rubia.
+
+

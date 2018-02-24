@@ -1,10 +1,7 @@
 ---
 
 ---
-
-<b> 2018.24.02 </b>
-
-Today we are looking at a quick sentiment analysis of Game of Thrones novels
+<b> 2018.24.02, 17:40 </b>
 
 ```{r, warning=FALSE, message=FALSE, results='hide', echo=FALSE}
 library(stringr)
@@ -17,9 +14,110 @@ library(gridExtra)
 library(scales)
 library(broom)
 library(purrr)
-
-getwd()
+library(SnowballC)
+library(tm)
 ```
+We are loading the Game of Thrones books. The goal is to check how document term matrix looks like and get the sentiments from the books.
+```{r}
+GoT1 <- readLines("GoT1.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Game of Thrones")
+
+GoT2 <- readLines("GoT2.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Clash of Kings") 
+
+GoT3 <- readLines("GoT3.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Storm of Swords") 
+
+GoT4 <- readLines("GoT4.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Feast of Crows") 
+
+GoT5 <- readLines("GoT5.txt") %>%
+  data_frame() %>%
+  mutate(title = "A Dance with Dragons") 
+
+Thrones <- bind_rows(list(GoT1, GoT2, GoT3, GoT4, GoT5)) 
+colnames(Thrones) <- c("text", "title")
+```
+
+Converting them to Tidy format
+```{r, message=FALSE}
+Tidy_Thrones <- Thrones %>%
+  group_by(title) %>%
+  ungroup() %>%
+  unnest_tokens(word, text) %>%
+  mutate(word_stem = wordStem(word)) %>%
+  anti_join(stop_words)
+
+```
+
+Creating a document term matrix
+```{r}
+dtm_words_count <- Tidy_Thrones %>%
+  mutate(word_stem = removeNumbers(word_stem)) %>%
+  count(title, word_stem, sort = TRUE) %>%
+  ungroup() %>%
+  filter(word_stem != "") %>%
+  cast_dtm(title, word_stem, n)
+
+dtm_words_count
+```
+
+and checking a few terms...
+```{r, results=FALSE}
+terms <- Terms(dtm_words_count)
+head(terms)
+```
+
+the word 'ser' means 'sir' in Game of Thrones novels.
+
+Now get back to tidy format:
+```{r, fig.width=7,fig.height=4}
+words_count <- tidy(dtm_words_count)
+```
+
+Get the sentiments from bing lexicon:
+```{r}
+GoT_sentiments <- words_count %>%
+  inner_join(get_sentiments("bing"), by = c(term = "word"))
+
+GoT_sentiments
+```
+Terms look just like the song lyrics from the power-metal band Manowar: "hail, hail, hail and kill!"
+
+Can we plot them anyway:
+
+
+```{r, warning=FALSE, fig.width=6,fig.height=3}
+
+GoT_sentiments %>%
+  count(sentiment, term, wt = count) %>%
+  ungroup() %>%
+  filter(n >= 1000) %>%
+  mutate(n = ifelse(sentiment == "negative", -n, n)) %>%
+  mutate(term = reorder(term, n)) %>%
+  ggplot(aes(term, n, fill = sentiment)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Contribution to sentiment") +
+  coord_flip() + theme_fivethirtyeight()
+```
+
+Seems like bloody hell :) By the way, the word 'start' is actually the name of one dynasty. Starks are the family who rules the nordic lands in Westeros. So we will remove it form the sentiment in our next iteration.
+
+
+```{r}
+tidy(dtm_words_count) %>%
+  filter(document == 1) %>%
+  arrange(desc(count))
+```
+
+<b> 2018.24.02 </b>
+
+Today we are looking at a quick sentiment analysis of Game of Thrones novels
+
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
 GoT1 <- readLines("GoT1.txt") %>%
@@ -45,41 +143,34 @@ GoT5 <- readLines("GoT5.txt") %>%
 Thrones <- bind_rows(list(GoT1, GoT2, GoT3, GoT4, GoT5)) 
 colnames(Thrones) <- c("text", "title")
 
-
-
 ```
 
-Convert to Tidy format
+
 ```{r, message=FALSE}
-Tidy_Thrones <- Thrones %>%
+Sentiment_Thrones <- Thrones %>%
   group_by(title) %>%
   mutate(linenumber = row_number(), ignore_case = TRUE) %>%
   ungroup() %>%
-  unnest_tokens(word, text)
-
-```
-
-```{r, message=FALSE}
-
-GoTsentiment <- Tidy_Thrones %>%
+  unnest_tokens(word, text) %>%
+  
   inner_join(get_sentiments("bing")) %>%
   count(title, index = linenumber %/% 80, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
-  mutate(sentiment = positive - negative)
+  mutate(sentiment = positive - negative) %>%
 
-```
-
-
-```{r, fig.width=8,fig.height=6}
-
-ggplot(GoTsentiment, aes(index, sentiment, fill = title)) +
+  ggplot(aes(index, sentiment, fill = title)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~title, ncol = 2, scales = "free_x")
+  facet_wrap(~title, ncol = 2, scales = "free_x") +
+  theme_fivethirtyeight()
+
+Sentiment_Thrones
+
 
 ```
 
 
-Is Game of Thrones series really this much negative?
+We will research if such negativity is real... Can be... Everybody is dying afterall.
+
 
 
 

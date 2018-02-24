@@ -17,6 +17,8 @@ library(gridExtra)
 library(scales)
 library(broom)
 library(purrr)
+
+getwd()
 ```
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
@@ -44,8 +46,6 @@ Thrones <- bind_rows(list(GoT1, GoT2, GoT3, GoT4, GoT5))
 colnames(Thrones) <- c("text", "title")
 
 
-GoT_stopwords <- data_frame(word = c("i'll", "don't", "he's", "it's",
-                                     "i'm", "he'd", "man's"), lexicon = 'GoT')
 
 ```
 

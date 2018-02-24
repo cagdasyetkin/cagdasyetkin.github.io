@@ -308,25 +308,25 @@ head(Tidy_Thrones)</code></pre>
 <pre><code>## # A tibble: 6 x 7
 ##   title                word      n  total      tf   idf tf_idf
 ##   &lt;chr&gt;                &lt;chr&gt; &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1 A Storm of Swords    lord   1880 163031 0.0115      0      0
-## 2 A Dance with Dragons lord   1541 168863 0.00913     0      0
-## 3 A Feast of Crows     lord   1473 123624 0.0119      0      0
-## 4 A Storm of Swords    ser    1468 163031 0.00900     0      0
-## 5 A Clash of Kings     lord   1420 126874 0.0112      0      0
-## 6 A Feast of Crows     ser    1391 123624 0.0113      0      0</code></pre>
+## 1 A Storm of Swords    lord   1720 157860 0.0109      0      0
+## 2 A Dance with Dragons lord   1541 166936 0.00923     0      0
+## 3 A Feast of Crows     lord   1473 121855 0.0121      0      0
+## 4 A Clash of Kings     lord   1420 126806 0.0112      0      0
+## 5 A Feast of Crows     ser    1391 121855 0.0114      0      0
+## 6 A Game of Thrones    lord   1294 114639 0.0113      0      0</code></pre>
 <pre class="r"><code>Tidy_Thrones %&gt;%
   select(-total) %&gt;%
   arrange(desc(tf_idf)) %&gt;%
   head()</code></pre>
 <pre><code>## # A tibble: 6 x 6
-##   title                word        n       tf   idf  tf_idf
-##   &lt;chr&gt;                &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1 A Dance with Dragons griff     175 0.00104  1.61  0.00167
-## 2 A Feast of Crows     king’s    219 0.00177  0.916 0.00162
-## 3 A Dance with Dragons king’s    285 0.00169  0.916 0.00155
-## 4 A Dance with Dragons hizdahr   231 0.00137  0.916 0.00125
-## 5 A Feast of Crows     hyle       88 0.000712 1.61  0.00115
-## 6 A Feast of Crows     don’t     147 0.00119  0.916 0.00109</code></pre>
+##   title                word         n       tf   idf   tf_idf
+##   &lt;chr&gt;                &lt;chr&gt;    &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 A Dance with Dragons griff      175 0.00105  1.61  0.00169 
+## 2 A Dance with Dragons hizdahr    231 0.00138  0.916 0.00127 
+## 3 A Feast of Crows     hyle        88 0.000722 1.61  0.00116 
+## 4 A Dance with Dragons haldon     102 0.000611 1.61  0.000983
+## 5 A Dance with Dragons gerris      93 0.000557 1.61  0.000897
+## 6 A Feast of Crows     meribald    66 0.000542 1.61  0.000872</code></pre>
 <pre class="r"><code>Tidy_Thrones %&gt;%
         arrange(desc(tf_idf)) %&gt;%
         mutate(word = factor(word, levels = rev(unique(word)))) %&gt;% 

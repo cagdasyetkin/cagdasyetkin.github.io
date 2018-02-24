@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cagdas Yetkin</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="quiz.html">Quiz</a>
+</li>
+<li>
+  <a href="final.html">Final Project</a>
+</li>
+<li>
+  <a href="software.html">Programming</a>
+</li>
+<li>
+  <a href="teaching.html">Teaching</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/cagdasyetkin">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/cagdasyetkin">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/cagdasyetkin/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<hr />
+<hr />
+<p><b> Submitted 2018.20.02 </b></p>
+<div id="explain-in-your-words-what-the-unnest_token-function-does" class="section level3">
+<h3>1. Explain in your words what the unnest_token function does:</h3>
+<p>It is a function from Tidytext library which restructures text: Creates one token for each row. It splits a text column (this is our input) into tokens (like words). It helps us doing this tokenization.</p>
+</div>
+<div id="explain-your-words-what-the-gutenbergr-package-does" class="section level3">
+<h3>2. Explain your words what the gutenbergr package does:</h3>
+<p>Project Gutenberg digitizes the books for which copyright has expired with the help of volunteers. Gutenbergr R package provides these books to R users. We can download and process these books using this library.</p>
+</div>
+<div id="explain-in-your-words-how-sentiment-lexicon-work" class="section level3">
+<h3>3. Explain in your words how sentiment lexicon work:</h3>
+<p>They are like dictionaries which matches words with their sentiment or emotion. Such as classifying them into Positive - Negative - Neutral categories. Once we match the words in our text with lexicon, we can start analyzing the frequencies. Even if we dont know the language in which the text has been written, we can have an overall understanding.</p>
+</div>
+<div id="how-does-inner_join-provide-sentiment-analysis-functionality" class="section level3">
+<h3>4. How does inner_join provide sentiment analysis functionality:</h3>
+<p>We match the words in our text with the sentiments in the lexicon. There can be lots of words which are not available in the lexicon. Similarly, there can be lots of words in the lexicon which are not mentioned in our text. inner_join brings us the intersection between our text and the lexicon. So that we can go ahead with our analysis with the words we have in the lexicon.</p>
+<pre class="r"><code>#tidy_books %&gt;%
+#  filter(book == &quot;Emma&quot;) %&gt;%
+#  inner_join(nrcjoy) %&gt;%
+#  count(word, sort = TRUE)</code></pre>
+</div>
+<div id="explain-in-your-words-what-tf-idf-does" class="section level3">
+<h3>5. Explain in your words what tf-idf does:</h3>
+<p>It is a heuristic approach which tells us how importand a word is in the text we are analyzing. It computes the frequencies (tf) and adds a tweak(idf). This tweak is about how rarely that word is used: It reduces the importance of a word used many times in the text and increases the importance of a word not used that much.</p>
+</div>
+<div id="explain-why-you-may-want-to-do-tokenization-by-bigram" class="section level3">
+<h3>6. Explain why you may want to do tokenization by bigram:</h3>
+<p>If I am trying to capture the right sentiment then I may use bigram.</p>
+<p>After removing the stopwords I may get a list of high frequency words like ‘good’ ‘nice’. However if these are used together with the word ‘not’ then in fact these are negative phrases: ‘not good’, ‘not nice’. It would be a critical error if I dont look into this.</p>
+</div>
+<div id="please-install-the-following-packages-if-you-have-not-already" class="section level3">
+<h3>7. Please install the following packages, if you have not already:</h3>
+<ol style="list-style-type: decimal">
+<li>tidyverse</li>
+<li>tidytext</li>
+<li>gutenbergr</li>
+</ol>
+<p>Pick two or more authors that you are familiar with, download their texts using the gutenbergr package, and do a basic analysis of word frequencies and TF-IDF</p>
+<pre class="r"><code>library(gutenbergr)
+library(stringr)
+library(dplyr)
+library(tidytext)
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+library(scales)</code></pre>
+<pre class="r"><code>gutenberg_works(str_detect(author, &quot;Herman&quot;)) %&gt;%
+  select(gutenberg_id, title) %&gt;%
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   gutenberg_id title                             
+##          &lt;int&gt; &lt;chr&gt;                             
+## 1           15 Moby Dick                         
+## 2         1900 Typee: A Romance of the South Seas
+## 3         2489 Moby Dick; Or, The Whale          
+## 4         2500 Siddhartha                        
+## 5         2694 I and My Chimney                  
+## 6         4045 Omoo: Adventures in the South Seas</code></pre>
+<p>Get the metadata</p>
+<pre class="r"><code>meta &lt;- as.tbl(gutenberg_metadata)
+names(meta)</code></pre>
+<pre><code>## [1] &quot;gutenberg_id&quot;        &quot;title&quot;               &quot;author&quot;             
+## [4] &quot;gutenberg_author_id&quot; &quot;language&quot;            &quot;gutenberg_bookshelf&quot;
+## [7] &quot;rights&quot;              &quot;has_text&quot;</code></pre>
+<p>Find another way to see Moby Dick and White Fang novels</p>
+<pre class="r"><code>meta %&gt;%
+    filter(author == &quot;Melville, Herman&quot;,
+           language == &quot;en&quot;,
+           gutenberg_id == 2489,
+           has_text,
+           !str_detect(rights, &quot;Copyright&quot;)) %&gt;%
+           distinct(title, gutenberg_id)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   gutenberg_id title                   
+##          &lt;int&gt; &lt;chr&gt;                   
+## 1         2489 Moby Dick; Or, The Whale</code></pre>
+<pre class="r"><code>meta %&gt;%
+  filter(author == &quot;London, Jack&quot;,
+         language == &quot;en&quot;,
+         title == &#39;White Fang&#39;,
+         has_text,
+         !str_detect(rights, &quot;Copyright&quot;)) %&gt;%
+         distinct(title, gutenberg_id)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   gutenberg_id title     
+##          &lt;int&gt; &lt;chr&gt;     
+## 1          910 White Fang</code></pre>
+<p>Download the best books from Jack London and Herman Melville</p>
+<pre class="r"><code>LondonBooks &lt;- gutenberg_download(c(910, 215, 1164))</code></pre>
+<pre><code>## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</code></pre>
+<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
+<pre class="r"><code>MervilleBooks &lt;- gutenberg_download(c(2500, 2489, 1900))</code></pre>
+<p>Convert them to Tidy format</p>
+<pre class="r"><code>tidy_London &lt;- LondonBooks %&gt;%
+  unnest_tokens(word, text) %&gt;%
+  anti_join(stop_words)
+
+tidy_Merville &lt;- MervilleBooks %&gt;%
+  unnest_tokens(word, text) %&gt;%
+  anti_join(stop_words)</code></pre>
+<p>Have a look at the top 10 words in these books</p>
+<pre class="r"><code>tidy_London %&gt;%
+  count(word, sort = TRUE) %&gt;%
+  head(10)</code></pre>
+<pre class="r"><code>tidy_Merville %&gt;%
+  count(word, sort = TRUE) %&gt;%
+  head(10)</code></pre>
+<p>It doesnt surprise me to see “Whale” and “White Fang” on the top. The wolf and the the whale are both natural hunters in the wild these autors wrote about.</p>
+<pre class="r"><code>p1 &lt;- tidy_London %&gt;%
+          count(word, sort = TRUE) %&gt;%
+          filter(n &gt; 250) %&gt;%
+          mutate(word = reorder(word, n)) %&gt;%
+          ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
+          ggtitle(&quot;Jack London&quot;) +
+          theme_fivethirtyeight()
+
+p2 &lt;- tidy_Merville %&gt;%
+          count(word, sort = TRUE) %&gt;%
+          filter(n &gt; 250) %&gt;%
+          mutate(word = reorder(word, n)) %&gt;%
+          ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() + 
+          ggtitle(&quot;Herman Merville&quot;) +
+          theme_fivethirtyeight()
+
+
+grid.arrange(p1, p2, ncol=2)</code></pre>
+<p><img src="quiz_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>library(tidyr)
+
+frequency &lt;- bind_rows(mutate(tidy_Merville, author = &quot;Herman Merville&quot;), 
+                       mutate(tidy_London, author = &quot;Jack London&quot;)) %&gt;% 
+  
+  mutate(word = str_extract(word, &quot;[a-z&#39;]+&quot;)) %&gt;%
+  count(author, word) %&gt;%
+  group_by(author) %&gt;%
+  mutate(proportion = n / sum(n)) %&gt;% 
+  select(-n) %&gt;% 
+  spread(author, proportion) %&gt;% 
+  gather(author, proportion, `Herman Merville`)</code></pre>
+<pre class="r"><code>ggplot(frequency, aes(x = proportion, y = `Jack London`, color = abs(`Jack London` - proportion))) +
+  geom_abline(color = &quot;gray40&quot;, lty = 2) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, height = 0.3) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  theme(legend.position=&quot;none&quot;) +
+  labs(y = &quot;Jack London&quot;, x = NULL)</code></pre>
+<p><img src="quiz_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
+<p>One guy is focusing on the wolves (fang meaning wolf) and the other is talking about the whales in general, nicely visible in the plot. Wolf and Whale makes them different.</p>
+<p>We see that they are sharing quite a lot words. These are scattered around the 45 degree line. Lets see the correlation score.</p>
+<pre class="r"><code>cor.test(data = frequency[frequency$author == &quot;Herman Merville&quot;,],
+         ~ proportion + `Jack London`)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  proportion and Jack London
+## t = 50.569, df = 8056, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.4741102 0.5072614
+## sample estimates:
+##       cor 
+## 0.4908635</code></pre>
+<p>There is correlation but not so high…</p>
+<p>Now lets see tf-idf to see the most important words in these books.</p>
+<pre class="r"><code>LondonBooks &lt;- gutenberg_download(c(910, 215, 1164), meta_fields = &quot;title&quot;)
+MervilleBooks &lt;- gutenberg_download(c(2500, 2489, 1900), meta_fields = &quot;title&quot;)
+
+LondonBooks %&gt;%
+  count(title)</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   title                    n
+##   &lt;chr&gt;                &lt;int&gt;
+## 1 The Call of the Wild  3031
+## 2 The Iron Heel         9605
+## 3 White Fang            7266</code></pre>
+<pre class="r"><code>MervilleBooks %&gt;%
+  count(title)</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   title                                  n
+##   &lt;chr&gt;                              &lt;int&gt;
+## 1 Moby Dick; Or, The Whale           23571
+## 2 Siddhartha                          3921
+## 3 Typee: A Romance of the South Seas 11183</code></pre>
+<pre class="r"><code>London_words &lt;- LondonBooks %&gt;%
+  unnest_tokens(word, text) %&gt;%
+  count(title, word, sort = TRUE) %&gt;%
+  ungroup()
+
+London_total_words &lt;- London_words %&gt;% 
+  group_by(title) %&gt;% 
+  summarize(total = sum(n))
+
+London_words &lt;- left_join(London_words, London_total_words)
+
+Merville_words &lt;- MervilleBooks %&gt;%
+  unnest_tokens(word, text) %&gt;%
+  count(title, word, sort = TRUE) %&gt;%
+  ungroup()
+
+Merville_total_words &lt;- Merville_words %&gt;% 
+  group_by(title) %&gt;% 
+  summarize(total = sum(n))
+
+Merville_words &lt;- left_join(Merville_words, Merville_total_words)</code></pre>
+<pre class="r"><code>London_words &lt;- London_words %&gt;%
+  bind_tf_idf(word, title, n)
+head(London_words)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   title                word      n total     tf   idf tf_idf
+##   &lt;chr&gt;                &lt;chr&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 The Iron Heel        the    6539 88675 0.0737     0      0
+## 2 White Fang           the    5148 72920 0.0706     0      0
+## 3 The Iron Heel        and    3407 88675 0.0384     0      0
+## 4 The Iron Heel        of     3319 88675 0.0374     0      0
+## 5 White Fang           and    3004 72920 0.0412     0      0
+## 6 The Call of the Wild the    2283 32121 0.0711     0      0</code></pre>
+<pre class="r"><code>Merville_words &lt;- Merville_words %&gt;%
+  bind_tf_idf(word, title, n)
+head(Merville_words)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   title                             word      n  total     tf   idf tf_idf
+##   &lt;chr&gt;                             &lt;chr&gt; &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Moby Dick; Or, The Whale          the   14440 216060 0.0668     0      0
+## 2 Typee: A Romance of the South Se~ the    8564 114725 0.0746     0      0
+## 3 Moby Dick; Or, The Whale          of     6603 216060 0.0306     0      0
+## 4 Moby Dick; Or, The Whale          and    6428 216060 0.0298     0      0
+## 5 Typee: A Romance of the South Se~ of     5093 114725 0.0444     0      0
+## 6 Moby Dick; Or, The Whale          a      4716 216060 0.0218     0      0</code></pre>
+<pre class="r"><code>London_words %&gt;%
+  select(-total) %&gt;%
+  arrange(desc(tf_idf)) %&gt;%
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   title                word         n      tf   idf  tf_idf
+##   &lt;chr&gt;                &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1 The Call of the Wild buck       313 0.00974 0.405 0.00395
+## 2 The Iron Heel        ernest     318 0.00359 1.10  0.00394
+## 3 The Call of the Wild thornton    81 0.00252 1.10  0.00277
+## 4 White Fang           grey       150 0.00206 1.10  0.00226
+## 5 The Call of the Wild spitz       60 0.00187 1.10  0.00205
+## 6 The Iron Heel        labor      163 0.00184 1.10  0.00202</code></pre>
+<pre class="r"><code>Merville_words %&gt;%
+  select(-total) %&gt;%
+  arrange(desc(tf_idf)) %&gt;%
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   title                              word          n      tf   idf  tf_idf
+##   &lt;chr&gt;                              &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Siddhartha                         siddhart~   374 0.00952 1.10  0.0105 
+## 2 Siddhartha                         govinda     140 0.00356 1.10  0.00391
+## 3 Typee: A Romance of the South Seas kory        236 0.00206 1.10  0.00226
+## 4 Moby Dick; Or, The Whale           whale      1094 0.00506 0.405 0.00205
+## 5 Siddhartha                         kamala       72 0.00183 1.10  0.00201
+## 6 Typee: A Romance of the South Seas toby        189 0.00165 1.10  0.00181</code></pre>
+<pre class="r"><code>p3 &lt;- London_words %&gt;%
+        arrange(desc(tf_idf)) %&gt;%
+        mutate(word = factor(word, levels = rev(unique(word)))) %&gt;% 
+        group_by(title) %&gt;% 
+        top_n(10) %&gt;% 
+        ungroup %&gt;%
+        ggplot(aes(word, tf_idf, fill = title)) +
+        geom_col(show.legend = FALSE) +
+        labs(x = NULL, y = &quot;tf-idf&quot;) +
+        facet_wrap(~title, ncol = 2, scales = &quot;free&quot;) +
+        theme_fivethirtyeight() + ggtitle(&quot;Jack London&quot;) +
+        coord_flip()
+
+p4 &lt;- Merville_words %&gt;%
+        arrange(desc(tf_idf)) %&gt;%
+        mutate(word = factor(word, levels = rev(unique(word)))) %&gt;% 
+        group_by(title) %&gt;% 
+        top_n(10) %&gt;% 
+        ungroup %&gt;%
+        ggplot(aes(word, tf_idf, fill = title)) +
+        geom_col(show.legend = FALSE) +
+        labs(x = NULL, y = &quot;tf-idf&quot;) +
+        facet_wrap(~title, ncol = 2, scales = &quot;free&quot;) +
+        theme_fivethirtyeight() + ggtitle(&quot;Herman Merville&quot;) +
+        coord_flip()
+
+grid.arrange(p3, p4, nrow=2)</code></pre>
+<p><img src="quiz_files/figure-html/unnamed-chunk-19-1.png" width="768" /></p>
+<p>It is interesting to see the high frequency words we plotted in the first part disappeared after we applied tf_idf. White, Fang, Whale, Sea, Boat are all gone. This is in the nature of tf-idf algorithm: decreases the weight for commonly used words and increases the weight for words that are not used very much.</p>
+<p>Thank you for reading and giving feedback</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

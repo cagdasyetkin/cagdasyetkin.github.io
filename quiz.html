@@ -232,7 +232,273 @@ $(document).ready(function () {
 
 <hr />
 <hr />
-<p><b> Submitted 2018.20.02 </b></p>
+<p><b>###Quiz 3, Submitted 2018.25.02 </b></p>
+<ol style="list-style-type: decimal">
+<li>In your own words describe LDA</li>
+</ol>
+<p>When we are dealing with a collection of documents, such as all the text files from Bronze Age Assyrian civilization, we may want to divide them into natural groups like “Trade” and “Warfare”.</p>
+<p>LDA is a popular method for fitting such models: (a) It considers each document as a mixture of topics (b) And each topic as a mixture of words.</p>
+<p>What does this mean?</p>
+<p>Let’s say we have a 2 topic LDA model on ancient Assyrian texts. The first text script has a probability of 85% coming from topic 1, and a probability of 15% coming from topic 2 (a).</p>
+<p>In “Warfare” and “Trade” example above, the most frequent words in “warfare” topic can be: [“massacre”, “head”, “enslave”, “burn”], while “Trade” topic may contain: [“amphora”, “cargo”, “pay”, “ship”] (b).</p>
+<p>LDA is a method estimating both of these (a and b) at the same time. It is important to realize that this is an unsupervised method. We don’t have these “Trade” and “Warfare” labels at the beginning. And the analyst decides how many topics there will be.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>In your own words, describe the process of a full tidy text analysis</li>
+</ol>
+<p>The overall objective is to process our raw data and to arrive at some meaningful insights. The end results are visualized using libraries like ggplot, igrapgh, ggraph. We handle the data wrangling and processing part using a “tidy” approach (heavily using tidyverse, regexp). Converting to and from non-tidy formats is a crucial skill to have.</p>
+<p>As a first step it makes sense to calculate some word frequencies by simple counts and tf_idf. It can be pseudo code as follows:</p>
+<pre class="r"><code># get_data() &amp; preprocess() %&gt;%
+# unnest_tokens() &gt;&gt; tidy text %&gt;%
+# anti_join(stopwords) %&gt;%
+# summarize, group_by, count(words), tf-idf %&gt;%
+# visualize()</code></pre>
+<p>Next natural step can be getting some sentiments from the collection of texts we are looking into. Are these negative or positive texts for example? Or which parts or chapters have what kind of sentiments. A summary pseudo code can be:</p>
+<pre class="r"><code># decide/find the lexicons you want to use %&gt;%
+# inner_join(lexicon) %&gt;%
+# group_by and do summaries %&gt;%
+# visualize()</code></pre>
+<p>We might also want to look at into ngrams which can capture two or three words in a row and do frequency and sentiment analysis on them. Pseudo code can go like:</p>
+<pre class="r"><code># unnest_tokens using ngram %&gt;%
+# filtering where needed and then apply tf-idf %&gt;%
+# visualize %&gt;%
+# apply sentiment analysis on ngram this time%&gt;%
+# visualize()</code></pre>
+<p>In some certain scenarios, we might be interested in topic modeling where we want to divide our text into natural groups. This can be about feeding all the articles from a newspaper into the algorithm, give how many topics we want as an input and expect the machine to give output topics related to “economy”, “politics” and “sports”. It follows a high-level pseudo code:</p>
+<pre class="r"><code># do document term matrix %&gt;%
+# apply LDA to do get topics %&gt;%
+# work on your topics using dplyr tidyr as usual, tidy model %&gt;%
+# visualize()</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Do a short tidy text analysis where you extract topics, explain why they are good or bad.</li>
+</ol>
+<pre class="r"><code>library(stringr)
+library(dplyr)
+library(tidyr)
+library(tidytext)
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+library(topicmodels)
+library(tm)</code></pre>
+<p>We will load 2 books from the Game of Thrones series, The Lord of the Rings series and The Hobbit. These are fantasy fiction novels. They all talk about lords, ladies, kings, prices, wars etc. We will see how we can create two natural groups from this collection.</p>
+<p>The underlying philosophy is to be able to use this LDA method even when we are not sure what we are looking for.</p>
+<p>However, in this below setup we already know that we have 2 authors only, and thus, 2 natural groups. This can get confusing and even useless if we try to extract 4-5 topics out of them.</p>
+<pre class="r"><code>#load the books
+GoT2 &lt;- readLines(&quot;GoT2.txt&quot;) %&gt;%
+  data_frame() %&gt;%
+  mutate(title = &quot;A Clash of Kings&quot;) 
+
+GoT3 &lt;- readLines(&quot;GoT3.txt&quot;) %&gt;%
+  data_frame() %&gt;%
+  mutate(title = &quot;A Storm of Swords&quot;)
+
+lotr &lt;- readLines(&quot;lotr.txt&quot;) %&gt;% #it contains the entire Lord of The Rings series
+  data_frame() %&gt;%
+  mutate(title = &quot;Lord of the Rings&quot;)
+
+hobbit &lt;- readLines(&quot;hobbit.txt&quot;) %&gt;%
+  data_frame() %&gt;%
+  mutate(title = &quot;The Hobbit&quot;)
+
+books &lt;- bind_rows(list(GoT2, GoT3, lotr, hobbit)) 
+colnames(books) &lt;- c(&quot;text&quot;, &quot;title&quot;)
+
+my_stop_words &lt;- data_frame(word = c(&#39;page&#39;))</code></pre>
+<pre class="r"><code># divide into documents, each representing one chapter
+by_chapter &lt;- books %&gt;%
+  group_by(title) %&gt;%
+  mutate(chapter = cumsum(str_detect(text, regex(&quot;^chapter &quot;, ignore_case = TRUE)))) %&gt;%
+  ungroup() %&gt;%
+  filter(chapter &gt; 0) %&gt;%
+  unite(document, title, chapter)</code></pre>
+<pre class="r"><code># split into words
+by_chapter_word &lt;- by_chapter %&gt;%
+  unnest_tokens(word, text)
+
+# find document-word counts
+word_counts &lt;- by_chapter_word %&gt;%
+  anti_join(stop_words) %&gt;%
+  anti_join(my_stop_words) %&gt;%
+  count(document, word, sort = TRUE) %&gt;%
+  ungroup()
+
+word_counts</code></pre>
+<pre><code>## # A tibble: 239,860 x 3
+##    document             word       n
+##    &lt;chr&gt;                &lt;chr&gt;  &lt;int&gt;
+##  1 A Storm of Swords_80 ser      226
+##  2 A Storm of Swords_80 lord     210
+##  3 A Storm of Swords_80 son      146
+##  4 A Clash of Kings_68  ser      143
+##  5 Lord of the Rings_1  frodo    140
+##  6 A Clash of Kings_68  lord     129
+##  7 Lord of the Rings_1  bilbo    121
+##  8 Lord of the Rings_39 pippin   105
+##  9 Lord of the Rings_49 sam      105
+## 10 A Storm of Swords_80 lady     104
+## # ... with 239,850 more rows</code></pre>
+<p>‘ser’ means ‘sir’ in the world of Game of Thrones. We see this word ‘ser’ at the top.</p>
+<pre class="r"><code>#document term matrix
+chapters_dtm &lt;- word_counts %&gt;%
+  cast_dtm(document, word, n)
+
+chapters_dtm</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 224, terms: 23982)&gt;&gt;
+## Non-/sparse entries: 239860/5132108
+## Sparsity           : 96%
+## Maximal term length: 32
+## Weighting          : term frequency (tf)</code></pre>
+<p>We can call these terms by using the Term() function</p>
+<pre class="r"><code>terms &lt;- Terms(chapters_dtm)
+head(terms)</code></pre>
+<pre><code>## [1] &quot;ser&quot;    &quot;lord&quot;   &quot;son&quot;    &quot;frodo&quot;  &quot;bilbo&quot;  &quot;pippin&quot;</code></pre>
+<p>Now it is time to use LDA algorithm to create a 2-topic-model. We know that there are 2 autors as discussed before. In other problems we could try different k values and try to come up with some meaningful results.</p>
+<pre class="r"><code>chapters_lda &lt;- LDA(chapters_dtm, k = 2, control = list(seed = 1234))
+chapters_lda</code></pre>
+<pre><code>## A LDA_VEM topic model with 2 topics.</code></pre>
+<pre class="r"><code>#per-topic-per-word probabilities
+chapter_topics &lt;- tidy(chapters_lda, matrix = &quot;beta&quot;)
+chapter_topics</code></pre>
+<pre><code>## # A tibble: 47,964 x 3
+##    topic term                                           beta
+##    &lt;int&gt; &lt;chr&gt;                                         &lt;dbl&gt;
+##  1     1 ser   0.0000000000000882                           
+##  2     2 ser   0.00923                                      
+##  3     1 lord  0.00217                                      
+##  4     2 lord  0.0115                                       
+##  5     1 son   0.00103                                      
+##  6     2 son   0.00251                                      
+##  7     1 frodo 0.00976                                      
+##  8     2 frodo 0.0000000000000000000000000000000000000000190
+##  9     1 bilbo 0.00415                                      
+## 10     2 bilbo 0.0000000000000000000000000000000000000653   
+## # ... with 47,954 more rows</code></pre>
+<p>We can see that we arrived to a one-topic-per-term-per-row format. We see the probabilities of a term coming from each topic. For example, the term “ser” has almost zero probability of being generated from topic 1, but it has a high probability of coming from topic 2.</p>
+<p>Now we will look into top terms in the topics</p>
+<pre class="r"><code>top_terms &lt;- chapter_topics %&gt;%
+  group_by(topic) %&gt;%
+  top_n(5, beta) %&gt;%
+  ungroup() %&gt;%
+  arrange(topic, -beta)
+
+top_terms</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##    topic term       beta
+##    &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1     1 frodo   0.00976
+##  2     1 sam     0.00697
+##  3     1 gandalf 0.00660
+##  4     1 dark    0.00500
+##  5     1 time    0.00477
+##  6     2 lord    0.0115 
+##  7     2 ser     0.00923
+##  8     2 tyrion  0.00455
+##  9     2 king    0.00448
+## 10     2 jon     0.00436</code></pre>
+<p>and visualize</p>
+<pre class="r"><code>top_terms %&gt;%
+  mutate(term = reorder(term, beta)) %&gt;%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = &quot;free&quot;) + theme_fivethirtyeight() +
+  coord_flip()</code></pre>
+<p><img src="quiz_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>It is amazing. The heroes and the concepts are separated correctly. The algorithm was able to classify the 2 authors. This is nice. However, I have set the k = 2 myself. I knew that there were 2 autors and topics. We should also keep in mind that the Lord of the Rings was a continuation of the Hobbit.</p>
+<p>If these information is not available to us, it would be hard to evaluate and understand. It can also give misleading results.</p>
+<p>Each document in this analysis represented a single chapter. Now imagine all the chapters are mixed up and we are trying to figure out which chapter belongs to which autor(topic). Can we do that?</p>
+<p>per-document-per-topic probabilities : γ(“gamma”)</p>
+<pre class="r"><code>chapters_gamma &lt;- tidy(chapters_lda, matrix = &quot;gamma&quot;)
+chapters_gamma</code></pre>
+<pre><code>## # A tibble: 448 x 3
+##    document             topic      gamma
+##    &lt;chr&gt;                &lt;int&gt;      &lt;dbl&gt;
+##  1 A Storm of Swords_80     1 0.00000533
+##  2 A Clash of Kings_68      1 0.00000953
+##  3 Lord of the Rings_1      1 1.000     
+##  4 Lord of the Rings_39     1 1.000     
+##  5 Lord of the Rings_49     1 1.000     
+##  6 A Storm of Swords_67     1 0.0000236 
+##  7 A Storm of Swords_19     1 0.0000176 
+##  8 Lord of the Rings_2      1 1.000     
+##  9 Lord of the Rings_10     1 1.000     
+## 10 Lord of the Rings_7      1 1.000     
+## # ... with 438 more rows</code></pre>
+<p>Each gamma you see here is estimated proportion of words from that chapter that are generated from that topic. For example, we estimate that each word in the Storm of Swords Chapter 80 has only 0.000532% probability of coming from topic 1 (and topic 1 is JRR Tolkien, the author of the Lord of the Rings).</p>
+<pre class="r"><code>chapters_gamma &lt;- chapters_gamma %&gt;%
+  separate(document, c(&quot;title&quot;, &quot;chapter&quot;), sep = &quot;_&quot;, convert = TRUE)
+
+chapters_gamma</code></pre>
+<pre><code>## # A tibble: 448 x 4
+##    title             chapter topic      gamma
+##    &lt;chr&gt;               &lt;int&gt; &lt;int&gt;      &lt;dbl&gt;
+##  1 A Storm of Swords      80     1 0.00000533
+##  2 A Clash of Kings       68     1 0.00000953
+##  3 Lord of the Rings       1     1 1.000     
+##  4 Lord of the Rings      39     1 1.000     
+##  5 Lord of the Rings      49     1 1.000     
+##  6 A Storm of Swords      67     1 0.0000236 
+##  7 A Storm of Swords      19     1 0.0000176 
+##  8 Lord of the Rings       2     1 1.000     
+##  9 Lord of the Rings      10     1 1.000     
+## 10 Lord of the Rings       7     1 1.000     
+## # ... with 438 more rows</code></pre>
+<pre class="r"><code># reorder titles in order of topic 1, topic 2, etc before plotting
+chapters_gamma %&gt;%
+  mutate(title = reorder(title, gamma * topic)) %&gt;%
+  ggplot(aes(factor(topic), gamma)) +
+  geom_boxplot() +
+  facet_wrap(~ title)</code></pre>
+<p><img src="quiz_files/figure-html/unnamed-chunk-17-1.png" width="672" /> We notice that almost all of the chapters from The Lord of The Rings and The Game of Thrones series were uniquely identified as a single topic each.</p>
+<p>Are there any cases where the topic most associated with a chapter belonged to another <strong>autor</strong>?</p>
+<pre class="r"><code>chapter_classifications &lt;- chapters_gamma %&gt;%
+  group_by(title, chapter) %&gt;%
+  top_n(1, gamma) %&gt;%
+  ungroup()
+
+chapter_classifications</code></pre>
+<pre><code>## # A tibble: 224 x 4
+##    title             chapter topic gamma
+##    &lt;chr&gt;               &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+##  1 Lord of the Rings       1     1 1.000
+##  2 Lord of the Rings      39     1 1.000
+##  3 Lord of the Rings      49     1 1.000
+##  4 Lord of the Rings       2     1 1.000
+##  5 Lord of the Rings      10     1 1.000
+##  6 Lord of the Rings       7     1 1.000
+##  7 The Hobbit              5     1 1.000
+##  8 Lord of the Rings      22     1 1.000
+##  9 Lord of the Rings      21     1 1.000
+## 10 Lord of the Rings      51     1 1.000
+## # ... with 214 more rows</code></pre>
+<p>Find the misclassified chapters</p>
+<pre class="r"><code>book_topics &lt;- chapter_classifications %&gt;%
+  count(title, topic) %&gt;%
+  group_by(title) %&gt;%
+  top_n(1, n) %&gt;%
+  ungroup() %&gt;%
+  transmute(consensus = title, topic)
+
+chapter_classifications %&gt;%
+  inner_join(book_topics, by = &quot;topic&quot;) %&gt;%
+  filter(title != consensus)</code></pre>
+<pre><code>## # A tibble: 224 x 5
+##    title             chapter topic gamma consensus        
+##    &lt;chr&gt;               &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;            
+##  1 Lord of the Rings       1     1 1.000 The Hobbit       
+##  2 Lord of the Rings      39     1 1.000 The Hobbit       
+##  3 Lord of the Rings      49     1 1.000 The Hobbit       
+##  4 Lord of the Rings       2     1 1.000 The Hobbit       
+##  5 Lord of the Rings      10     1 1.000 The Hobbit       
+##  6 Lord of the Rings       7     1 1.000 The Hobbit       
+##  7 The Hobbit              5     1 1.000 Lord of the Rings
+##  8 Lord of the Rings      22     1 1.000 The Hobbit       
+##  9 Lord of the Rings      21     1 1.000 The Hobbit       
+## 10 Lord of the Rings      51     1 1.000 The Hobbit       
+## # ... with 214 more rows</code></pre>
+<p>It turns out there is chapter misclassification only within the same autor. Otherwise, we classified the autors perfectly.</p>
+<p>I was expecting to have misclassification of chapters within the same author. Because these books are continuation of each other: The same heroes and events.</p>
+<p>LDA can be a good approach when we have a huge collection of unlabeled texts and we are trying to make sense of it. However, we should not forget that we are setting up how many topics will be generated ourselves.</p>
+<p><b>###Quiz 2, Submitted 2018.20.02 </b></p>
 <div id="explain-in-your-words-what-the-unnest_token-function-does" class="section level3">
 <h3>1. Explain in your words what the unnest_token function does:</h3>
 <p>It is a function from Tidytext library which restructures text: Creates one token for each row. It splits a text column (this is our input) into tokens (like words). It helps us doing this tokenization.</p>
@@ -358,7 +624,7 @@ p2 &lt;- tidy_Merville %&gt;%
 
 
 grid.arrange(p1, p2, ncol=2)</code></pre>
-<p><img src="quiz_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="quiz_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <pre class="r"><code>library(tidyr)
 
 frequency &lt;- bind_rows(mutate(tidy_Merville, author = &quot;Herman Merville&quot;), 
@@ -379,7 +645,7 @@ frequency &lt;- bind_rows(mutate(tidy_Merville, author = &quot;Herman Merville&q
   scale_y_log10(labels = percent_format()) +
   theme(legend.position=&quot;none&quot;) +
   labs(y = &quot;Jack London&quot;, x = NULL)</code></pre>
-<p><img src="quiz_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
+<p><img src="quiz_files/figure-html/unnamed-chunk-32-1.png" width="864" /></p>
 <p>One guy is focusing on the wolves (fang meaning wolf) and the other is talking about the whales in general, nicely visible in the plot. Wolf and Whale makes them different.</p>
 <p>We see that they are sharing quite a lot words. These are scattered around the 45 degree line. Lets see the correlation score.</p>
 <pre class="r"><code>cor.test(data = frequency[frequency$author == &quot;Herman Merville&quot;,],
@@ -514,7 +780,7 @@ p4 &lt;- Merville_words %&gt;%
         coord_flip()
 
 grid.arrange(p3, p4, nrow=2)</code></pre>
-<p><img src="quiz_files/figure-html/unnamed-chunk-19-1.png" width="768" /></p>
+<p><img src="quiz_files/figure-html/unnamed-chunk-38-1.png" width="768" /></p>
 <p>It is interesting to see the high frequency words we plotted in the first part disappeared after we applied tf_idf. White, Fang, Whale, Sea, Boat are all gone. This is in the nature of tf-idf algorithm: decreases the weight for commonly used words and increases the weight for words that are not used very much.</p>
 <p>Thank you for reading and giving feedback</p>
 </div>

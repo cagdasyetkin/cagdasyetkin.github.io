@@ -1,0 +1,43 @@
+---
+
+---
+
+
+```{r, warning=FALSE, echo=FALSE}
+library(stringr)
+library(dplyr)
+library(tidyr)
+library(tidytext)
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+library(scales)
+library(broom)
+library(purrr)
+library(topicmodels)
+library(tm)
+library(SnowballC) #stem
+
+```
+
+```{r}
+tablet <- readLines("practice.txt") %>%
+  data_frame() %>%
+  mutate(title = "tablet 1") 
+
+colnames(tablet) <- c("text", "title")
+
+tidy <- tablet %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+```
+```{r}
+tidy %>%
+  count(word, sort = TRUE) %>%
+  head(10)
+```
+
+
+
+
+

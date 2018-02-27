@@ -15,7 +15,6 @@ I analyze a large dataset of commercial records produced by Assyrian merchants i
 
 and this is how it looks like:
 
-<link rel="stylesheet" href="styles.css" type="text/css">
-<img src="images/assyrian_sample.png" style="width:25%; border:1px solid; margin-right: 20px" align="left">
+<img src="images/assyrian_sample.png">
 
 

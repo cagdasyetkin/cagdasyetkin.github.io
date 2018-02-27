@@ -4,6 +4,7 @@
 
 <b>2018.27.02 </b>
 
+
 I analyze a large dataset of commercial records produced by Assyrian merchants in the
 <b>19th Century BCE...</b>
 

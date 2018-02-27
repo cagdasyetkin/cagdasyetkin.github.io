@@ -15,6 +15,6 @@ I analyze a large dataset of commercial records produced by Assyrian merchants i
 
 and this is how it looks like:
 
-<img src="images/assyrian_sample.png">
+<img src="assyrian_sample.png">
 
 

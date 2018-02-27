@@ -12,4 +12,6 @@ I analyze a large dataset of commercial records produced by Assyrian merchants i
 [this is how the language sounded like...](https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker "from Gilgamesh")
 
 
-![and this is how it looks like](assyrian_sample.png)
+
+![and this is how it looks like](C:/Users/Cagdas/githubsite/assyrian_sample.png)
+

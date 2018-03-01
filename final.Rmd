@@ -3,7 +3,7 @@
 ---
 
 <b>2018.27.02 </b>
-
+<style> body { text-align: justify} </style>
 
 I analyze a large dataset of commercial records produced by Assyrian merchants in the
 <b>19th Century BCE...</b>
@@ -13,7 +13,11 @@ I analyze a large dataset of commercial records produced by Assyrian merchants i
 [this is how the language sounded like...](https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker "from Gilgamesh")
 
 
+<b>2018.01.03 </b>
 
+...and this is how it looked like:
+
+![](sample.png)
 
 
 

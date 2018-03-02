@@ -19,5 +19,22 @@ I analyze a large dataset of commercial records produced by Assyrian merchants i
 
 ![](sample.png)
 
+<b>2018.02.03 </b>
+
+Some smart people decrypted these languages. For example
+
+nu ninda en e-iz-za-te-ni </n>
+<b>wa-a-tar</b>-ma e-ku-ut-te-ni
+
+Translation:
+
+"Now you will eat bread and drink water"
+
+wa-a-tar means water. ninda means bread. Quite familiar isn't it?
+
+Records in our database look like this:
+
+![](sample2.png)
+
 
 

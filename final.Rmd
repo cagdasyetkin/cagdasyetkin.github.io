@@ -5,8 +5,7 @@
 <b>2018.27.02 </b>
 <style> body { text-align: justify} </style>
 
-I analyze a large dataset of commercial records produced by Assyrian merchants in the
-<b>19th Century BCE...</b>
+###I analyze a large dataset of commercial records produced by Assyrian merchants in the 19th Century BCE...
 
 
 
@@ -15,13 +14,14 @@ I analyze a large dataset of commercial records produced by Assyrian merchants i
 
 <b>2018.01.03 </b>
 
-...and this is how it looked like:
+###And this is how it looked like:
 
 ![](sample.png)
 
 <b>2018.02.03 </b>
 
-Some smart people decrypted these languages. For example
+
+###Some smart people decrypted these languages. For example
 
 nu ninda en e-iz-za-te-ni </n>
 <b>wa-a-tar</b>-ma e-ku-ut-te-ni
@@ -32,9 +32,23 @@ Translation:
 
 wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 
-Records in our database look like this:
+
+###Records in our database look like this:
 
 ![](sample2.png)
 
+
+
+
+
+###An escavated tablet looks like this:
+
+<img src="sample3.png" alt="Smiley face" height="420" width="420">
+
+
+
+###These people lived 4000 years ago. And this is where they lived:
+
+![](sample4.jpg)
 
 

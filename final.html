@@ -263,7 +263,7 @@ $(document).ready(function () {
 </div>
 <div id="an-escavated-tablet-looks-like-this" class="section level3">
 <h3>An escavated tablet looks like this:</h3>
-<p><img src="sample3.png" alt="Smiley face" height="420" width="420"></p>
+<p><img src="sample3.png" alt="tablet" height="420" width="420"></p>
 </div>
 <div id="these-people-lived-4000-years-ago.-and-this-is-where-they-lived" class="section level3">
 <h3>These people lived 4000 years ago. And this is where they lived:</h3>
@@ -271,6 +271,26 @@ $(document).ready(function () {
 <img src="sample4.jpg" />
 
 </div>
+<p><b>2018.03.05 </b></p>
+<p>When we load the data, we will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:</p>
+<pre class="r"><code>#Load the sample data
+library(dplyr)
+txt &lt;- readLines(&quot;OARE_01.txt&quot;) %&gt;%
+  data_frame() %&gt;%
+  rename(&#39;word&#39; = &#39;.&#39;) 
+
+#see the lines give the information regarding the Creator of the record
+head(txt[grep(&#39;^Creator&#39;, txt$word),], 3)</code></pre>
+<pre><code>## # A tibble: 3 x 1
+##   word                                            
+##   &lt;chr&gt;                                           
+## 1 Creator(s): Stratford, Edward P.                
+## 2 Creator(s): Stratford, Edward P.                
+## 3 &quot;Creator(s): Stratford, Edward P. (2016-12-24) &quot;</code></pre>
+<pre class="r"><code>#removing them
+txt &lt;- txt %&gt;%
+  anti_join(txt[grep(&#39;^Creator&#39;, txt$word),])</code></pre>
+<p>Using this method, we can do the cleaning</p>
 </div>
 
 

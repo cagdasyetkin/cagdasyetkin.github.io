@@ -43,12 +43,36 @@ wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 
 ###An escavated tablet looks like this:
 
-<img src="sample3.png" alt="Smiley face" height="420" width="420">
+<img src="sample3.png" alt="tablet" height="420" width="420">
 
 
 
 ###These people lived 4000 years ago. And this is where they lived:
 
 ![](sample4.jpg)
+
+<b>2018.03.05 </b>
+
+When we load the data, we will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:
+
+```{r, message=FALSE, warning=FALSE}
+#Load the sample data
+library(dplyr)
+txt <- readLines("OARE_01.txt") %>%
+  data_frame() %>%
+  rename('word' = '.') 
+
+#see the lines give the information regarding the Creator of the record
+head(txt[grep('^Creator', txt$word),], 3)
+
+#removing them
+txt <- txt %>%
+  anti_join(txt[grep('^Creator', txt$word),])
+```
+
+Using this method, we can do the cleaning
+
+
+
 
 

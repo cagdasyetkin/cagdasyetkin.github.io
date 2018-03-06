@@ -95,6 +95,7 @@ txt <- txt %>%
   anti_join(OARE_stop_words)
 
 #take a look at one commercial record now
+
 txt[147:155, 1]
 
 ```

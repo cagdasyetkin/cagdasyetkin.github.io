@@ -1,0 +1,25 @@
+---
+
+---
+
+
+
+
+```{r, message=FALSE, warning=FALSE}
+#known cities
+known_cities <- c("Hanaknak", "Hattus", "Hurama", "Kanes", "Karahna", 
+                  "Malitta", "Qattara", "Salatuwar", "Samuha", "Tapaggas", 
+                  "Timelkiya", "Ulama", "Unipsum", "Wahsusana", "Zimishuna")
+
+lost_cities <- c("Durhumit", "Hahhum", "Kuburnat", "Mamma", "Ninassa",
+                 "Purushaddum", "Sinahuttum", "Suppiluliya", "Tuhpiya",
+                 "Washaniya", "Zalpa")
+
+```
+
+
+
+
+
+
+

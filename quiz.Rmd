@@ -3,7 +3,7 @@
 ---
 
 
-<b>###Quiz 3, Submitted 2018.25.02 </b>
+<b>Quiz 3, Submitted 2018.25.02 </b>
 
 1. In your own words describe LDA
 
@@ -264,7 +264,7 @@ LDA can be a good approach when we have a huge collection of unlabeled texts and
 
 
 
-<b>###Quiz 2, Submitted 2018.20.02 </b>
+<b>Quiz 2, Submitted 2018.20.02 </b>
 
 ###1. Explain in your words what the unnest_token function does:
 

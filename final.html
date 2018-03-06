@@ -276,21 +276,82 @@ $(document).ready(function () {
 <pre class="r"><code>#Load the sample data
 library(dplyr)
 txt &lt;- readLines(&quot;OARE_01.txt&quot;) %&gt;%
-  data_frame() %&gt;%
+  data_frame(file = &#39;OARE_1&#39;) %&gt;%
   rename(&#39;word&#39; = &#39;.&#39;) 
 
 #see the lines give the information regarding the Creator of the record
 head(txt[grep(&#39;^Creator&#39;, txt$word),], 3)</code></pre>
-<pre><code>## # A tibble: 3 x 1
-##   word                                            
-##   &lt;chr&gt;                                           
-## 1 Creator(s): Stratford, Edward P.                
-## 2 Creator(s): Stratford, Edward P.                
-## 3 &quot;Creator(s): Stratford, Edward P. (2016-12-24) &quot;</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   word                                             file  
+##   &lt;chr&gt;                                            &lt;chr&gt; 
+## 1 Creator(s): Stratford, Edward P.                 OARE_1
+## 2 Creator(s): Stratford, Edward P.                 OARE_1
+## 3 &quot;Creator(s): Stratford, Edward P. (2016-12-24) &quot; OARE_1</code></pre>
 <pre class="r"><code>#removing them
 txt &lt;- txt %&gt;%
   anti_join(txt[grep(&#39;^Creator&#39;, txt$word),])</code></pre>
-<p>Using this method, we can do the cleaning</p>
+<p>This is one way of cleaning such unwanted words… We can create a list of them.</p>
+<p><b>2018.03.06 </b></p>
+<p>Now we will make a list of unwanted words and remove them just like we did above</p>
+<pre class="r"><code>toMatch &lt;- c(&quot;^Primary&quot;, &quot;^Translation&quot;, &quot;^logosyllabic&quot;, &quot;^Epistolary&quot;, &quot;^Formul&quot;, &quot;OARE&quot;,
+             &quot;^Publication&quot;, &quot;^Physical&quot;, &quot;^German&quot;, &quot;^AAA&quot;, &quot;^Topic&quot;, &quot;^Ac.&quot;, &quot;^“Kuzuoğlu&quot;,
+             &quot;^Periods&quot;, &quot;^Kültepe&quot;, &quot;^Karaduman&quot;, &quot;^Kültepe&quot;, &quot;Adana&quot;, &quot;^AKT&quot;, &quot;^Introductory&quot;,
+             &quot;^Seizure&quot;, &quot;^Bılgıç&quot;, &quot;^First Topic&quot;, &quot;^AnOr&quot;, &quot;^AO&quot;, &quot;^Garelli&quot;, &quot;^ATHE&quot;, &quot;^BIN&quot;,
+             &quot;^Ulshöfer&quot;, &quot;^Burrill&quot;, &quot;^Burton&quot;, &quot;^Creator&quot;, &quot;^A &quot;, &quot;^     &quot;, &quot;^Editor&quot;, &quot;^List&quot;)
+
+matches &lt;- unique (grep(paste(toMatch,collapse=&quot;|&quot;), 
+                        txt$word, value=TRUE))
+
+OARE_stop_words &lt;- data.frame(word = matches, lexicon = &#39;OARE&#39;)
+
+#removing them
+txt &lt;- txt %&gt;%
+  anti_join(OARE_stop_words)
+
+#take a look at one commercial record now
+library(pander)
+pander(txt[147:155, 1])</code></pre>
+<table style="width:44%;">
+<colgroup>
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">word</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1-3To Idnaya, La-qepum, Pila?-AÅ¡Å¡ur, and Ibni-ili, from Abela:</td>
+</tr>
+<tr class="even">
+<td align="center">Requesting a service</td>
+</tr>
+<tr class="odd">
+<td align="center">4-6I entrusted 15 minas 54 shekels silver under my seal, 16 shekels its shipping charge, to AÅ¡Å¡ur-Å¡amÅ¡i on behalf of Al-ili.</td>
+</tr>
+<tr class="even">
+<td align="center">7-8There, make sure the representative of Al-ili recieves the silver and it’s shipping charge. 9-11I gave 5 1/2 minas silver of my own to AÅ¡Å¡ur-Å¡amÅ¡i for purchases.</td>
+</tr>
+<tr class="odd">
+<td align="center">11-13The seal of the merchant at the opening of the package is marked for AÅ¡Å¡ur-Å¡amÅ¡i.</td>
+</tr>
+<tr class="even">
+<td align="center">Requesting a service</td>
+</tr>
+<tr class="odd">
+<td align="center">13-14To Idnaya and La-qepum: 15-17Get the silver and let it come with you within your shipment. 18-23I entrusted 5 shekels silver under my seals for Tataya my daughter and 3 shekels silver under my seal for Å azua, the daughter of Ennam-AÅ¡Å¡ur in a package to AÅ¡Å¡ur-Å¡amÅ¡i.</td>
+</tr>
+<tr class="even">
+<td align="center">24-31Take the package there and give it to those who go to the city for travel so that they carry the package to the city and give it to Tataya my daughter and Å azua the daugher of Ennam-AÅ¡Å¡ur.</td>
+</tr>
+<tr class="odd">
+<td align="center">31-33Let your message come that your received the silver and the package.</td>
+</tr>
+</tbody>
+</table>
+<p>Here we are reading a business letter from a guy called Abela to Idnaya. Just a quick look makes it clear that these people were not savages at all. Freight charges, clearing a debt on behalf of another entity and encrypting the messages are all in place.</p>
+<p>The paragraph is almost clean. Next, we need to remove those row numbers at the beginning of each line</p>
 </div>
 
 

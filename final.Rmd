@@ -51,6 +51,8 @@ wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 
 ![](sample4.jpg)
 
+
+
 <b>2018.03.05 </b>
 
 When we load the data, we will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:
@@ -59,7 +61,7 @@ When we load the data, we will need to get rid of many words and phrases. Some s
 #Load the sample data
 library(dplyr)
 txt <- readLines("OARE_01.txt") %>%
-  data_frame() %>%
+  data_frame(file = 'OARE_1') %>%
   rename('word' = '.') 
 
 #see the lines give the information regarding the Creator of the record
@@ -70,7 +72,35 @@ txt <- txt %>%
   anti_join(txt[grep('^Creator', txt$word),])
 ```
 
-Using this method, we can do the cleaning
+This is one way of cleaning such unwanted words... We can create a list of them.
+
+<b>2018.03.06 </b>
+
+Now we will make a list of unwanted words and remove them just like we did above
+
+```{r, message=FALSE, warning=FALSE}
+toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formul", "OARE",
+             "^Publication", "^Physical", "^German", "^AAA", "^Topic", "^Ac.", "^“Kuzuoğlu",
+             "^Periods", "^Kültepe", "^Karaduman", "^Kültepe", "Adana", "^AKT", "^Introductory",
+             "^Seizure", "^Bılgıç", "^First Topic", "^AnOr", "^AO", "^Garelli", "^ATHE", "^BIN",
+             "^Ulshöfer", "^Burrill", "^Burton", "^Creator", "^A ", "^     ", "^Editor", "^List")
+
+matches <- unique (grep(paste(toMatch,collapse="|"), 
+                        txt$word, value=TRUE))
+
+OARE_stop_words <- data.frame(word = matches, lexicon = 'OARE')
+
+#removing them
+txt <- txt %>%
+  anti_join(OARE_stop_words)
+
+#take a look at one commercial record now
+txt[147:155, 1]
+```
+
+Here we are reading a business letter from a guy called Abela to Idnaya. Just a quick look makes it clear that these people were not savages at all. Freight charges, clearing a debt on behalf of another entity and encrypting the messages are all in place. 
+
+The paragraph is almost clean. Next, we need to remove those row numbers at the beginning of each line
 
 
 

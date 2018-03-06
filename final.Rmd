@@ -96,6 +96,7 @@ txt <- txt %>%
 
 #take a look at one commercial record now
 txt[147:155, 1]
+
 ```
 
 Here we are reading a business letter from a guy called Abela to Idnaya. Just a quick look makes it clear that these people were not savages at all. Freight charges, clearing a debt on behalf of another entity and encrypting the messages are all in place. 

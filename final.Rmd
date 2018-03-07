@@ -62,10 +62,10 @@ When we load the data, we will need to get rid of many words and phrases. Some s
 library(dplyr)
 txt <- readLines("OARE_01.txt") %>%
   data_frame(file = 'OARE_1') %>%
-  rename('word' = '.') 
+  rename('text' = '.') 
 
 #see the lines give the information regarding the Creator of the record
-head(txt[grep('^Creator', txt$word),], 3)
+head(txt[grep('^Creator', txt$text),], 3)
 
 #removing them
 txt <- txt %>%
@@ -86,9 +86,9 @@ toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formu
              "^Ulshöfer", "^Burrill", "^Burton", "^Creator", "^A ", "^     ", "^Editor", "^List")
 
 matches <- unique (grep(paste(toMatch,collapse="|"), 
-                        txt$word, value=TRUE))
+                        txt$text, value=TRUE))
 
-OARE_stop_words <- data.frame(word = matches, lexicon = 'OARE')
+OARE_stop_words <- data.frame(text = matches, lexicon = 'OARE')
 
 #removing them
 txt <- txt %>%
@@ -96,15 +96,48 @@ txt <- txt %>%
 
 #take a look at one commercial record now
 
-txt[147:155, 1]
+txt[148:155, 1]
 
 ```
 
-Here we are reading a business letter from a guy called Abela to Idnaya. Just a quick look makes it clear that these people were not savages at all. Freight charges, clearing a debt on behalf of another entity and encrypting the messages are all in place. 
+Here we are reading a business letter from a guy called Abela to Idnaya. Just a quick look makes it clear that these people were not savages at all. Freight charges, clearing a debt on behalf of another entity and stamps (seals) are all in place. 
 
-The paragraph is almost clean. Next, we need to remove those row numbers at the beginning of each line
+The paragraph is almost clean. Next, we need to remove the numbers.
 
 
+<b>2018.03.07 </b>
+
+```{r, message=FALSE, warning=FALSE}
+# Remove numbers using removeNumber function from tm library
+library(tm)
+
+txt$text <- txt$text %>%
+  removeNumbers() %>%
+  removePunctuation() %>%
+  stripWhitespace()
+
+```
+
+Now let's have a quick look at the word frequencies
+
+```{r, message=FALSE, fig.width=7,fig.height=4}
+library(tidytext)
+library(ggplot2)
+library(ggthemes)
+
+txt %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  count(word, sort = TRUE) %>%
+  filter(n > 100) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
+  ggtitle("OARE_01") +
+  theme_fivethirtyeight()
+  
+```
+
+It looks like these people were sending and receiving textiles, tin and copper. They were paying with silver most of the time. The units of measurement (like the weight) were shekels and minas. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver.
 
 
 

@@ -2914,7 +2914,7 @@ Primary Classification:  Text
       Publication Status:  Edition
             Publication:  BIN 4
             Publication Text Number:  226
-
+     
 Translation
 Epistolary Formula
 1-5From Šu-?ubur, Aššur-bani, Šalim-Aššur and Ea-šar to Pušu-ken and the merchant: 
@@ -3229,7 +3229,7 @@ Primary Classification:  Text
       Publication Status:  Edition
             Publication:  BIN 4
             Publication Text Number:  33
-
+     
 Translation
 Epistolary Formula
 1-2To Aššur-imitti and Šu-?ubur from Pušu-ken: 

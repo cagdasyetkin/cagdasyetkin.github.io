@@ -60,12 +60,12 @@ When we load the data, we will need to get rid of many words and phrases. Some s
 ```{r, message=FALSE, warning=FALSE}
 #Load the sample data
 library(dplyr)
-txt <- readLines("OARE_01.txt") %>%
-  data_frame(file = 'OARE_1') %>%
-  rename('text' = '.') 
+txt <- readLines("OARE.txt") %>%
+  data_frame(file = 'OARE') %>%
+  rename('word' = '.') 
 
 #see the lines give the information regarding the Creator of the record
-head(txt[grep('^Creator', txt$text),], 3)
+head(txt[grep('^Creator', txt$word),], 3)
 
 #removing them
 txt <- txt %>%
@@ -79,23 +79,31 @@ This is one way of cleaning such unwanted words... We can create a list of them.
 Now we will make a list of unwanted words and remove them just like we did above
 
 ```{r, message=FALSE, warning=FALSE}
-toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formul", "OARE",
-             "^Publication", "^Physical", "^German", "^AAA", "^Topic", "^Ac.", "^“Kuzuoğlu",
-             "^Periods", "^Kültepe", "^Karaduman", "^Kültepe", "Adana", "^AKT", "^Introductory",
-             "^Seizure", "^Bılgıç", "^First Topic", "^AnOr", "^AO", "^Garelli", "^ATHE", "^BIN",
-             "^Ulshöfer", "^Burrill", "^Burton", "^Creator", "^A ", "^     ", "^Editor", "^List")
+toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formul", "^Creator", 
+             "^Editor", "^List", "^Introductory","^Publication", "^Physical" ,"^Chantre", 
+             
+             "^German", "^French ", "^Topic", "^“Kuzuoğlu", "^Body", "^Kayseri ",
+             "^Periods", "^Kültepe", "^Karaduman", "^Kültepe", "Adana","^Seizure", 
+             "^Bılgıç", "^First Topic", "^AnOr", "^Garelli", "^Liège", "^Prag",
+             "^Ulshöfer", "^Burrill", "^Burton", "^Cole ", "^Eilsberger", "^hellbraunes",
+             "^Stratford", "^Rendell", "^Schaeffer", "^Struwe", 
+             
+             "^AAA", "^A ", "^Ac.", "^ATHE", "^BIN", "^AKT", "^AO", "OARE", "^     ", "^KTB ",
+             "^C ", "^CCT", "^CKAS", "^CTMMA", "^EL ", "^H.K. ", "^ICK ", "^JCS ", "^kt ",
+             "^KTH ", "^KTS ", "^KUG ", "^¢", "^LB ", "^OIP ", "^POAT ", "^RA ", "^TC ", "^TMH ",
+             "^TTC ", "^VS ", "^YBC ")
+
 
 matches <- unique (grep(paste(toMatch,collapse="|"), 
-                        txt$text, value=TRUE))
-
-OARE_stop_words <- data.frame(text = matches, lexicon = 'OARE')
+                        txt$word, value=TRUE))
 
 #removing them
 txt <- txt %>%
-  anti_join(OARE_stop_words)
+  anti_join(data.frame(word = matches))
+
+original_text <- txt # keep an untouched copy
 
 #take a look at one commercial record now
-
 txt[148:155, 1]
 
 ```
@@ -111,9 +119,9 @@ The paragraph is almost clean. Next, we need to remove the numbers.
 # Remove numbers using removeNumber function from tm library
 library(tm)
 
-txt$text <- txt$text %>%
+txt$word <- txt$word %>%
   removeNumbers() %>%
-  removePunctuation() %>%
+  removePunctuation() %>% #in fact unnest_tokens function is handling this
   stripWhitespace()
 
 ```
@@ -126,10 +134,10 @@ library(ggplot2)
 library(ggthemes)
 
 txt %>%
-  unnest_tokens(word, text) %>%
+  unnest_tokens(word, word) %>%
   anti_join(stop_words) %>%
   count(word, sort = TRUE) %>%
-  filter(n > 100) %>%
+  filter(n > 150) %>%
   mutate(word = reorder(word, n)) %>%
   ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
   ggtitle("OARE_01") +
@@ -137,7 +145,27 @@ txt %>%
   
 ```
 
-It looks like these people were sending and receiving textiles, tin and copper. They were paying with silver most of the time. The units of measurement (like the weight) were shekels and minas. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver.
+It looks like these people were sending and receiving textiles, tin and copper. Transportation was depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels and minas. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.
+
+
+<b>2018.03.08 </b>
+
+Looking at the frequency plot again, what does **pusuken** mean? It is repeating more than 500 times...
+
+```{r}
+library(stringr)
+head(original_text[str_detect(original_text$word, "Pušu-ken"), ], 5)
+```
+
+It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen.
+
+Another frequent word is 'son'. Let's find out why.
+
+```{r}
+tail(original_text[str_detect(original_text$word, "son"), ], 5)
+```
+
+son of Assurnada, son of Inahili, son of Iddin... Of course, these are family names. That's why it repeats a lot.
 
 
 

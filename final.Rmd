@@ -256,9 +256,7 @@ ggmap(b) + geom_point(data = cities,
   
            geom_text(data = cities, aes(longitude, latitude, label = cityName), 
                      check_overlap = TRUE, nudge_y = -0.5) 
-         
-#
 ```
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 

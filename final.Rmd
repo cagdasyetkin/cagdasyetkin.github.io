@@ -222,7 +222,7 @@ ggmap(b) + geom_point(data = cities,
            aes(longitude,latitude,color=type),size=2,alpha=0.7) +
            labs(x = "Longitude", y = "Latitude",
            title="City Locations", color = "Type") + theme_gray()
-
+#
 ```
 
 

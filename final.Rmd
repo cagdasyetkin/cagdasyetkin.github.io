@@ -256,5 +256,5 @@ ggmap(b) + geom_point(data = cities,
 #
 ```
 
-xxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxx
 

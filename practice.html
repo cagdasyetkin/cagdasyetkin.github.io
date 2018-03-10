@@ -232,14 +232,42 @@ $(document).ready(function () {
 
 <hr />
 <hr />
-<pre class="r"><code>#known cities
-known_cities &lt;- c(&quot;Hanaknak&quot;, &quot;Hattus&quot;, &quot;Hurama&quot;, &quot;Kanes&quot;, &quot;Karahna&quot;, 
-                  &quot;Malitta&quot;, &quot;Qattara&quot;, &quot;Salatuwar&quot;, &quot;Samuha&quot;, &quot;Tapaggas&quot;, 
-                  &quot;Timelkiya&quot;, &quot;Ulama&quot;, &quot;Unipsum&quot;, &quot;Wahsusana&quot;, &quot;Zimishuna&quot;)
+<pre class="r"><code>library(dplyr)
 
-lost_cities &lt;- c(&quot;Durhumit&quot;, &quot;Hahhum&quot;, &quot;Kuburnat&quot;, &quot;Mamma&quot;, &quot;Ninassa&quot;,
-                 &quot;Purushaddum&quot;, &quot;Sinahuttum&quot;, &quot;Suppiluliya&quot;, &quot;Tuhpiya&quot;,
-                 &quot;Washaniya&quot;, &quot;Zalpa&quot;)</code></pre>
+known_cities &lt;- data.frame(cityName = c(&quot;Hanaknak&quot;, &quot;Hattus&quot;, &quot;Hurama&quot;, &quot;Kanes&quot;, &quot;Karahna&quot;, 
+                                        &quot;Qattara&quot;, &quot;Salatuwar&quot;, &quot;Samuha&quot;, &quot;Tapaggas&quot;, 
+                                        &quot;Timelkiya&quot;, &quot;Ulama&quot;, &quot;Unipsum&quot;, &quot;Wahsusana&quot;, &quot;Zimishuna&quot;), 
+                  type = &#39;known&#39;,
+                  modern_name = c(&quot;Cankiri&quot;, &quot;Bogazkoy&quot;, &quot;Kusura&quot;, &quot;Kultepe&quot;, &quot;Sulusaray&quot;, 
+                                  &quot;Tell al-Rimah&quot;, &quot;Mersin&quot;, &quot;Kayapinar&quot;, &quot;MasatHoyuk&quot;, &quot;Telmessos&quot;,
+                                  &quot;Silifke&quot;, &quot;Tünip&quot;, &quot;Cyprus&quot;, &quot;Samsun&quot;),
+                  latitude = c(40.6002, 40.018499926, 38.360937, 38.851165, 39.986138,
+                               36.152551, 36.816874, 39.319128, 40.0854, 36.618181,
+                               36.318340, 35.1725, 35.103410, 41.280517),
+                  longitude = c(33.6162, 34.60916423, 30.230104, 35.635486, 36.093526,
+                                42.265761, 34.687688, 36.309621, 35.4544, 29.117308,
+                                33.869491, 36.2359, 33.338150, 36.327963)
+                  )  
+
+lost_cities &lt;- data.frame(cityName = c(&quot;Durhumit&quot;, &quot;Hahhum&quot;, &quot;Kuburnat&quot;, &quot;Mamma&quot;, &quot;Ninassa&quot;,
+                                       &quot;Purushaddum&quot;, &quot;Sinahuttum&quot;, &quot;Suppiluliya&quot;, &quot;Tuhpiya&quot;,
+                                       &quot;Washaniya&quot;, &quot;Zalpa&quot;), 
+                 type = &#39;lost&#39;,
+                 latitude = c(40.725, 38.126, 39.748, 38.053, 38.714, 40.308, 40.056, 40.062,
+                              39.787, 39.189, 37.704),
+                 longitude = c(35.178, 37.776, 35.919, 36.301, 34.256, 33.379, 34.933, 34.683,
+                               35.274, 34.221, 37.347))
+
+cities &lt;- bind_rows(known_cities, lost_cities)
+
+
+
+&quot;http://www.yol-haritasi.com/cekerek-yozgat-ile-sulusaray-tokat/&quot;</code></pre>
+<pre><code>## [1] &quot;http://www.yol-haritasi.com/cekerek-yozgat-ile-sulusaray-tokat/&quot;</code></pre>
+<pre class="r"><code>&quot;http://bronze-age-towns.over-blog.com/2016/08/karahna-was-the-classic-sebastopolis-the-current-sulusaray.html&quot;</code></pre>
+<pre><code>## [1] &quot;http://bronze-age-towns.over-blog.com/2016/08/karahna-was-the-classic-sebastopolis-the-current-sulusaray.html&quot;</code></pre>
+<pre class="r"><code>&quot;http://latitude.to/articles-by-country/tr/turkey/5344/hattusa&quot;</code></pre>
+<pre><code>## [1] &quot;http://latitude.to/articles-by-country/tr/turkey/5344/hattusa&quot;</code></pre>
 
 
 

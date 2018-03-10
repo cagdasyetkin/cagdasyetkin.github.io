@@ -33,17 +33,25 @@ Translation:
 wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 
 
-###Records in our database look like this:
+###Our data looks like this:
+
+This is a txt file.
 
 ![](sample2.png)
 
+But how did I get here? It started with a tweet by Gabor Bekes:
 
+<img src="tweet_gabor.png" alt="tweet_gabor" height="400" width="500">
 
+I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:
 
+<img src="kerem_email.png" alt="kerem_email" height="400" width="500">
+
+Archeologists have escavated these tablets during the past 200 years.
 
 ###An escavated tablet looks like this:
 
-<img src="sample3.png" alt="tablet" height="420" width="420">
+<img src="sample3.png" alt="tablet" height="300" width="300">
 
 
 
@@ -55,7 +63,7 @@ wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 
 <b>2018.03.05 </b>
 
-When we load the data, we will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:
+We will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:
 
 ```{r, message=FALSE, warning=FALSE}
 #Load the sample data
@@ -76,7 +84,7 @@ This is one way of cleaning such unwanted words... We can create a list of them.
 
 <b>2018.03.06 </b>
 
-Now we will make a list of unwanted words and remove them just like we did above
+This is how the list of unwanted words look like. We remove them just like we did above
 
 ```{r, message=FALSE, warning=FALSE}
 toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formul", "^Creator", 
@@ -145,7 +153,7 @@ txt %>%
   
 ```
 
-It looks like these people were sending and receiving textiles, tin and copper. Transportation was depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels and minas. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.
+It looks like these people were sending and receiving textiles, tin and copper. Transportation was depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.
 
 
 <b>2018.03.08 </b>
@@ -154,18 +162,68 @@ Looking at the frequency plot again, what does **pusuken** mean? It is repeating
 
 ```{r}
 library(stringr)
-head(original_text[str_detect(original_text$word, "Pušu-ken"), ], 5)
+head(original_text[str_detect(original_text$word, "Pušu-ken"), 1], 5)
 ```
 
-It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen.
+It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.
 
 Another frequent word is 'son'. Let's find out why.
 
 ```{r}
-tail(original_text[str_detect(original_text$word, "son"), ], 5)
+tail(original_text[str_detect(original_text$word, "son"), 1], 5)
 ```
 
 son of Assurnada, son of Inahili, son of Iddin... Of course, these are family names. That's why it repeats a lot.
+
+<b>2018.03.10 </b>
+
+Now we have a fairly good understanding of the most frequent words. Let's get a big picture of the ancient cities mentioned in our text. 
+
+```{r, message=FALSE, warning=FALSE}
+#Information from archeological findings
+known_cities <- data.frame(cityName = c("Hanaknak", "Hattus", "Hurama", "Kanes", "Karahna", 
+                                        "Qattara", "Salatuwar", "Samuha", "Tapaggas", 
+                                        "Timelkiya", "Ulama", "Unipsum", "Wahsusana", "Zimishuna"), 
+                  type = 'known',
+                  modern_name = c("Cankiri", "Bogazkoy", "Kusura", "Kultepe", "Sulusaray", 
+                                  "Tell al-Rimah", "Mersin", "Kayapinar", "MasatHoyuk", "Telmessos",
+                                  "Silifke", "Tünip", "Cyprus", "Samsun"),
+                  latitude = c(40.6002, 40.018499926, 38.360937, 38.851165, 39.986138,
+                               36.152551, 36.816874, 39.319128, 40.0854, 36.618181,
+                               36.318340, 35.1725, 35.103410, 41.280517),
+                  longitude = c(33.6162, 34.60916423, 30.230104, 35.635486, 36.093526,
+                                42.265761, 34.687688, 36.309621, 35.4544, 29.117308,
+                                33.869491, 36.2359, 33.338150, 36.327963)
+                  )  
+#lost city coordinates are estimates from the article
+lost_cities <- data.frame(cityName = c("Durhumit", "Hahhum", "Kuburnat", "Mamma", "Ninassa",
+                                       "Purushaddum", "Sinahuttum", "Suppiluliya", "Tuhpiya",
+                                       "Washaniya", "Zalpa"), 
+                 type = 'lost',
+                 latitude = c(40.725, 38.126, 39.748, 38.053, 38.714, 40.308, 40.056, 40.062,
+                              39.787, 39.189, 37.704),
+                 longitude = c(35.178, 37.776, 35.919, 36.301, 34.256, 33.379, 34.933, 34.683,
+                               35.274, 34.221, 37.347))
+
+cities <- bind_rows(known_cities, lost_cities)
+```
+
+```{r, message=FALSE, warning=FALSE, fig.width=7,fig.height=4}
+library(ggmap)
+library(ggthemes)
+
+lat <- cities$latitude
+long <- cities$longitude
+bbox <- make_bbox(long,lat,f=0.05)
+b <- get_map(bbox,maptype="toner-lite",source="google")
+
+
+ggmap(b) + geom_point(data = cities, 
+           aes(longitude,latitude,color=type),size=2,alpha=0.7) +
+           labs(x = "Longitude", y = "Latitude",
+           title="City Locations", color = "Type") + theme_gray()
+
+```
 
 
 

@@ -254,16 +254,22 @@ $(document).ready(function () {
 <p>“Now you will eat bread and drink water”</p>
 <p>wa-a-tar means water. ninda means bread. Quite familiar isn’t it?</p>
 </div>
-<div id="records-in-our-database-look-like-this" class="section level3">
-<h3>Records in our database look like this:</h3>
+<div id="our-data-looks-like-this" class="section level3">
+<h3>Our data looks like this:</h3>
+<p>This is a txt file.</p>
 <div class="figure">
 <img src="sample2.PNG" />
 
 </div>
+<p>But how did I get here? It started with a tweet by Gabor Bekes:</p>
+<p><img src="tweet_gabor.png" alt="tweet_gabor" height="400" width="500"></p>
+<p>I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:</p>
+<p><img src="kerem_email.png" alt="kerem_email" height="400" width="500"></p>
+<p>Archeologists have escavated these tablets during the past 200 years.</p>
 </div>
 <div id="an-escavated-tablet-looks-like-this" class="section level3">
 <h3>An escavated tablet looks like this:</h3>
-<p><img src="sample3.png" alt="tablet" height="420" width="420"></p>
+<p><img src="sample3.png" alt="tablet" height="300" width="300"></p>
 </div>
 <div id="these-people-lived-4000-years-ago.-and-this-is-where-they-lived" class="section level3">
 <h3>These people lived 4000 years ago. And this is where they lived:</h3>
@@ -272,7 +278,7 @@ $(document).ready(function () {
 
 </div>
 <p><b>2018.03.05 </b></p>
-<p>When we load the data, we will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:</p>
+<p>We will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:</p>
 <pre class="r"><code>#Load the sample data
 library(dplyr)
 txt &lt;- readLines(&quot;OARE.txt&quot;) %&gt;%
@@ -292,7 +298,7 @@ txt &lt;- txt %&gt;%
   anti_join(txt[grep(&#39;^Creator&#39;, txt$word),])</code></pre>
 <p>This is one way of cleaning such unwanted words… We can create a list of them.</p>
 <p><b>2018.03.06 </b></p>
-<p>Now we will make a list of unwanted words and remove them just like we did above</p>
+<p>This is how the list of unwanted words look like. We remove them just like we did above</p>
 <pre class="r"><code>toMatch &lt;- c(&quot;^Primary&quot;, &quot;^Translation&quot;, &quot;^logosyllabic&quot;, &quot;^Epistolary&quot;, &quot;^Formul&quot;, &quot;^Creator&quot;, 
              &quot;^Editor&quot;, &quot;^List&quot;, &quot;^Introductory&quot;,&quot;^Publication&quot;, &quot;^Physical&quot; ,&quot;^Chantre&quot;, 
              
@@ -355,31 +361,73 @@ txt %&gt;%
   ggtitle(&quot;OARE_01&quot;) +
   theme_fivethirtyeight()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>It looks like these people were sending and receiving textiles, tin and copper. Transportation was depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels and minas. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.</p>
+<p>It looks like these people were sending and receiving textiles, tin and copper. Transportation was depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.</p>
 <p><b>2018.03.08 </b></p>
 <p>Looking at the frequency plot again, what does <strong>pusuken</strong> mean? It is repeating more than 500 times…</p>
 <pre class="r"><code>library(stringr)
-head(original_text[str_detect(original_text$word, &quot;Pušu-ken&quot;), ], 5)</code></pre>
-<pre><code>## # A tibble: 5 x 2
-##   word                                                               file 
-##   &lt;chr&gt;                                                              &lt;chr&gt;
-## 1 &quot;1-3To Amur-Ištar and Pušu-ken from Kuzallum: &quot;                    OARE 
-## 2 &quot;1-2From Šu-Hubur to Pušu-ken: &quot;                                   OARE 
-## 3 &quot;1-7Zupa seized us against the sons of Pušu-ken and Zupa said to ~ OARE 
-## 4 &quot;7-9Why is it that Suen-re&#39;i detains me? 10-18The sons of Pušu-ke~ OARE 
-## 5 &quot;51 1/2 shekels (to?) Ahu-waqar. 6x shekel(s) (to?) Pušu-ken. 72 ~ OARE</code></pre>
-<p>It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen.</p>
+head(original_text[str_detect(original_text$word, &quot;Pušu-ken&quot;), 1], 5)</code></pre>
+<pre><code>## # A tibble: 5 x 1
+##   word                                                                    
+##   &lt;chr&gt;                                                                   
+## 1 &quot;1-3To Amur-Ištar and Pušu-ken from Kuzallum: &quot;                         
+## 2 &quot;1-2From Šu-Hubur to Pušu-ken: &quot;                                        
+## 3 &quot;1-7Zupa seized us against the sons of Pušu-ken and Zupa said to the so~
+## 4 &quot;7-9Why is it that Suen-re&#39;i detains me? 10-18The sons of Pušu-ken (res~
+## 5 &quot;51 1/2 shekels (to?) Ahu-waqar. 6x shekel(s) (to?) Pušu-ken. 72 shekel~</code></pre>
+<p>It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.</p>
 <p>Another frequent word is ‘son’. Let’s find out why.</p>
-<pre class="r"><code>tail(original_text[str_detect(original_text$word, &quot;son&quot;), ], 5)</code></pre>
-<pre><code>## # A tibble: 5 x 2
-##   word                                                               file 
-##   &lt;chr&gt;                                                              &lt;chr&gt;
-## 1 Iddin-Ištar son of Aššur-nada owes 5 5/6                           OARE 
-## 2 &quot; 13-15The month Te&#39;inatum, eponymy Alahum son of Inah-ili.  16-1~ OARE 
-## 3 &quot;15-18Witnesses: Burqanim son of Kakkabanim son of Šu-Ištar son o~ OARE 
-## 4 &quot;3-5Aššur-malik son of Erraya brought your silver -- 15 minas sil~ OARE 
-## 5 &quot;18-28Its value in silver 1 mina 5 shekels, 3 shekels- the feed o~ OARE</code></pre>
+<pre class="r"><code>tail(original_text[str_detect(original_text$word, &quot;son&quot;), 1], 5)</code></pre>
+<pre><code>## # A tibble: 5 x 1
+##   word                                                                    
+##   &lt;chr&gt;                                                                   
+## 1 Iddin-Ištar son of Aššur-nada owes 5 5/6                                
+## 2 &quot; 13-15The month Te&#39;inatum, eponymy Alahum son of Inah-ili.  16-18Witne~
+## 3 &quot;15-18Witnesses: Burqanim son of Kakkabanim son of Šu-Ištar son of Šuay~
+## 4 &quot;3-5Aššur-malik son of Erraya brought your silver -- 15 minas silver. 5~
+## 5 &quot;18-28Its value in silver 1 mina 5 shekels, 3 shekels- the feed of the ~</code></pre>
 <p>son of Assurnada, son of Inahili, son of Iddin… Of course, these are family names. That’s why it repeats a lot.</p>
+<p><b>2018.03.10 </b></p>
+<p>Now we have a fairly good understanding of the most frequent words. Let’s get a big picture of the ancient cities mentioned in our text.</p>
+<pre class="r"><code>#Information from archeological findings
+known_cities &lt;- data.frame(cityName = c(&quot;Hanaknak&quot;, &quot;Hattus&quot;, &quot;Hurama&quot;, &quot;Kanes&quot;, &quot;Karahna&quot;, 
+                                        &quot;Qattara&quot;, &quot;Salatuwar&quot;, &quot;Samuha&quot;, &quot;Tapaggas&quot;, 
+                                        &quot;Timelkiya&quot;, &quot;Ulama&quot;, &quot;Unipsum&quot;, &quot;Wahsusana&quot;, &quot;Zimishuna&quot;), 
+                  type = &#39;known&#39;,
+                  modern_name = c(&quot;Cankiri&quot;, &quot;Bogazkoy&quot;, &quot;Kusura&quot;, &quot;Kultepe&quot;, &quot;Sulusaray&quot;, 
+                                  &quot;Tell al-Rimah&quot;, &quot;Mersin&quot;, &quot;Kayapinar&quot;, &quot;MasatHoyuk&quot;, &quot;Telmessos&quot;,
+                                  &quot;Silifke&quot;, &quot;Tünip&quot;, &quot;Cyprus&quot;, &quot;Samsun&quot;),
+                  latitude = c(40.6002, 40.018499926, 38.360937, 38.851165, 39.986138,
+                               36.152551, 36.816874, 39.319128, 40.0854, 36.618181,
+                               36.318340, 35.1725, 35.103410, 41.280517),
+                  longitude = c(33.6162, 34.60916423, 30.230104, 35.635486, 36.093526,
+                                42.265761, 34.687688, 36.309621, 35.4544, 29.117308,
+                                33.869491, 36.2359, 33.338150, 36.327963)
+                  )  
+#lost city coordinates are estimates from the article
+lost_cities &lt;- data.frame(cityName = c(&quot;Durhumit&quot;, &quot;Hahhum&quot;, &quot;Kuburnat&quot;, &quot;Mamma&quot;, &quot;Ninassa&quot;,
+                                       &quot;Purushaddum&quot;, &quot;Sinahuttum&quot;, &quot;Suppiluliya&quot;, &quot;Tuhpiya&quot;,
+                                       &quot;Washaniya&quot;, &quot;Zalpa&quot;), 
+                 type = &#39;lost&#39;,
+                 latitude = c(40.725, 38.126, 39.748, 38.053, 38.714, 40.308, 40.056, 40.062,
+                              39.787, 39.189, 37.704),
+                 longitude = c(35.178, 37.776, 35.919, 36.301, 34.256, 33.379, 34.933, 34.683,
+                               35.274, 34.221, 37.347))
+
+cities &lt;- bind_rows(known_cities, lost_cities)</code></pre>
+<pre class="r"><code>library(ggmap)
+library(ggthemes)
+
+lat &lt;- cities$latitude
+long &lt;- cities$longitude
+bbox &lt;- make_bbox(long,lat,f=0.05)
+b &lt;- get_map(bbox,maptype=&quot;toner-lite&quot;,source=&quot;google&quot;)
+
+
+ggmap(b) + geom_point(data = cities, 
+           aes(longitude,latitude,color=type),size=2,alpha=0.7) +
+           labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;,
+           title=&quot;City Locations&quot;, color = &quot;Type&quot;) + theme_gray()</code></pre>
+<p><img src="final_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 
 

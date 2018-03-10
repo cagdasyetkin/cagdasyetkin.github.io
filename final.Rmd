@@ -222,7 +222,6 @@ cities <- cities %>%
             by = 'cityName')
 
 cities$n <- replace_na(cities$n, 0)
-
 ```
 
 ```{r}
@@ -232,7 +231,6 @@ cities %>%
   arrange(desc(Occurance_In_Text)) %>%
   head() %>%
   pander::pander()
-  
 ```
 
 The city of Kanesh is our biggest hub. Probably a capital city. Our famous Pusheken family must have been lived here.
@@ -258,5 +256,5 @@ ggmap(b) + geom_point(data = cities,
 #
 ```
 
-
+xxxxxxxxxxxxxxxxxxxx
 

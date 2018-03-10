@@ -51,6 +51,7 @@ I contacted the authors of this academic paper from the University of Virginia. 
 
 
 
+
 Archeologists have escavated these tablets during the past 200 years.
 
 ###An escavated tablet looks like this:
@@ -259,5 +260,5 @@ ggmap(b) + geom_point(data = cities,
 #
 ```
 
-xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxx
 

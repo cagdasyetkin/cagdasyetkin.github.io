@@ -42,11 +42,11 @@ This is a txt file.
 
 But how did I get here? It started with a tweet by Gabor Bekes:
 
-<img src="tweet_gabor.png" alt="tweet_gabor" height="400" width="500">
+<img src="tweetgabor.png" alt="tweet_gabor" height="400" width="500">
 
 I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:
 
-<img src="kerem_email.png" alt="kerem_email" height="400" width="500">
+<img src="kerememail.png" alt="kerem_email" height="400" width="500">
 
 Archeologists have escavated these tablets during the past 200 years.
 

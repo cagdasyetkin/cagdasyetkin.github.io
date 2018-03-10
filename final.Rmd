@@ -42,11 +42,14 @@ This is a txt file.
 
 But how did I get here? It started with a tweet by Gabor Bekes:
 
-<img src="tweetgabor.png" alt="tweet_gabor" height="400" width="500">
+![](tweetgabor.png)
+
 
 I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:
 
-<img src="kerememail.png" alt="kerem_email" height="400" width="500">
+![](kerememail.png)
+
+
 
 Archeologists have escavated these tablets during the past 200 years.
 
@@ -145,8 +148,7 @@ txt %>%
   filter(n > 150) %>%
   mutate(word = reorder(word, n)) %>%
   ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
-  ggtitle("OARE_01") +
-  theme_fivethirtyeight()
+  ggtitle("Word Frequency")
   
 ```
 
@@ -241,7 +243,7 @@ library(ggthemes)
 
 lat <- cities$latitude
 long <- cities$longitude
-bbox <- make_bbox(long,lat,f=0.05)
+bbox <- make_bbox(long,lat,f=0.5)
 b <- get_map(bbox,maptype="watercolor",source="google")
 
 
@@ -249,9 +251,10 @@ ggmap(b) + geom_point(data = cities,
            aes(longitude, latitude, size=n),alpha=0.5) +
   
            labs(x = "Longitude", y = "Latitude",
-           title="City Locations", color = "Type") +
+           title="City Locations. Size = Occurance in Text", color = "Type") +
   
-           geom_text(data = cities, aes(longitude, latitude, label = cityName), check_overlap = TRUE) 
+           geom_text(data = cities, aes(longitude, latitude, label = cityName), 
+                     check_overlap = TRUE, nudge_y = -0.5) 
          
 #
 ```

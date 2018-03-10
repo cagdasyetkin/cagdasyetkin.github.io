@@ -259,9 +259,15 @@ $(document).ready(function () {
 
 </div>
 <p>But how did I get here? It started with a tweet by Gabor Bekes:</p>
-<p><img src="tweetgabor.png" alt="tweet_gabor" height="400" width="500"></p>
+<div class="figure">
+<img src="tweetgabor.png" />
+
+</div>
 <p>I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:</p>
-<p><img src="kerememail.png" alt="kerem_email" height="400" width="500"></p>
+<div class="figure">
+<img src="kerememail.png" />
+
+</div>
 <p>Archeologists have escavated these tablets during the past 200 years.</p>
 </div>
 <div id="an-escavated-tablet-looks-like-this" class="section level3">
@@ -351,8 +357,7 @@ txt %&gt;%
   filter(n &gt; 150) %&gt;%
   mutate(word = reorder(word, n)) %&gt;%
   ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
-  ggtitle(&quot;OARE_01&quot;) +
-  theme_fivethirtyeight()</code></pre>
+  ggtitle(&quot;Word Frequency&quot;)</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.</p>
 <p><b>2018.03.08 </b></p>
@@ -460,7 +465,7 @@ library(ggthemes)
 
 lat &lt;- cities$latitude
 long &lt;- cities$longitude
-bbox &lt;- make_bbox(long,lat,f=0.05)
+bbox &lt;- make_bbox(long,lat,f=0.5)
 b &lt;- get_map(bbox,maptype=&quot;watercolor&quot;,source=&quot;google&quot;)
 
 
@@ -468,9 +473,10 @@ ggmap(b) + geom_point(data = cities,
            aes(longitude, latitude, size=n),alpha=0.5) +
   
            labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;,
-           title=&quot;City Locations&quot;, color = &quot;Type&quot;) +
+           title=&quot;City Locations. Size = Occurance in Text&quot;, color = &quot;Type&quot;) +
   
-           geom_text(data = cities, aes(longitude, latitude, label = cityName), check_overlap = TRUE) </code></pre>
+           geom_text(data = cities, aes(longitude, latitude, label = cityName), 
+                     check_overlap = TRUE, nudge_y = -0.5) </code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>#</code></pre>
 <p>xxxxxxxxxxxxxxxxxxxxxxxx</p>

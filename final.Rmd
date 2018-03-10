@@ -16,7 +16,8 @@
 
 ###And this is how it looked like:
 
-![](sample.png)
+<img src="sample.png" alt="sample" height="200" width="300">
+
 
 <b>2018.02.03 </b>
 
@@ -55,11 +56,7 @@ Archeologists have escavated these tablets during the past 200 years.
 
 
 
-###These people lived 4000 years ago. And this is where they lived:
-
-![](sample4.jpg)
-
-
+###These people lived 4000 years ago in the Middle East and the Asia Minor
 
 <b>2018.03.05 </b>
 
@@ -153,7 +150,7 @@ txt %>%
   
 ```
 
-It looks like these people were sending and receiving textiles, tin and copper. Transportation was depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.
+It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.
 
 
 <b>2018.03.08 </b>
@@ -165,7 +162,7 @@ library(stringr)
 head(original_text[str_detect(original_text$word, "Pušu-ken"), 1], 5)
 ```
 
-It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.
+A family business! It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.
 
 Another frequent word is 'son'. Let's find out why.
 
@@ -179,11 +176,13 @@ son of Assurnada, son of Inahili, son of Iddin... Of course, these are family na
 
 Now we have a fairly good understanding of the most frequent words. Let's get a big picture of the ancient cities mentioned in our text. 
 
-```{r, message=FALSE, warning=FALSE}
+Ancient city names are easily available online. We will join them with our text. Our onjective is to see how many times these cities are mentioned in our text and visualize them.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 #Information from archeological findings
-known_cities <- data.frame(cityName = c("Hanaknak", "Hattus", "Hurama", "Kanes", "Karahna", 
-                                        "Qattara", "Salatuwar", "Samuha", "Tapaggas", 
-                                        "Timelkiya", "Ulama", "Unipsum", "Wahsusana", "Zimishuna"), 
+known_cities <- data.frame(cityName = c("hanaknak", "hattus", "hurama", "kanesh", "karahna", 
+                                        "qattara", "salatuwar", "samuha", "tapaggas", 
+                                        "timelkiya", "ulama", "unipsum", "wahsusana", "zimishuna"), 
                   type = 'known',
                   modern_name = c("Cankiri", "Bogazkoy", "Kusura", "Kultepe", "Sulusaray", 
                                   "Tell al-Rimah", "Mersin", "Kayapinar", "MasatHoyuk", "Telmessos",
@@ -196,9 +195,9 @@ known_cities <- data.frame(cityName = c("Hanaknak", "Hattus", "Hurama", "Kanes",
                                 33.869491, 36.2359, 33.338150, 36.327963)
                   )  
 #lost city coordinates are estimates from the article
-lost_cities <- data.frame(cityName = c("Durhumit", "Hahhum", "Kuburnat", "Mamma", "Ninassa",
-                                       "Purushaddum", "Sinahuttum", "Suppiluliya", "Tuhpiya",
-                                       "Washaniya", "Zalpa"), 
+lost_cities <- data.frame(cityName = c("durhumit", "hahhum", "kuburnat", "mamma", "ninassa",
+                                       "purushaddum", "sinahuttum", "suppiluliya", "tuhpiya",
+                                       "washaniya", "zalpa"), 
                  type = 'lost',
                  latitude = c(40.725, 38.126, 39.748, 38.053, 38.714, 40.308, 40.056, 40.062,
                               39.787, 39.189, 37.704),
@@ -206,7 +205,37 @@ lost_cities <- data.frame(cityName = c("Durhumit", "Hahhum", "Kuburnat", "Mamma"
                                35.274, 34.221, 37.347))
 
 cities <- bind_rows(known_cities, lost_cities)
+
 ```
+
+
+```{r}
+library(tidyr)
+
+cities <- cities %>%
+  left_join(original_text %>%
+                unnest_tokens(word, word) %>%
+                filter(word %in% tolower(cities$cityName)) %>%
+                count(word, sort = TRUE) %>%
+                rename(cityName = word),
+            
+            by = 'cityName')
+
+cities$n <- replace_na(cities$n, 0)
+
+```
+
+```{r}
+cities %>%
+  select(cityName, latitude, longitude, n) %>%
+  rename(Occurance_In_Text = n) %>%
+  arrange(desc(Occurance_In_Text)) %>%
+  head() %>%
+  pander::pander()
+  
+```
+
+The city of Kanesh is our biggest hub. Probably a capital city. Our famous Pusheken family must have been lived here.
 
 ```{r, message=FALSE, warning=FALSE, fig.width=7,fig.height=4}
 library(ggmap)
@@ -215,13 +244,17 @@ library(ggthemes)
 lat <- cities$latitude
 long <- cities$longitude
 bbox <- make_bbox(long,lat,f=0.05)
-b <- get_map(bbox,maptype="toner-lite",source="google")
+b <- get_map(bbox,maptype="watercolor",source="google")
 
 
 ggmap(b) + geom_point(data = cities, 
-           aes(longitude,latitude,color=type),size=2,alpha=0.7) +
+           aes(longitude, latitude, size=n),alpha=0.5) +
+  
            labs(x = "Longitude", y = "Latitude",
-           title="City Locations", color = "Type") + theme_gray()
+           title="City Locations", color = "Type") +
+  
+           geom_text(data = cities, aes(longitude, latitude, label = cityName), check_overlap = TRUE) 
+         
 #
 ```
 

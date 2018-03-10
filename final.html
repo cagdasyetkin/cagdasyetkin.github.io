@@ -241,10 +241,7 @@ $(document).ready(function () {
 </div>
 <div id="and-this-is-how-it-looked-like" class="section level3">
 <h3>And this is how it looked like:</h3>
-<div class="figure">
-<img src="sample.PNG" />
-
-</div>
+<p><img src="sample.PNG" alt="sample" height="200" width="300"></p>
 <p><b>2018.02.03 </b></p>
 </div>
 <div id="some-smart-people-decrypted-these-languages.-for-example" class="section level3">
@@ -271,12 +268,8 @@ $(document).ready(function () {
 <h3>An escavated tablet looks like this:</h3>
 <p><img src="sample3.png" alt="tablet" height="300" width="300"></p>
 </div>
-<div id="these-people-lived-4000-years-ago.-and-this-is-where-they-lived" class="section level3">
-<h3>These people lived 4000 years ago. And this is where they lived:</h3>
-<div class="figure">
-<img src="sample4.jpg" />
-
-</div>
+<div id="these-people-lived-4000-years-ago-in-the-middle-east-and-the-asia-minor" class="section level3">
+<h3>These people lived 4000 years ago in the Middle East and the Asia Minor</h3>
 <p><b>2018.03.05 </b></p>
 <p>We will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:</p>
 <pre class="r"><code>#Load the sample data
@@ -361,7 +354,7 @@ txt %&gt;%
   ggtitle(&quot;OARE_01&quot;) +
   theme_fivethirtyeight()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>It looks like these people were sending and receiving textiles, tin and copper. Transportation was depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.</p>
+<p>It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.</p>
 <p><b>2018.03.08 </b></p>
 <p>Looking at the frequency plot again, what does <strong>pusuken</strong> mean? It is repeating more than 500 times…</p>
 <pre class="r"><code>library(stringr)
@@ -374,7 +367,7 @@ head(original_text[str_detect(original_text$word, &quot;Pušu-ken&quot;), 1], 5)
 ## 3 &quot;1-7Zupa seized us against the sons of Pušu-ken and Zupa said to the so~
 ## 4 &quot;7-9Why is it that Suen-re&#39;i detains me? 10-18The sons of Pušu-ken (res~
 ## 5 &quot;51 1/2 shekels (to?) Ahu-waqar. 6x shekel(s) (to?) Pušu-ken. 72 shekel~</code></pre>
-<p>It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.</p>
+<p>A family business! It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.</p>
 <p>Another frequent word is ‘son’. Let’s find out why.</p>
 <pre class="r"><code>tail(original_text[str_detect(original_text$word, &quot;son&quot;), 1], 5)</code></pre>
 <pre><code>## # A tibble: 5 x 1
@@ -388,46 +381,97 @@ head(original_text[str_detect(original_text$word, &quot;Pušu-ken&quot;), 1], 5)
 <p>son of Assurnada, son of Inahili, son of Iddin… Of course, these are family names. That’s why it repeats a lot.</p>
 <p><b>2018.03.10 </b></p>
 <p>Now we have a fairly good understanding of the most frequent words. Let’s get a big picture of the ancient cities mentioned in our text.</p>
-<pre class="r"><code>#Information from archeological findings
-known_cities &lt;- data.frame(cityName = c(&quot;Hanaknak&quot;, &quot;Hattus&quot;, &quot;Hurama&quot;, &quot;Kanes&quot;, &quot;Karahna&quot;, 
-                                        &quot;Qattara&quot;, &quot;Salatuwar&quot;, &quot;Samuha&quot;, &quot;Tapaggas&quot;, 
-                                        &quot;Timelkiya&quot;, &quot;Ulama&quot;, &quot;Unipsum&quot;, &quot;Wahsusana&quot;, &quot;Zimishuna&quot;), 
-                  type = &#39;known&#39;,
-                  modern_name = c(&quot;Cankiri&quot;, &quot;Bogazkoy&quot;, &quot;Kusura&quot;, &quot;Kultepe&quot;, &quot;Sulusaray&quot;, 
-                                  &quot;Tell al-Rimah&quot;, &quot;Mersin&quot;, &quot;Kayapinar&quot;, &quot;MasatHoyuk&quot;, &quot;Telmessos&quot;,
-                                  &quot;Silifke&quot;, &quot;Tünip&quot;, &quot;Cyprus&quot;, &quot;Samsun&quot;),
-                  latitude = c(40.6002, 40.018499926, 38.360937, 38.851165, 39.986138,
-                               36.152551, 36.816874, 39.319128, 40.0854, 36.618181,
-                               36.318340, 35.1725, 35.103410, 41.280517),
-                  longitude = c(33.6162, 34.60916423, 30.230104, 35.635486, 36.093526,
-                                42.265761, 34.687688, 36.309621, 35.4544, 29.117308,
-                                33.869491, 36.2359, 33.338150, 36.327963)
-                  )  
-#lost city coordinates are estimates from the article
-lost_cities &lt;- data.frame(cityName = c(&quot;Durhumit&quot;, &quot;Hahhum&quot;, &quot;Kuburnat&quot;, &quot;Mamma&quot;, &quot;Ninassa&quot;,
-                                       &quot;Purushaddum&quot;, &quot;Sinahuttum&quot;, &quot;Suppiluliya&quot;, &quot;Tuhpiya&quot;,
-                                       &quot;Washaniya&quot;, &quot;Zalpa&quot;), 
-                 type = &#39;lost&#39;,
-                 latitude = c(40.725, 38.126, 39.748, 38.053, 38.714, 40.308, 40.056, 40.062,
-                              39.787, 39.189, 37.704),
-                 longitude = c(35.178, 37.776, 35.919, 36.301, 34.256, 33.379, 34.933, 34.683,
-                               35.274, 34.221, 37.347))
+<p>Ancient city names are easily available online. We will join them with our text. Our onjective is to see how many times these cities are mentioned in our text and visualize them.</p>
+<pre class="r"><code>library(tidyr)
 
-cities &lt;- bind_rows(known_cities, lost_cities)</code></pre>
+cities &lt;- cities %&gt;%
+  left_join(original_text %&gt;%
+                unnest_tokens(word, word) %&gt;%
+                filter(word %in% tolower(cities$cityName)) %&gt;%
+                count(word, sort = TRUE) %&gt;%
+                rename(cityName = word),
+            
+            by = &#39;cityName&#39;)
+
+cities$n &lt;- replace_na(cities$n, 0)</code></pre>
+<pre class="r"><code>cities %&gt;%
+  select(cityName, latitude, longitude, n) %&gt;%
+  rename(Occurance_In_Text = n) %&gt;%
+  arrange(desc(Occurance_In_Text)) %&gt;%
+  head() %&gt;%
+  pander::pander()</code></pre>
+<table style="width:74%;">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="16%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">cityName</th>
+<th align="center">latitude</th>
+<th align="center">longitude</th>
+<th align="center">Occurance_In_Text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">kanesh</td>
+<td align="center">38.85</td>
+<td align="center">35.64</td>
+<td align="center">61</td>
+</tr>
+<tr class="even">
+<td align="center">durhumit</td>
+<td align="center">40.73</td>
+<td align="center">35.18</td>
+<td align="center">27</td>
+</tr>
+<tr class="odd">
+<td align="center">hahhum</td>
+<td align="center">38.13</td>
+<td align="center">37.78</td>
+<td align="center">15</td>
+</tr>
+<tr class="even">
+<td align="center">tuhpiya</td>
+<td align="center">39.79</td>
+<td align="center">35.27</td>
+<td align="center">10</td>
+</tr>
+<tr class="odd">
+<td align="center">ulama</td>
+<td align="center">36.32</td>
+<td align="center">33.87</td>
+<td align="center">9</td>
+</tr>
+<tr class="even">
+<td align="center">mamma</td>
+<td align="center">38.05</td>
+<td align="center">36.3</td>
+<td align="center">9</td>
+</tr>
+</tbody>
+</table>
+<p>The city of Kanesh is our biggest hub. Probably a capital city. Our famous Pusheken family must have been lived here.</p>
 <pre class="r"><code>library(ggmap)
 library(ggthemes)
 
 lat &lt;- cities$latitude
 long &lt;- cities$longitude
 bbox &lt;- make_bbox(long,lat,f=0.05)
-b &lt;- get_map(bbox,maptype=&quot;toner-lite&quot;,source=&quot;google&quot;)
+b &lt;- get_map(bbox,maptype=&quot;watercolor&quot;,source=&quot;google&quot;)
 
 
 ggmap(b) + geom_point(data = cities, 
-           aes(longitude,latitude,color=type),size=2,alpha=0.7) +
+           aes(longitude, latitude, size=n),alpha=0.5) +
+  
            labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;,
-           title=&quot;City Locations&quot;, color = &quot;Type&quot;) + theme_gray()</code></pre>
-<p><img src="final_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+           title=&quot;City Locations&quot;, color = &quot;Type&quot;) +
+  
+           geom_text(data = cities, aes(longitude, latitude, label = cityName), check_overlap = TRUE) </code></pre>
+<p><img src="final_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>#</code></pre>
 </div>
 

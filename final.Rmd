@@ -44,15 +44,14 @@ This is a txt file.
 
 But how did I get here? It started with a tweet by Gabor Bekes:
 
-![](final_files/tweetgabor.png)
-
+![](C:/Users/Cagdas/githubsite/tweetgabor.png)
 
 
 
 I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:
 
 
-![](final_files/kerememail.png)
+![](C:/Users/Cagdas/githubsite/kerememail.png)
 
 
 

@@ -487,7 +487,7 @@ ggmap(b) + geom_point(data = cities_in_text,
            title=&quot;City Locations / Size = Occurance in Text&quot;, color = &quot;Type&quot;) +
   
            geom_text(data = cities_in_text, aes(longitude, latitude, label = cityName), 
-                     check_overlap = TRUE) + #nudge_y = -0.5) +
+                     check_overlap = TRUE) + 
 theme_gdocs()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus.</p>

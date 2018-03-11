@@ -281,7 +281,7 @@ ggmap(b) + geom_point(data = cities_in_text,
            title="City Locations / Size = Occurance in Text", color = "Type") +
   
            geom_text(data = cities_in_text, aes(longitude, latitude, label = cityName), 
-                     check_overlap = TRUE) + #nudge_y = -0.5) +
+                     check_overlap = TRUE) + 
 theme_gdocs()
 ```
 
@@ -384,6 +384,7 @@ ggraph(bigram_graph, layout = "fr") +
   geom_node_point(color = "lightblue", size = 5) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
+
 ```
 
 Kuliya wakes up early morning with the sound of **black >> donkeys**. They are on the way to port Ulama. 

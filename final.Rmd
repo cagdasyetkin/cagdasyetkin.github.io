@@ -16,7 +16,7 @@
 
 ###And this is how it looked like:
 
-<img src="sample.png" alt="sample" height="200" width="300">
+<img src="final_files/sample.png" alt="sample" height="200" width="300">
 
 
 <b>2018.02.03 </b>
@@ -39,19 +39,19 @@ wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 This is a txt file.
 
 
-<img src="sample2.png" alt="data" height="300" width="500">
+<img src="final_files/sample2.png" alt="data" height="300" width="500">
 
 
 But how did I get here? It started with a tweet by Gabor Bekes:
 
 
-<img src="tweetgabor.png" alt="gabortweet" height="300" width="500">
+<img src="final_files/tweetgabor.png" alt="gabortweet" height="300" width="500">
 
 
 I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:
 
 
-<img src="kerememail.png" alt="kerememail" height="300" width="500">
+<img src="final_files/kerememail.png" alt="kerememail" height="300" width="500">
 
 
 
@@ -60,7 +60,7 @@ Archeologists have escavated these tablets during the past 200 years.
 
 ###An escavated tablet looks like this:
 
-<img src="sample3.png" alt="tablet" height="200" width="200">
+<img src="final_files/sample3.png" alt="tablet" height="200" width="200">
 
 
 

@@ -44,14 +44,15 @@ This is a txt file.
 
 But how did I get here? It started with a tweet by Gabor Bekes:
 
+![](final_files/tweetgabor.png)
 
-<img src="final_files/tweetgabor.png" alt="gabortweet" height="300" width="500">
+
 
 
 I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:
 
 
-<img src="final_files/kerememail.png" alt="kerememail" height="300" width="500">
+![](final_files/kerememail.png)
 
 
 

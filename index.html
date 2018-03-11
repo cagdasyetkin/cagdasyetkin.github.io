@@ -302,7 +302,7 @@ GoT_sentiments</code></pre>
 ##  9 A Clash of Kings     kill    267 negative 
 ## 10 A Game of Thrones    kill    190 negative 
 ## # ... with 4,501 more rows</code></pre>
-<p>Terms look just like the song lyrics from the power-metal band Manowar: “hail, hail, hail and kill!”</p>
+<p>Terms look just like some song lyrics from a power-metal band.</p>
 <p>Can we plot them anyway:</p>
 <pre class="r"><code>GoT_sentiments %&gt;%
   count(sentiment, term, wt = count) %&gt;%

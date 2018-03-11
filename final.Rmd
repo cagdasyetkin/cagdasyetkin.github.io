@@ -38,16 +38,20 @@ wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 
 This is a txt file.
 
-![](sample2.png)
+
+<img src="sample2.png" alt="data" height="300" width="500">
+
 
 But how did I get here? It started with a tweet by Gabor Bekes:
 
-![](tweetgabor.png)
+
+<img src="tweetgabor.png" alt="gabortweet" height="300" width="500">
 
 
 I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:
 
-![](kerememail.png)
+
+<img src="kerememail.png" alt="kerememail" height="300" width="500">
 
 
 
@@ -56,7 +60,7 @@ Archeologists have escavated these tablets during the past 200 years.
 
 ###An escavated tablet looks like this:
 
-<img src="sample3.png" alt="tablet" height="300" width="300">
+<img src="sample3.png" alt="tablet" height="200" width="200">
 
 
 
@@ -64,21 +68,36 @@ Archeologists have escavated these tablets during the past 200 years.
 
 <b>2018.03.05 </b>
 
-We will need to get rid of many words and phrases. Some simple regular expressions will help us. For example:
+We will start by loading our documents. We have many unwanted words and phrases. Some simple regular expressions will help us.
 
 ```{r, message=FALSE, warning=FALSE}
-#Load the sample data
+#we have a collection of 4 documents
 library(dplyr)
-txt <- readLines("OARE.txt") %>%
-  data_frame(file = 'OARE') %>%
+oare1 <- readLines("OARE_01.txt") %>%
+  data_frame(file = 'OARE_1') %>%
   rename('word' = '.') 
 
+oare2 <- readLines("OARE_02.txt") %>%
+  data_frame(file = 'OARE_2') %>%
+  rename('word' = '.') 
+
+oare3 <- readLines("OARE_03.txt") %>%
+  data_frame(file = 'OARE_3') %>%
+  rename('word' = '.') 
+
+oare4 <- readLines("OARE_04.txt") %>%
+  data_frame(file = 'OARE_4') %>%
+  rename('word' = '.') 
+
+txt <- bind_rows(list(oare1, oare2, oare3, oare4)) 
+colnames(txt) <- c("text", "title")
+
 #see the lines give the information regarding the Creator of the record
-head(txt[grep('^Creator', txt$word),], 3)
+head(txt[grep('^Creator', txt$text),], 3)
 
 #removing them
 txt <- txt %>%
-  anti_join(txt[grep('^Creator', txt$word),])
+  anti_join(txt[grep('^Creator', txt$text),])
 ```
 
 This is one way of cleaning such unwanted words... We can create a list of them.
@@ -95,7 +114,7 @@ toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formu
              "^Periods", "^Kültepe", "^Karaduman", "^Kültepe", "Adana","^Seizure", 
              "^Bılgıç", "^First Topic", "^AnOr", "^Garelli", "^Liège", "^Prag",
              "^Ulshöfer", "^Burrill", "^Burton", "^Cole ", "^Eilsberger", "^hellbraunes",
-             "^Stratford", "^Rendell", "^Schaeffer", "^Struwe", 
+             "^Stratford", "^Rendell", "^Schaeffer", "^Struwe", "^Larsen",
              
              "^AAA", "^A ", "^Ac.", "^ATHE", "^BIN", "^AKT", "^AO", "OARE", "^     ", "^KTB ",
              "^C ", "^CCT", "^CKAS", "^CTMMA", "^EL ", "^H.K. ", "^ICK ", "^JCS ", "^kt ",
@@ -104,11 +123,11 @@ toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formu
 
 
 matches <- unique (grep(paste(toMatch,collapse="|"), 
-                        txt$word, value=TRUE))
+                        txt$text, value=TRUE))
 
 #removing them
 txt <- txt %>%
-  anti_join(data.frame(word = matches))
+  anti_join(data.frame(text = matches)) 
 
 original_text <- txt # keep an untouched copy
 
@@ -128,7 +147,7 @@ The paragraph is almost clean. Next, we need to remove the numbers.
 # Remove numbers using removeNumber function from tm library
 library(tm)
 
-txt$word <- txt$word %>%
+txt$text <- txt$text %>%
   removeNumbers() %>%
   removePunctuation() %>% #in fact unnest_tokens function is handling this
   stripWhitespace()
@@ -143,7 +162,7 @@ library(ggplot2)
 library(ggthemes)
 
 txt %>%
-  unnest_tokens(word, word) %>%
+  unnest_tokens(word, text) %>%
   anti_join(stop_words) %>%
   count(word, sort = TRUE) %>%
   filter(n > 150) %>%
@@ -162,7 +181,7 @@ Looking at the frequency plot again, what does **pusuken** mean? It is repeating
 
 ```{r}
 library(stringr)
-head(original_text[str_detect(original_text$word, "Pušu-ken"), 1], 5)
+head(original_text[str_detect(original_text$text, "Pušu-ken"), 1], 5)
 ```
 
 A family business! It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.
@@ -170,7 +189,7 @@ A family business! It turns out Pushuken was the most famous businessman. Probab
 Another frequent word is 'son'. Let's find out why.
 
 ```{r}
-tail(original_text[str_detect(original_text$word, "son"), 1], 5)
+tail(original_text[str_detect(original_text$text, "son"), 1], 5)
 ```
 
 son of Assurnada, son of Inahili, son of Iddin... Of course, these are family names. That's why it repeats a lot.
@@ -179,7 +198,7 @@ son of Assurnada, son of Inahili, son of Iddin... Of course, these are family na
 
 Now we have a fairly good understanding of the most frequent words. Let's get a big picture of the ancient cities mentioned in our text. 
 
-Ancient city names are easily available online. We will join them with our text. Our onjective is to see how many times these cities are mentioned in our text and visualize them.
+Ancient city names are easily available online. We will join them with our text. Our objective is to see how many times these cities are mentioned in our text and visualize them.
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 #Information from archeological findings
@@ -217,7 +236,7 @@ library(tidyr)
 
 cities <- cities %>%
   left_join(original_text %>%
-                unnest_tokens(word, word) %>%
+                unnest_tokens(word, text) %>%
                 filter(word %in% tolower(cities$cityName)) %>%
                 count(word, sort = TRUE) %>%
                 rename(cityName = word),
@@ -234,29 +253,83 @@ cities %>%
   arrange(desc(Occurance_In_Text)) %>%
   head() %>%
   pander::pander()
+
+#cities to plot
+cities_in_text <- cities %>%
+  filter(n > 0)
 ```
 
-The city of Kanesh is our biggest hub. Probably a capital city. Our famous Pusheken family must have been lived here.
+The city of Kanesh is our biggest hub. Probably a capital city. Our famous Pusheken family must have lived here.
 
 ```{r, message=FALSE, warning=FALSE, fig.width=7,fig.height=4}
 library(ggmap)
 library(ggthemes)
 
+#setup map borders and select your map style
 lat <- cities$latitude
 long <- cities$longitude
 bbox <- make_bbox(long,lat,f=0.5)
 b <- get_map(bbox,maptype="watercolor",source="google")
 
-
-ggmap(b) + geom_point(data = cities, 
-           aes(longitude, latitude, size=n),alpha=0.5) +
+#plot the cities mentioned in the text
+ggmap(b) + geom_point(data = cities_in_text, 
+           aes(longitude, latitude, size=n),alpha=0.2, show.legend = F) +
+           scale_size_continuous(range = c(3, 10)) +
   
            labs(x = "Longitude", y = "Latitude",
-           title="City Locations. Size = Occurance in Text", color = "Type") +
+           title="City Locations / Size = Occurance in Text", color = "Type") +
   
-           geom_text(data = cities, aes(longitude, latitude, label = cityName), 
-                     check_overlap = TRUE, nudge_y = -0.5) 
+           geom_text(data = cities_in_text, aes(longitude, latitude, label = cityName), 
+                     check_overlap = TRUE) + #nudge_y = -0.5) +
+theme_gdocs()
 ```
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+They were using the sea ports in Timelkiya and Ulama. So we are talking about some complicated trade network here. Probably with Pharaohs of ancient Egypt, Phonecians and Mycenaeans.
+
+<b>2018.03.11 </b>
+
+We know the most frequent words in these documents. How about the most important ones? We can try tfidf here.
+```{r}
+oare_words <- txt %>%
+  unnest_tokens(word, text) %>%
+  count(title, word, sort = TRUE) %>%
+  ungroup()
+
+total_words <- oare_words %>% 
+  group_by(title) %>% 
+  summarize(total = sum(n))
+
+oare_words <- left_join(oare_words, total_words, by = 'title')
+```
+
+```{r, message=FALSE, warning=FALSE}
+oare_stop_words <- data.frame(word = c("gkt", "sec", "oaa", "ca", "g"), lexicon = 'oare')
+
+oare_words <- oare_words %>%
+  anti_join(oare_stop_words) %>%
+  bind_tf_idf(word, title, n)
+
+oare_words %>%
+  select(-total) %>%
+  arrange(desc(tf_idf)) %>%
+  head(10) %>%
+  select(title, word, n, tf_idf)
+```
+
+```{r, fig.height=6, message=FALSE}
+oare_words %>%
+  arrange(desc(tf_idf)) %>%
+  mutate(word = factor(word, levels = rev(unique(word)))) %>% 
+  group_by(title) %>% 
+  top_n(5) %>% 
+  ungroup %>%
+  ggplot(aes(word, tf_idf, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = NULL, y = "tf-idf") +
+  facet_wrap(~title, ncol = 2, scales = "free") +
+  coord_flip() + theme_fivethirtyeight()
+```
+
+
+
 

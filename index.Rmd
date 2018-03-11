@@ -86,7 +86,7 @@ GoT_sentiments <- words_count %>%
 
 GoT_sentiments
 ```
-Terms look just like the song lyrics from the power-metal band Manowar: "hail, hail, hail and kill!"
+Terms look just like some song lyrics from a power-metal band.
 
 Can we plot them anyway:
 

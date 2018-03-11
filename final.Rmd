@@ -285,7 +285,9 @@ ggmap(b) + geom_point(data = cities_in_text,
 theme_gdocs()
 ```
 
-They were using the sea ports in Timelkiya and Ulama. So we are talking about some complicated trade network here. Probably with Pharaohs of ancient Egypt, Phonecians and Mycenaeans.
+You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus. 
+
+The people who wrote these tablets were using the sea ports in Timelkiya and Ulama. So we are talking about some complicated trade network here. Probably with Pharaohs of ancient Egypt, Phonecians and Mycenaeans.
 
 <b>2018.03.11 </b>
 
@@ -317,19 +319,85 @@ oare_words %>%
   select(title, word, n, tf_idf)
 ```
 
-```{r, fig.height=6, message=FALSE}
+```{r, fig.height=3, fig.width=6, message=FALSE}
 oare_words %>%
   arrange(desc(tf_idf)) %>%
   mutate(word = factor(word, levels = rev(unique(word)))) %>% 
-  group_by(title) %>% 
+  #group_by(title) %>% 
   top_n(5) %>% 
-  ungroup %>%
+  #ungroup %>%
   ggplot(aes(word, tf_idf, fill = title)) +
   geom_col(show.legend = FALSE) +
   labs(x = NULL, y = "tf-idf") +
-  facet_wrap(~title, ncol = 2, scales = "free") +
-  coord_flip() + theme_fivethirtyeight()
+  #facet_wrap(~title, ncol = 2, scales = "free") +
+  coord_flip() + theme_gray()
 ```
+
+We had ruling family names in the word frequency plot. They were the **Pushuken, Assurnada and Assurmalik** families. 
+
+Now we have some other names being reported in tfidf plots. And by far, the most significant names are **Kuliya and Aliabum**. These names are more important then the powerful families according to the algorithm. They are also more important then gold, silver and the trade items. Maybe they are not mentioned that much. But they seem to play some significant role. This is really curious. Who are these people?
+
+
+```{r}
+head(original_text[str_detect(original_text$text, "Kuliya"), 1], 15)[4, ] %>%
+  pander::pander()
+```
+
+Kuliya is a servant of Pushuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pushuken. He takes the caravans from Kanesh and brings to the port of Ulama in the south. There he loads the cargo to the ships. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.
+
+Can we draw the anatomy of this trade network? 
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyr)
+library(igraph)
+library(ggraph)
+
+#create bigram
+oare_bigrams <- txt %>%
+  unnest_tokens(bigram, text, token = "ngrams", n = 2)
+
+#separate them
+bigrams_separated <- oare_bigrams %>%
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+#filter out stopwords
+bigrams_filtered <- bigrams_separated %>%
+  filter(!word1 %in% stop_words$word) %>%
+  filter(!word2 %in% stop_words$word) 
+
+#bigram counts:
+bigram_counts <- bigrams_filtered %>% 
+  count(word1, word2, sort = TRUE)
+
+#create a graph
+bigram_graph <- bigram_counts %>%
+  filter(n > 20) %>%
+  graph_from_data_frame()
+
+#plot the graph
+set.seed(2016)
+a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
+
+ggraph(bigram_graph, layout = "fr") +
+  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
+                 arrow = a, end_cap = circle(.07, 'inches')) +
+  geom_node_point(color = "lightblue", size = 5) +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
+  theme_void()
+```
+
+Kuliya wakes up early morning with the sound of **black >> donkeys**. They are on the way to port Ulama. 
+
+The main cargo is around 80 **kutanum >> of textiles**. It worths more than 1 **talent >> and 20 minas >> of silver** according to the tablet he is carrying with him. The letter starts with **Dear >> brothers** again. He doesn't understand why sons of Pushuken call these bastards brother all the time. 
+
+**Transport >> tariff** is 15 **shekels >> of tin**. They will report it to the **colony >> office** in Ulama when they arrive. He will deliver a huge profit to the family to clear all the **claims >> outstanding** 
+
+
+
+
+
+
+
 
 
 

@@ -490,7 +490,8 @@ ggmap(b) + geom_point(data = cities_in_text,
                      check_overlap = TRUE) + #nudge_y = -0.5) +
 theme_gdocs()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>They were using the sea ports in Timelkiya and Ulama. So we are talking about some complicated trade network here. Probably with Pharaohs of ancient Egypt, Phonecians and Mycenaeans.</p>
+<p>You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus.</p>
+<p>The people who wrote these tablets were using the sea ports in Timelkiya and Ulama. So we are talking about some complicated trade network here. Probably with Pharaohs of ancient Egypt, Phonecians and Mycenaeans.</p>
 <p><b>2018.03.11 </b></p>
 <p>We know the most frequent words in these documents. How about the most important ones? We can try tfidf here.</p>
 <pre class="r"><code>oare_words &lt;- txt %&gt;%
@@ -530,15 +531,76 @@ oare_words %&gt;%
 <pre class="r"><code>oare_words %&gt;%
   arrange(desc(tf_idf)) %&gt;%
   mutate(word = factor(word, levels = rev(unique(word)))) %&gt;% 
-  group_by(title) %&gt;% 
+  #group_by(title) %&gt;% 
   top_n(5) %&gt;% 
-  ungroup %&gt;%
+  #ungroup %&gt;%
   ggplot(aes(word, tf_idf, fill = title)) +
   geom_col(show.legend = FALSE) +
   labs(x = NULL, y = &quot;tf-idf&quot;) +
-  facet_wrap(~title, ncol = 2, scales = &quot;free&quot;) +
-  coord_flip() + theme_fivethirtyeight()</code></pre>
-<p><img src="final_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+  #facet_wrap(~title, ncol = 2, scales = &quot;free&quot;) +
+  coord_flip() + theme_gray()</code></pre>
+<p><img src="final_files/figure-html/unnamed-chunk-13-1.png" width="576" /></p>
+<p>We had ruling family names in the word frequency plot. They were the <strong>Pushuken, Assurnada and Assurmalik</strong> families.</p>
+<p>Now we have some other names being reported in tfidf plots. And by far, the most significant names are <strong>Kuliya and Aliabum</strong>. These names are more important then the powerful families according to the algorithm. They are also more important then gold, silver and the trade items. Maybe they are not mentioned that much. But they seem to play some significant role. This is really curious. Who are these people?</p>
+<pre class="r"><code>head(original_text[str_detect(original_text$text, &quot;Kuliya&quot;), 1], 15)[4, ] %&gt;%
+  pander::pander()</code></pre>
+<table style="width:44%;">
+<colgroup>
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Whoever has brought in loaded donkeys via the narrow track in order to do business over there, even when he is a resident of a karum, make him pay 3 shekels of silver per mina and let Kuliya personally bring it here.</td>
+</tr>
+</tbody>
+</table>
+<p>Kuliya is a servant of Pushuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pushuken. He takes the caravans from Kanesh and brings to the port of Ulama in the south. There he loads the cargo to the ships. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.</p>
+<p>Can we draw the anatomy of this trade network?</p>
+<pre class="r"><code>library(tidyr)
+library(igraph)
+library(ggraph)
+
+#create bigram
+oare_bigrams &lt;- txt %&gt;%
+  unnest_tokens(bigram, text, token = &quot;ngrams&quot;, n = 2)
+
+#separate them
+bigrams_separated &lt;- oare_bigrams %&gt;%
+  separate(bigram, c(&quot;word1&quot;, &quot;word2&quot;), sep = &quot; &quot;)
+
+#filter out stopwords
+bigrams_filtered &lt;- bigrams_separated %&gt;%
+  filter(!word1 %in% stop_words$word) %&gt;%
+  filter(!word2 %in% stop_words$word) 
+
+#bigram counts:
+bigram_counts &lt;- bigrams_filtered %&gt;% 
+  count(word1, word2, sort = TRUE)
+
+#create a graph
+bigram_graph &lt;- bigram_counts %&gt;%
+  filter(n &gt; 20) %&gt;%
+  graph_from_data_frame()
+
+#plot the graph
+set.seed(2016)
+a &lt;- grid::arrow(type = &quot;closed&quot;, length = unit(.15, &quot;inches&quot;))
+
+ggraph(bigram_graph, layout = &quot;fr&quot;) +
+  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
+                 arrow = a, end_cap = circle(.07, &#39;inches&#39;)) +
+  geom_node_point(color = &quot;lightblue&quot;, size = 5) +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
+  theme_void()</code></pre>
+<p><img src="final_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Kuliya wakes up early morning with the sound of <strong>black &gt;&gt; donkeys</strong>. They are on the way to port Ulama.</p>
+<p>The main cargo is around 80 <strong>kutanum &gt;&gt; of textiles</strong>. It worths more than 1 <strong>talent &gt;&gt; and 20 minas &gt;&gt; of silver</strong> according to the tablet he is carrying with him. The letter starts with <strong>Dear &gt;&gt; brothers</strong> again. He doesn’t understand why sons of Pushuken call these bastards brother all the time.</p>
+<p><strong>Transport &gt;&gt; tariff</strong> is 15 <strong>shekels &gt;&gt; of tin</strong>. They will report it to the <strong>colony &gt;&gt; office</strong> in Ulama when they arrive. He will deliver a huge profit to the family to clear all the <strong>claims &gt;&gt; outstanding</strong></p>
 </div>
 
 

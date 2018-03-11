@@ -385,14 +385,16 @@ ggraph(bigram_graph, layout = "fr") +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
 
+
 ```
+
 
 Kuliya wakes up early morning with the sound of **black >> donkeys**. They are on the way to port Ulama. 
 
 The main cargo is around 80 **kutanum >> of textiles**. It worths more than 1 **talent >> and 20 minas >> of silver** according to the tablet he is carrying with him. The letter starts with **Dear >> brothers** again. He doesn't understand why sons of Pushuken call these bastards brother all the time. 
 
 **Transport >> tariff** is 15 **shekels >> of tin**. They will report it to the **colony >> office** in Ulama when they arrive. He will deliver a huge profit to the family to clear all the **claims >> outstanding** 
-
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 

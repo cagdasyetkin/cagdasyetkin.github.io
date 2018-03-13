@@ -594,6 +594,7 @@ tidy_oare &lt;- txt %&gt;%
   ungroup() %&gt;%
   unnest_tokens(word, text)
   
+
 #build afinn bing and nrc lexicon sentiments
 afinn &lt;- tidy_oare %&gt;% 
   inner_join(get_sentiments(&quot;afinn&quot;)) %&gt;% 
@@ -632,6 +633,7 @@ tidy_oare %&gt;%
                    max.words = 50)</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-19-1.png" width="384" /></p>
 <p>Some things have never changed. These are still the major problems of a typical tradesman. <em>debts, lost - perished and broken products, delays, concerns and complaints</em></p>
+<p>xxx</p>
 </div>
 
 

@@ -411,6 +411,7 @@ ggraph(bigram_graph, layout = "fr") +
 
 This network plot is quite informative. We see the monatery system around the **silver** and the order of scale for measurement. Talent is the biggest and probably a **refined silver** is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of **colony office** is indicating a regulating superpower, most probably the Empire.
 
+
 <b>2018.03.13 </b>
 
 How do these letters feel like? Mostly positive or negative language? I found some online articles about Assyrian Emperors. Their texts are all about burning, killing, torturing and beheading. How about these?
@@ -423,6 +424,7 @@ tidy_oare <- txt %>%
   ungroup() %>%
   unnest_tokens(word, text)
   
+
 #build afinn bing and nrc lexicon sentiments
 afinn <- tidy_oare %>% 
   inner_join(get_sentiments("afinn")) %>% 
@@ -466,7 +468,7 @@ tidy_oare %>%
 
 Some things have never changed. These are still the major problems of a typical tradesman. *debts, lost - perished and broken products, delays, concerns and complaints* 
 
-
+xxx
 
 
 

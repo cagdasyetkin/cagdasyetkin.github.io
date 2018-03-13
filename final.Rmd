@@ -7,7 +7,11 @@
 
 ###I analyze a large dataset of commercial records produced by Assyrian merchants in the 19th Century BCE...
 
+This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don't have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft's Tomb Rider. On the other hand, I did some google search to give you the context and placed them here.
 
+The aim of the project is to make sense of some text which I have no idea about. However, If you give feedback I will be happy to update the post.
+
+This is about an acient language from the Bronze Age, meaning like 4000 years ago.
 
 [this is how the language sounded like...](https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker "from Gilgamesh")
 
@@ -71,6 +75,10 @@ Archeologists have escavated these tablets during the past 200 years.
 
 We will start by loading our documents. We have many unwanted words and phrases. Some simple regular expressions will help us.
 
+```{r, message=FALSE, warning=FALSE, echo=FALSE, results='hide'}
+Sys.setlocale(category = "LC_ALL", locale = "English_United States.1252")
+```
+
 ```{r, message=FALSE, warning=FALSE}
 #we have a collection of 4 documents
 library(dplyr)
@@ -101,15 +109,17 @@ txt <- txt %>%
   anti_join(txt[grep('^Creator', txt$text),])
 ```
 
-This is one way of cleaning such unwanted words... We can create a list of them.
+
+This is one way of cleaning such unwanted words... We can create a list of them, match and then anti_join easily.
 
 <b>2018.03.06 </b>
 
-This is how the list of unwanted words look like. We remove them just like we did above
+toMatch is a vector of unwanted character strings with some regular expressions just like above example.
+We remove them from our text below.
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formul", "^Creator", 
-             "^Editor", "^List", "^Introductory","^Publication", "^Physical" ,"^Chantre", 
+             "^Editor", "^List", "^Introductory","^Publication", "^Physical" ,"^Chantre", "^Broken",
              
              "^German", "^French ", "^Topic", "^“Kuzuoğlu", "^Body", "^Kayseri ",
              "^Periods", "^Kültepe", "^Karaduman", "^Kültepe", "Adana","^Seizure", 
@@ -122,7 +132,10 @@ toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formu
              "^KTH ", "^KTS ", "^KUG ", "^¢", "^LB ", "^OIP ", "^POAT ", "^RA ", "^TC ", "^TMH ",
              "^TTC ", "^VS ", "^YBC ")
 
+```
 
+```{r, message=FALSE, warning=FALSE, fig.align = 'center'}
+library(pander)
 matches <- unique (grep(paste(toMatch,collapse="|"), 
                         txt$text, value=TRUE))
 
@@ -133,7 +146,8 @@ txt <- txt %>%
 original_text <- txt # keep an untouched copy
 
 #take a look at one commercial record now
-txt[148:155, 1]
+pander(txt[149:150, 1])
+
 
 ```
 
@@ -173,7 +187,7 @@ txt %>%
   
 ```
 
-It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 minas of textile to Ibalaya for 20 shekels of silver, on behalf of Iddin-Istar.
+It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 talents of gold to Ibalaya for 200 shekels of silver, on behalf of Iddin-Istar.
 
 
 <b>2018.03.08 </b>
@@ -182,10 +196,10 @@ Looking at the frequency plot again, what does **pusuken** mean? It is repeating
 
 ```{r}
 library(stringr)
-head(original_text[str_detect(original_text$text, "Pušu-ken"), 1], 5)
+head(original_text[str_detect(original_text$text, "Pusu-ken"), 1], 5)
 ```
 
-A family business! It turns out Pushuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.
+A family business! It turns out Pusuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.
 
 Another frequent word is 'son'. Let's find out why.
 
@@ -287,7 +301,7 @@ theme_gdocs()
 
 You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus. 
 
-The people who wrote these tablets were using the sea ports in Timelkiya and Ulama. So we are talking about some complicated trade network here. Probably with Pharaohs of ancient Egypt, Phonecians and Mycenaeans.
+The people who wrote these tablets were using the sea ports in Timelkiya, Ulama and Salatuwar. So we are talking about some complicated trade network here. Probably Pharaohs of ancient Egypt, Phonecians and Mycenaeans are all playing some role.
 
 <b>2018.03.11 </b>
 
@@ -305,7 +319,7 @@ total_words <- oare_words %>%
 oare_words <- left_join(oare_words, total_words, by = 'title')
 ```
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, results='hide'}
 oare_stop_words <- data.frame(word = c("gkt", "sec", "oaa", "ca", "g"), lexicon = 'oare')
 
 oare_words <- oare_words %>%
@@ -333,21 +347,21 @@ oare_words %>%
   coord_flip() + theme_gray()
 ```
 
-We had ruling family names in the word frequency plot. They were the **Pushuken, Assurnada and Assurmalik** families. 
+We had ruling family names in the word frequency plot. They were the **Pusuken, Assurnada and Assurmalik** families. 
 
 Now we have some other names being reported in tfidf plots. And by far, the most significant names are **Kuliya and Aliabum**. These names are more important then the powerful families according to the algorithm. They are also more important then gold, silver and the trade items. Maybe they are not mentioned that much. But they seem to play some significant role. This is really curious. Who are these people?
 
 
-```{r}
+```{r, fig.align='center'}
 head(original_text[str_detect(original_text$text, "Kuliya"), 1], 15)[4, ] %>%
   pander::pander()
 ```
 
-Kuliya is a servant of Pushuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pushuken. He takes the caravans from Kanesh and brings to the port of Ulama in the south. There he loads the cargo to the ships. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.
+Kuliya is a servant of Pusuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pusuken. He takes the caravans from Kanesh and brings to the port of Ulama in the south. There he loads the cargo to the ships. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.
 
 Can we draw the anatomy of this trade network? 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.width=10}
 library(tidyr)
 library(igraph)
 library(ggraph)
@@ -371,13 +385,13 @@ bigram_counts <- bigrams_filtered %>%
 
 #create a graph
 bigram_graph <- bigram_counts %>%
-  filter(n > 20) %>%
+  filter(n > 30) %>%
   graph_from_data_frame()
 
 #plot the graph
-set.seed(2016)
-a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
 
+a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
+set.seed(2016)
 ggraph(bigram_graph, layout = "fr") +
   geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
                  arrow = a, end_cap = circle(.07, 'inches')) +
@@ -389,16 +403,68 @@ ggraph(bigram_graph, layout = "fr") +
 ```
 
 
-Kuliya wakes up early morning with the sound of **black >> donkeys**. They are on the way to port Ulama. 
+*Kuliya wakes up early morning with the sound of black >> donkeys. They are on the way to port Ulama.*
 
-The main cargo is around 80 **kutanum >> of textiles**. It worths more than 1 **talent >> and 20 minas >> of silver** according to the tablet he is carrying with him. The letter starts with **Dear >> brothers** again. He doesn't understand why sons of Pushuken call these bastards brother all the time. 
+*The main cargo is 300 kutanum >> textiles. It worths more than 10 talents >> and 50 minas >> of silver according to the tablet he is carrying with him. The letter starts with Dear >> brothers again. He doesn't understand why sons of Pusuken call these bastards brother all the time.*
 
-**Transport >> tariff** is 15 **shekels >> of tin**. They will report it to the **colony >> office** in Ulama when they arrive. He will deliver a huge profit to the family to clear all the **claims >> outstanding** 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*Transport >> tariff is 60 shekels >> of silver. They will report it to the colony >> office in Ulama when they arrive, with approved delivery notice. He will deliver a huge profit to the family to clear all the claims >> outstanding*
 
+This network plot is quite informative. We see the monatery system around the **silver** and the order of scale for measurement. Talent is the biggest and probably a **refined silver** is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of **colony office** is indicating a regulating superpower, most probably the Empire.
 
+<b>2018.03.13 </b>
 
+How do these letters feel like? Mostly positive or negative language? I found some online articles about Assyrian Emperors. Their texts are all about burning, killing, torturing and beheading. How about these?
 
+```{r, warning=FALSE, message=FALSE}
+#first get the tidy format
+tidy_oare <- txt %>%
+  group_by(title) %>%
+  mutate(linenumber = row_number()) %>%
+  ungroup() %>%
+  unnest_tokens(word, text)
+  
+#build afinn bing and nrc lexicon sentiments
+afinn <- tidy_oare %>% 
+  inner_join(get_sentiments("afinn")) %>% 
+  group_by(index = linenumber %/% 80) %>% 
+  summarise(sentiment = sum(score)) %>% 
+  mutate(method = "AFINN")
+
+bing_and_nrc <- bind_rows(tidy_oare %>% 
+                            inner_join(get_sentiments("bing")) %>%
+                            mutate(method = "Bing et al."),
+                          tidy_oare %>% 
+                            inner_join(get_sentiments("nrc") %>% 
+                                         filter(sentiment %in% c("positive", 
+                                                                 "negative"))) %>%
+                            mutate(method = "NRC")) %>%
+  count(method, index = linenumber %/% 80, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+#plot the sentiments together
+bind_rows(afinn, 
+          bing_and_nrc) %>%
+  ggplot(aes(index, sentiment, fill = method)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~method, ncol = 1, scales = "free_y") + theme_fivethirtyeight()
+```
+
+Looks like you need to be politer if you want to make some money. These are carefully written for record keeping and contain clear instructions. A few negative cases are curious. What can cause negativity in these business letters?
+
+```{r, message=FALSE, fig.width=4, fig.height=4}
+#Check the negativity using a word cloud
+library(wordcloud)
+library(reshape2)
+tidy_oare %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("gray20", "gray80"),
+                   max.words = 50)
+```
+
+Some things have never changed. These are still the major problems of a typical tradesman. *debts, lost - perished and broken products, delays, concerns and complaints* 
 
 
 

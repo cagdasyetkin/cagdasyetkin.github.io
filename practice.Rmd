@@ -35,7 +35,7 @@ lost_cities <- data.frame(cityName = c("Durhumit", "Hahhum", "Kuburnat", "Mamma"
 cities <- bind_rows(known_cities, lost_cities)
 
 
-
+#resources
 "http://www.yol-haritasi.com/cekerek-yozgat-ile-sulusaray-tokat/"
 "http://bronze-age-towns.over-blog.com/2016/08/karahna-was-the-classic-sebastopolis-the-current-sulusaray.html"
 "http://latitude.to/articles-by-country/tr/turkey/5344/hattusa"
@@ -43,9 +43,95 @@ cities <- bind_rows(known_cities, lost_cities)
 
 ```
 
+```{r}
+#we have a collection of 4 documents
+Sys.setlocale(category = "LC_ALL", locale = "English_United States.1252")
 
+#Encoding(txt$text) <- "UTF-8"
 
+library(dplyr)
+oare1 <- readLines("OARE_01.txt") %>%
+  data_frame(file = 'OARE_1') %>%
+  rename('word' = '.') 
 
+oare2 <- readLines("OARE_02.txt") %>%
+  data_frame(file = 'OARE_2') %>%
+  rename('word' = '.') 
+
+oare3 <- readLines("OARE_03.txt") %>%
+  data_frame(file = 'OARE_3') %>%
+  rename('word' = '.') 
+
+oare4 <- readLines("OARE_04.txt") %>%
+  data_frame(file = 'OARE_4') %>%
+  rename('word' = '.') 
+
+txt <- bind_rows(list(oare1, oare2, oare3, oare4)) 
+colnames(txt) <- c("text", "title")
+
+toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formul", "^Creator", 
+             "^Editor", "^List", "^Introductory","^Publication", "^Physical" ,"^Chantre", 
+             
+             "^German", "^French ", "^Topic", "^“Kuzuoğlu", "^Body", "^Kayseri ",
+             "^Periods", "^Kültepe", "^Karaduman", "^Kültepe", "Adana","^Seizure", 
+             "^Bılgıç", "^First Topic", "^AnOr", "^Garelli", "^Liège", "^Prag",
+             "^Ulshöfer", "^Burrill", "^Burton", "^Cole ", "^Eilsberger", "^hellbraunes",
+             "^Stratford", "^Rendell", "^Schaeffer", "^Struwe", "^Larsen",
+             
+             "^AAA", "^A ", "^Ac.", "^ATHE", "^BIN", "^AKT", "^AO", "OARE", "^     ", "^KTB ",
+             "^C ", "^CCT", "^CKAS", "^CTMMA", "^EL ", "^H.K. ", "^ICK ", "^JCS ", "^kt ",
+             "^KTH ", "^KTS ", "^KUG ", "^¢", "^LB ", "^OIP ", "^POAT ", "^RA ", "^TC ", "^TMH ",
+             "^TTC ", "^VS ", "^YBC ")
+
+library(pander)
+matches <- unique (grep(paste(toMatch,collapse="|"), 
+                        txt$text, value=TRUE))
+
+#removing them
+txt <- txt %>%
+  anti_join(data.frame(text = matches)) 
+
+original_text <- txt # keep an untouched copy
+
+#take a look at one commercial record now
+pander(txt[148:155, 1])
+
+library(stringr)
+str_detect(txt$text, "\u0161")
+txt$text[str_detect(txt$text, "\u0161")]
+
+txt$text <- str_replace(txt$text, "\u0161", 'š')
+
+pander(txt[148:155, 1])
+#cat('\u0161')
+#enc2utf8(as(txt$text, "š"))
+#enc2utf8(as(txt$text, '\u0161'))
+
+Å¡
+#Encoding(txt$text) <- "UTF-8"
+#Encoding(txt$text) <- "ANSI"
+#Encoding(txt$text) <- "UNICODE" 
+#Encoding(txt$text) <- "SHIFT-JIS" 
+#Encoding(txt$text) <- "latin1"
+#getOption("encoding")
+#Sys.getlocale("LC_ALL")
+#l10n_info()
+#cat('\u0161')
+```
+
+```{r}
+pander(txt[149, 1])
+```
+
+The char Å¡ is actually š. But I cant render it. 
+Looks like its code is "\u0161"
+
+```{r}
+new.locale <- ifelse(.Platform$OS.type=="windows", "Czech_Czech Republic.1250", "en_US.UTF-8")
+Sys.setlocale("LC_CTYPE", new.locale) 
+
+Sys.setlocale(category = "LC_ALL", locale = "Czech")
+```
 
 
 

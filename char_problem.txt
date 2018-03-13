@@ -1,0 +1,6 @@
+Original Sentence: I want to buy some ice cream for my friend Köaröenöi today. 
+
+This is how R reads it: I want to buy some ice cream for my friend K≈°ar≈°en≈°i today. 
+
+So ö becomes ≈°.
+

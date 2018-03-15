@@ -3,17 +3,9 @@ output_dir: '.'
 navbar:
   title: Cagdas Yetkin
   left:
-  - text: Quiz
-    href: quiz.html
   - text: Final Project
     href: final.html
-  - text: Programming
-    href: software.html
-  - text: Teaching
-    href: teaching.html
   right:
-  - icon: fa-envelope fa-lg
-    href: contact.html
   - icon: fa-github fa-lg
     href: http://github.com/cagdasyetkin
   - icon: fa-twitter fa-lg

@@ -420,7 +420,7 @@ How do these letters feel like? Mostly **positive** or **negative** language? An
 
 I am going to use a special lexicon built for modern financial analysis. I am curious how it can perform on 4000 year old commercial records.  
 
-```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=4}
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=4, message=FALSE}
 library(gridExtra)
 #first get the tidy format
 tidy_oare <- txt %>%
@@ -512,14 +512,7 @@ top_terms <- oare_topics %>%
 ```
 
 
-
-
-
-
-
-
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 

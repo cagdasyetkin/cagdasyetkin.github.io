@@ -213,7 +213,7 @@ son of Assurnada, son of Inahili, son of Iddin... Of course, these are family na
 
 Now we have a fairly good understanding of the most frequent words. Let's get a big picture of the ancient cities mentioned in our text. 
 
-Ancient city names are easily available online. We will join them with our text. Our objective is to see how many times these cities are mentioned in our text and visualize them.
+Ancient city names are easily available online. We will join their dataframe with our text. Our objective is to see how many times these cities are mentioned in our text and visualize them.
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 #Information from archeological findings
@@ -357,9 +357,9 @@ head(original_text[str_detect(original_text$text, "Kuliya"), 1], 15)[4, ] %>%
   pander::pander()
 ```
 
-Kuliya is a servant of Pusuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pusuken. He takes the caravans from Kanesh and brings to the port of Ulama in the south. There he loads the cargo to the ships. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.
+Kuliya is a servant of Pusuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pusuken. He takes the caravans from Kanesh and brings to the city of Ulama in the south. There he gives the cargo to the representatives of Sea People. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.
 
-Can we draw the anatomy of this trade network? 
+### An unsual autopsy of ancient trade records
 
 ```{r, warning=FALSE, message=FALSE, fig.width=10}
 library(tidyr)
@@ -402,8 +402,7 @@ ggraph(bigram_graph, layout = "fr") +
 
 ```
 
-
-*Kuliya wakes up early morning with the sound of black >> donkeys. They are on the way to port Ulama.*
+*Kuliya wakes up early morning with the sound of black >> donkeys. They are on the way to Ulama.*
 
 *The main cargo is 300 kutanum >> textiles. It worths more than 10 talents >> and 50 minas >> of silver according to the tablet he is carrying with him. The letter starts with Dear >> brothers again. He doesn't understand why sons of Pusuken call these bastards brother all the time.*
 
@@ -411,24 +410,33 @@ ggraph(bigram_graph, layout = "fr") +
 
 This network plot is quite informative. We see the monatery system around the **silver** and the order of scale for measurement. Talent is the biggest and probably a **refined silver** is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of **colony office** is indicating a regulating superpower, most probably the Empire.
 
+```{r}
+money <- data.frame(word = c("tin", "minas", "talent", "talents", "shekels", "mina", "refined", "silver"))
+```
 
 <b>2018.03.13 </b>
 
-How do these letters feel like? Mostly positive or negative language? I found some online articles about Assyrian Emperors. Their texts are all about burning, killing, torturing and beheading. How about these?
+How do these letters feel like? Mostly **positive** or **negative** language? And which words are contributing most to these sentiments? 
 
-```{r, warning=FALSE, message=FALSE}
+I am going to use a special lexicon built for modern financial analysis. I am curious how it can perform on 4000 year old commercial records.  
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=4}
+library(gridExtra)
 #first get the tidy format
 tidy_oare <- txt %>%
   group_by(title) %>%
-  mutate(linenumber = row_number()) %>%
   ungroup() %>%
-  unnest_tokens(word, text)
+  unnest_tokens(word, text) %>%
+  #remove silver and gold because they dont give sentiment here
+  anti_join(data.frame(word = c('silver', 'gold'))) %>% 
+  anti_join(stop_words) %>%
+  mutate(linenumber = row_number())
   
 
 #build afinn bing and nrc lexicon sentiments
 afinn <- tidy_oare %>% 
   inner_join(get_sentiments("afinn")) %>% 
-  group_by(index = linenumber %/% 80) %>% 
+  group_by(index = linenumber %/% 150) %>% 
   summarise(sentiment = sum(score)) %>% 
   mutate(method = "AFINN")
 
@@ -440,35 +448,78 @@ bing_and_nrc <- bind_rows(tidy_oare %>%
                                          filter(sentiment %in% c("positive", 
                                                                  "negative"))) %>%
                             mutate(method = "NRC")) %>%
-  count(method, index = linenumber %/% 80, sentiment) %>%
+  count(method, index = linenumber %/% 150, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
   mutate(sentiment = positive - negative)
 
 #plot the sentiments together
-bind_rows(afinn, 
-          bing_and_nrc) %>%
-  ggplot(aes(index, sentiment, fill = method)) +
-  geom_col(show.legend = FALSE) +
-  facet_wrap(~method, ncol = 1, scales = "free_y") + theme_fivethirtyeight()
+p1 <- bind_rows(afinn, 
+                bing_and_nrc) %>%
+        ggplot(aes(index, sentiment, fill = method)) +
+        geom_col(show.legend = FALSE) +
+        facet_wrap(~method, ncol = 1, scales = "free_y") + 
+        theme_fivethirtyeight() 
+        
+
+
+p2 <- tidy_oare %>%
+        count(word) %>%
+        inner_join(get_sentiments("loughran"), by = "word") %>%
+        filter(sentiment %in% c("positive", 
+                                "negative",
+                                "constrining",
+                                "uncertainty")) %>% 
+        group_by(sentiment) %>%
+        top_n(5, n) %>%
+        ungroup() %>%
+        mutate(word = reorder(word, n)) %>%
+        ggplot(aes(word, n)) +
+        geom_col() +
+        coord_flip() +
+        facet_wrap(~ sentiment, scales = "free") + theme_fivethirtyeight() +
+        theme(axis.text.x=element_blank()) + scale_fill_brewer(palette="Set3") 
+
+grid.arrange(p1, p2, ncol = 2)
+
+
 ```
 
-Looks like you need to be politer if you want to make some money. These are carefully written for record keeping and contain clear instructions. A few negative cases are curious. What can cause negativity in these business letters?
+We see that we have quite many positive sentiment as well as negatives. And the financial analysis lexicon is giving accurate matches. For example seizing someone because of his debts.
 
-```{r, message=FALSE, fig.width=4, fig.height=4}
-#Check the negativity using a word cloud
-library(wordcloud)
-library(reshape2)
-tidy_oare %>%
-  inner_join(get_sentiments("bing")) %>%
-  count(word, sentiment, sort = TRUE) %>%
-  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
-  comparison.cloud(colors = c("gray20", "gray80"),
-                   max.words = 50)
+I apllied also Topic Modeling to the text and it turns out there is only 1 topic here: Trade
+
+```{r, echo=FALSE, results='hide'}
+library(topicmodels)
+library(tm)
+#first get the tidy format
+oare_dtm <- txt %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  anti_join(money) %>%
+  count(title, word) %>%
+  cast_dtm(title, word, n)
+
+oare_lda <- LDA(oare_dtm, k = 2, control = list(seed = 1234))
+
+#per-topic-per-word probabilities
+oare_topics <- tidy(oare_lda, matrix = "beta")
+
+top_terms <- oare_topics %>%
+  group_by(topic) %>%
+  top_n(5, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
 ```
 
-Some things have never changed. These are still the major problems of a typical tradesman. *debts, lost - perished and broken products, delays, concerns and complaints* 
 
-xxx
+
+
+
+
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 

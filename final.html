@@ -388,7 +388,7 @@ head(original_text[str_detect(original_text$text, &quot;Pusu-ken&quot;), 1], 5)<
 <p>son of Assurnada, son of Inahili, son of Iddin… Of course, these are family names. That’s why it repeats a lot.</p>
 <p><b>2018.03.10 </b></p>
 <p>Now we have a fairly good understanding of the most frequent words. Let’s get a big picture of the ancient cities mentioned in our text.</p>
-<p>Ancient city names are easily available online. We will join them with our text. Our objective is to see how many times these cities are mentioned in our text and visualize them.</p>
+<p>Ancient city names are easily available online. We will join their dataframe with our text. Our objective is to see how many times these cities are mentioned in our text and visualize them.</p>
 <pre class="r"><code>library(tidyr)
 
 cities &lt;- cities %&gt;%
@@ -542,8 +542,10 @@ oare_words %&gt;%
 </tr>
 </tbody>
 </table>
-<p>Kuliya is a servant of Pusuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pusuken. He takes the caravans from Kanesh and brings to the port of Ulama in the south. There he loads the cargo to the ships. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.</p>
-<p>Can we draw the anatomy of this trade network?</p>
+<p>Kuliya is a servant of Pusuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pusuken. He takes the caravans from Kanesh and brings to the city of Ulama in the south. There he gives the cargo to the representatives of Sea People. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.</p>
+</div>
+<div id="an-unsual-autopsy-of-ancient-trade-records" class="section level3">
+<h3>An unsual autopsy of ancient trade records</h3>
 <pre class="r"><code>library(tidyr)
 library(igraph)
 library(ggraph)
@@ -581,24 +583,30 @@ ggraph(bigram_graph, layout = &quot;fr&quot;) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-17-1.png" width="960" /></p>
-<p><em>Kuliya wakes up early morning with the sound of black &gt;&gt; donkeys. They are on the way to port Ulama.</em></p>
+<p><em>Kuliya wakes up early morning with the sound of black &gt;&gt; donkeys. They are on the way to Ulama.</em></p>
 <p><em>The main cargo is 300 kutanum &gt;&gt; textiles. It worths more than 10 talents &gt;&gt; and 50 minas &gt;&gt; of silver according to the tablet he is carrying with him. The letter starts with Dear &gt;&gt; brothers again. He doesn’t understand why sons of Pusuken call these bastards brother all the time.</em></p>
 <p><em>Transport &gt;&gt; tariff is 60 shekels &gt;&gt; of silver. They will report it to the colony &gt;&gt; office in Ulama when they arrive, with approved delivery notice. He will deliver a huge profit to the family to clear all the claims &gt;&gt; outstanding</em></p>
 <p>This network plot is quite informative. We see the monatery system around the <strong>silver</strong> and the order of scale for measurement. Talent is the biggest and probably a <strong>refined silver</strong> is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of <strong>colony office</strong> is indicating a regulating superpower, most probably the Empire.</p>
+<pre class="r"><code>money &lt;- data.frame(word = c(&quot;tin&quot;, &quot;minas&quot;, &quot;talent&quot;, &quot;talents&quot;, &quot;shekels&quot;, &quot;mina&quot;, &quot;refined&quot;, &quot;silver&quot;))</code></pre>
 <p><b>2018.03.13 </b></p>
-<p>How do these letters feel like? Mostly positive or negative language? I found some online articles about Assyrian Emperors. Their texts are all about burning, killing, torturing and beheading. How about these?</p>
-<pre class="r"><code>#first get the tidy format
+<p>How do these letters feel like? Mostly <strong>positive</strong> or <strong>negative</strong> language? And which words are contributing most to these sentiments?</p>
+<p>I am going to use a special lexicon built for modern financial analysis. I am curious how it can perform on 4000 year old commercial records.</p>
+<pre class="r"><code>library(gridExtra)
+#first get the tidy format
 tidy_oare &lt;- txt %&gt;%
   group_by(title) %&gt;%
-  mutate(linenumber = row_number()) %&gt;%
   ungroup() %&gt;%
-  unnest_tokens(word, text)
+  unnest_tokens(word, text) %&gt;%
+  #remove silver and gold because they dont give sentiment here
+  anti_join(data.frame(word = c(&#39;silver&#39;, &#39;gold&#39;))) %&gt;% 
+  anti_join(stop_words) %&gt;%
+  mutate(linenumber = row_number())
   
 
 #build afinn bing and nrc lexicon sentiments
 afinn &lt;- tidy_oare %&gt;% 
   inner_join(get_sentiments(&quot;afinn&quot;)) %&gt;% 
-  group_by(index = linenumber %/% 80) %&gt;% 
+  group_by(index = linenumber %/% 150) %&gt;% 
   summarise(sentiment = sum(score)) %&gt;% 
   mutate(method = &quot;AFINN&quot;)
 
@@ -610,30 +618,46 @@ bing_and_nrc &lt;- bind_rows(tidy_oare %&gt;%
                                          filter(sentiment %in% c(&quot;positive&quot;, 
                                                                  &quot;negative&quot;))) %&gt;%
                             mutate(method = &quot;NRC&quot;)) %&gt;%
-  count(method, index = linenumber %/% 80, sentiment) %&gt;%
+  count(method, index = linenumber %/% 150, sentiment) %&gt;%
   spread(sentiment, n, fill = 0) %&gt;%
   mutate(sentiment = positive - negative)
 
 #plot the sentiments together
-bind_rows(afinn, 
-          bing_and_nrc) %&gt;%
-  ggplot(aes(index, sentiment, fill = method)) +
-  geom_col(show.legend = FALSE) +
-  facet_wrap(~method, ncol = 1, scales = &quot;free_y&quot;) + theme_fivethirtyeight()</code></pre>
-<p><img src="final_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<p>Looks like you need to be politer if you want to make some money. These are carefully written for record keeping and contain clear instructions. A few negative cases are curious. What can cause negativity in these business letters?</p>
-<pre class="r"><code>#Check the negativity using a word cloud
-library(wordcloud)
-library(reshape2)
-tidy_oare %&gt;%
-  inner_join(get_sentiments(&quot;bing&quot;)) %&gt;%
-  count(word, sentiment, sort = TRUE) %&gt;%
-  acast(word ~ sentiment, value.var = &quot;n&quot;, fill = 0) %&gt;%
-  comparison.cloud(colors = c(&quot;gray20&quot;, &quot;gray80&quot;),
-                   max.words = 50)</code></pre>
-<p><img src="final_files/figure-html/unnamed-chunk-19-1.png" width="384" /></p>
-<p>Some things have never changed. These are still the major problems of a typical tradesman. <em>debts, lost - perished and broken products, delays, concerns and complaints</em></p>
-<p>xxx</p>
+p1 &lt;- bind_rows(afinn, 
+                bing_and_nrc) %&gt;%
+        ggplot(aes(index, sentiment, fill = method)) +
+        geom_col(show.legend = FALSE) +
+        facet_wrap(~method, ncol = 1, scales = &quot;free_y&quot;) + 
+        theme_fivethirtyeight() 
+        
+
+
+p2 &lt;- tidy_oare %&gt;%
+        count(word) %&gt;%
+        inner_join(get_sentiments(&quot;loughran&quot;), by = &quot;word&quot;) %&gt;%
+        filter(sentiment %in% c(&quot;positive&quot;, 
+                                &quot;negative&quot;,
+                                &quot;constrining&quot;,
+                                &quot;uncertainty&quot;)) %&gt;% 
+        group_by(sentiment) %&gt;%
+        top_n(5, n) %&gt;%
+        ungroup() %&gt;%
+        mutate(word = reorder(word, n)) %&gt;%
+        ggplot(aes(word, n)) +
+        geom_col() +
+        coord_flip() +
+        facet_wrap(~ sentiment, scales = &quot;free&quot;) + theme_fivethirtyeight() +
+        theme(axis.text.x=element_blank()) + scale_fill_brewer(palette=&quot;Set3&quot;) 
+
+grid.arrange(p1, p2, ncol = 2)</code></pre>
+<p><img src="final_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
+<p>We see that we have quite many positive sentiment as well as negatives. And the financial analysis lexicon is giving accurate matches. For example seizing someone because of his debts.</p>
+<p>I apllied also Topic Modeling to the text and it turns out there is only 1 topic here: Trade</p>
+<pre><code>## Joining, by = &quot;word&quot;
+## Joining, by = &quot;word&quot;</code></pre>
+<pre><code>## Warning: Column `word` joining character vector and factor, coercing into
+## character vector</code></pre>
+<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 </div>
 
 

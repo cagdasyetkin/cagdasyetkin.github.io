@@ -44,6 +44,20 @@ cities <- bind_rows(known_cities, lost_cities)
 ```
 
 
+```{r}
+#to and from combination of cities
+#how many times *to city* and *from city*  and *in city* and *at city*
+#for example city of kanes
+```
+
+
+
+
+
+
+
+
+
 
 
 

@@ -58,7 +58,7 @@ Translation
 20-23
 Out of the 30 minas of lapis lazuli owned jointly by su-Illil, Assur-malik, myself and Amur-Istar, 
  23-24i.e. out of all of the lapis lazuli,  24-27I checked 5 minas of lapis lazuli and a seal costing 1/3 mina (of silver) was deposited with it. 
-27-30He said: "I shall sell these either in Kanes or in Hahhum, and I shall acquire silver for you." 
+27-30He said: "I shall sell these either in Kanesh or in Hahhum, and I shall acquire silver for you." 
 31-38Please, the man must not cheat you, so when you make the division, if he has not brought the lapis lazuli carried by him, has not deposited it in front of you, so that you have not (been able) to send it jointly, or divided it, then do not favour the man with any extras! 
 38-39The lapis lazuli carried by him is of outstanding quality. 
 
@@ -830,7 +830,7 @@ Translation
 Epistolary Formula
 1-3From the council of ten of Buruddum to Pusu-ken; 
 Pleading for representation
-3-5The ten-person council from simala is seized in a disagreement with us(?) 5-14Our dear brother, if any of the trusted ones(?) have written to the colony office at Kanes, return a (good) word on our behalf and let your message come. 
+3-5The ten-person council from simala is seized in a disagreement with us(?) 5-14Our dear brother, if any of the trusted ones(?) have written to the colony office at Kanesh, return a (good) word on our behalf and let your message come. 
 15Inform us. 16-20Our dear brother, we are taking care to send your youth on his way. 
 
  
@@ -1583,7 +1583,7 @@ Translation
 Epistolary Formula
 1-5To Pusu-ken, Zupa, Puzur-Assur, Assur-tukulti and Assur-saduni from Lamassatum; 
 First Topic
-6-14If you are truly my fathers, to as many tablets of the city, which are in the houses at Kanes, either maids or tablets or wherever there is a single shekels of silver, take care to seal it and send it to me. 
+6-14If you are truly my fathers, to as many tablets of the city, which are in the houses at Kanesh, either maids or tablets or wherever there is a single shekels of silver, take care to seal it and send it to me. 
 14-17Urgent, Adad-bani and ... you must not sell the textiles (nominative!) for a price. 18-27Assist the attorney according to the tablet of the city and take/receive the tablet of karum Kanesh (into?) the tablet of the city and send him to Wahsusana to Amriya.  
 27He must not be delayed! 
 
@@ -1930,7 +1930,7 @@ Second Transaction
 Third Transaction
 27-30Seals: salim-Istar son of Turam-Adad, Qatatia son of Isuhim, Assur-imitti son of Anninum, Sueyya son of Pusu-ken. 
 31-33Sueyya son of Pusu-ken owes Assur-mutabbil his brother 2 minas 8 shekels refined silver. 34-38From the hamustum-week of suli, month hubur, limmum Akutum, he will add as interest 1 1/2 shekels per mina per month. 
-38-39He will pay the silver in Kanes. 39-41As for the exchange value of the three tablets of Sueyya, concerning ... the crossed overland ... 
+38-39He will pay the silver in Kanesh. 39-41As for the exchange value of the three tablets of Sueyya, concerning ... the crossed overland ... 
 
  
 CCT 5 23c
@@ -1959,7 +1959,7 @@ Primary Classification:  Text
 Translation
 Body
 1-12
-In accordance with the tablet stating that the twin brother of su-Kubum owes silver to Assur-idi, Daganya will go to Assur-nada in Kanes within a month, and pay.
+In accordance with the tablet stating that the twin brother of su-Kubum owes silver to Assur-idi, Daganya will go to Assur-nada in Kanesh within a month, and pay.
  12-16
 If he has not paid, he must add interest in accordance with the rule of the colony. 
  16-17I gave him ... 18-19Witnessed by Alahum, witnessed by Assur-bel[- ... ] 
@@ -2040,7 +2040,7 @@ To Elamma's shareholders and Elamma's representatives from  Assur-?ululi, Ikuppi
  
 Body
 8-13You have written, saying: "Open the strong-room in Elamma's house there, and seal both whatever silver is there and the copper there and send it here!" 
-13-26Before Ilabrat-bani, Ennam-Assur and Abu-salim arrived from Kanes the sons of Hinnaya had opened the strong-room and taken a certified tablet concerning 21 minas of silver, the debt of Adad-?ululi and Iddin-Istar son of Assur-nada. 
+13-26Before Ilabrat-bani, Ennam-Assur and Abu-salim arrived from Kanesh the sons of Hinnaya had opened the strong-room and taken a certified tablet concerning 21 minas of silver, the debt of Adad-?ululi and Iddin-Istar son of Assur-nada. 
 26-28
 They said: "We take responsibility for any complaint by the shareholders."
  28-33When they opened the strong-room they let a group of five strangers enter and had them (re-)seal; and they themselves sealed together with them.  
@@ -2083,7 +2083,7 @@ Body
 When there was an opportunity (to invest) 15 kutanu-textiles, Assur-nada deposited 1 1/2 kutanu-textile; the limmu-officials were Amur-Istar and Ilabrat-bani.
  17-211 kutanu-textile on the account of our father, 1 kutanu-textile on the account of Assur-nada Assur-taklaku deposited when there was an opportunity to invest. 
 22-29
-3 shekels of silver for the 5 percent tax on textiles in Burushaddum; 4 shekels of silver for the tithe in Kanes has been booked for Assur-taklaku in Kanes,
+3 shekels of silver for the 5 percent tax on textiles in Burushaddum; 4 shekels of silver for the tithe in Kanesh has been booked for Assur-taklaku in Kanesh,
 and from the enterprise of Kasia I shall receive it for the fund of the enterprise.
  
 
@@ -2259,7 +2259,7 @@ Epistolary Formula
 First topic
 4-5To Qarwiya and Assur-dan: 5You wrote me. 6-12You said, "We asked Assur-nada and the son of Elama for the silver. They said, 'Wherever silver here to Durhumit we arrive and we will send the silver and seal it and send it to him.'" 
 After you wrote to me, third year for the taking of the silver -- should Assur-dan go after after them and he casued them to pay. ??? 
-19-20Bad or good, who in Kanes will do anything on my behalf? 21-24Now, you wrote me regarding the 15 1/2 minas silver which Elama promised to pay to La-qepum. 
+19-20Bad or good, who in Kanesh will do anything on my behalf? 21-24Now, you wrote me regarding the 15 1/2 minas silver which Elama promised to pay to La-qepum. 
 24-27You said, "The representative of Elama said, 'Let him bring out his witnesses so that he can take his silver.'" 
 27-29Of the third my witness tablet at the gate of the gods you did not take! 30-33For the 20 minas silver which I gave to him or at the gate of the Alahhinum, I will not prosecute him in the presence of Assur-malik son of Al-ahum. 
 34-35I said, "Take heed to send me the silver quickly!" 35-37Why is it that your full message has not come nor have you sent the silver of my tin? 

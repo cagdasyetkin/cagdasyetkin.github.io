@@ -3,6 +3,10 @@ output_dir: '.'
 navbar:
   title: Cagdas Yetkin
   left:
+  - text: Home
+    href: index.html
+  - text: Quiz
+    href: quiz.html
   - text: Final Project
     href: final.html
   right:

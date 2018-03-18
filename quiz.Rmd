@@ -3,6 +3,9 @@
 ---
 
 
+This section contains the 3 Quizes we had during the Unstructured Text Data Course
+ 
+
 <b>Quiz 3, Submitted 2018.25.02 </b>
 
 1. In your own words describe LDA

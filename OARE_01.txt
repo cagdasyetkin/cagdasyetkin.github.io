@@ -225,7 +225,7 @@ And the one who resolved my dispute was Ennam-Assur, so do not seize any
 copper, and without any (authorisation) the tamkarum must not appropriate the 15 1/2 talents of
 copper for which I hold a certified tablet, lest you let it get out of my reach. 25-27As for the rest of the copper, 10 talents from Kunanamit plus the 6 donkeys, I said: 
 27-28"Come, I shall pay you"-so I trusted you, but you cheated me, saying: 29-30"I shall lay claim to the 10 talents of copper and the 6 donkeys, 
-30-33turn that into copper of good quality in Durhumit, bring it to Kanes and your representatives will pay me in full in silver." 
+30-33turn that into copper of good quality in Durhumit, bring it to Kanesh and your representatives will pay me in full in silver." 
 33-34I did not payout the copper and the donkeys to you. 34-35Why did you then say: 35"I have been paid." 
 36The donkeys belong to Ikuppia! 36-37Release the donkeys to him! 37-38For the rest of your silver I shall personally guarantee for you. 
 38-39may Assur and Amurrum, the gods of our fathers, know: 40-42on top of the fact that I guaranteed for your joint-stock capital, it was no stranger who denounced me! 
@@ -3142,7 +3142,7 @@ Translation
 Introductory Formula
 1-2To Assur-imitti son of Ennanim, thus Pusu-ken: 
 Discussing the matter of a caravan arrangement
-3Your awitum valuation is 5 talents 20 minas. 4-5The datum tax up to Kanes is 5 2/3 minas at a 5 shekel rate. 
+3Your awitum valuation is 5 talents 20 minas. 4-5The datum tax up to Kanesh is 5 2/3 minas at a 5 shekel rate. 
 6A datum assessment fell at 30 2/3 minas (tin?) . 7-8The head-tax on the drivers was 15 shekels. 8-9The tasiatum of the sA.TU was 1/2 mina. 
 9-10The As-a-dum feed of the drivers was 1/2 mina. 11-12The excise-tax of the palace was 8 minas. 12-14The deficiencies of your packs (and your hand tin?) was 11 1/3 minas. 
 14-18X from 4 talents 40 minas together with your hand tin- 51 minas 15 shekels was expended. 18-20I deducted it and they cleared 3 talents 48 minas and 45 shekels of your tin. 
@@ -3325,7 +3325,8 @@ Primary Classification:  Text
 Translation
 Introductory Formula 1-3To Alahum and Assur-taklaku from Assur-nada: 
 Body 4-10Whatever silver and gold they will send to you from Durhumit, add that to what (I owe) on goods entrusted to me, and if Ili-alum (is there), then certainly it is agreed. 
-10-12I hear that Iddin-Suen wishes to meet us. 12-18Let him leave his maid in Kanes and send himself to the City, and let him reach me to be available in Kanes. 
+10-12I hear that Iddin-Suen wishes to meet us. 12-18Let him leave his maid in Kanesh
+ and send himself to the City, and let him reach me to be available in Kanesh. 
 19-24If Alahum is not there, then let his representatives act as witnesses, and let our jointly owned silver pass overland in the name of us both. 
 25-28Hannanum son of Ikuppiya, grandson of Ikua, is on his way with 10 minas of refined silver that belongs to us both. 
 29-33Deposit its import duty and its transport tariff (with money taken) from my silver or from the price of my textiles, and let the amount go for us both. 
@@ -3630,12 +3631,12 @@ Introductory Formula
 1-2To Assur-nada from sarrat-Istar: 
 Body
 3Zuba brings [x] textiles to you. 4-51 belt for you, 1 belt for ...  6-7Sell the 4 sakkuku-belts one by one.  
-8-9The undergarment is for the maid in Kanes. 10-112 textiles cost 37 minas of copper. I bought them from ... the textiles. 
+8-9The undergarment is for the maid in Kanesh. 10-112 textiles cost 37 minas of copper. I bought them from ... the textiles. 
 I sold 1 textile for silver ....
 As much as .. .
  Kurub-Istar ... is deposited with you. I have said nothing to him. I have ... the man. 19Set out and come. 
 20-21All this Zuba brings to you. 22-231/2 mina 5 shekels of silver Ennam-Assur brought me. 24-255 shekels of silver and 3 shekels of gold Puzur-Istar brought me. 
-26-275 shekels of silver and 5 minas of copper ?ab-?ill-Assur brought me. 28-29I shall love your maid who is with you in Kanes. 
+26-275 shekels of silver and 5 minas of copper ?ab-?ill-Assur brought me. 28-29I shall love your maid who is with you in Kanesh. 
 
  
 BIN 4 92
@@ -4405,7 +4406,7 @@ Epistolary Formula
 Reporting on the disposition of caravan holding
 2-74 talents 20 minas tin under seal, 105 kutanum-textiles, 3 kutanum-textiles belongning to Ennanum, 8 surum-textiles wrappings, 6 black donkeys, 40 minas 'hand-tin', altogether your awitum is 9 talents. 
 7-9The datum-payment to Timelkiya accrued to 3 2/3 minas silver (at a 2 shekel rate), 33 1/3 minas (tin). 
-9-10From Timelkiya to Kanes at 1/2 shekel rate, it accrued 1 minas 25 1/2 shekels (silver). 
+9-10From Timelkiya to Kanesh at 1/2 shekel rate, it accrued 1 minas 25 1/2 shekels (silver). 
 Broken Section
 Enumeration of expenses
 19-20Buzutaya received 2 surum-textiles (and) 1 talent tin under seal. 20-22The remainder of your textiles, 5 kutanum-textiles and 2 surum-textiles are available in your account. 

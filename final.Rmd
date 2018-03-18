@@ -7,7 +7,7 @@
 
 ###I analyze a large dataset of commercial records produced by Assyrian merchants in the 19th Century BCE...
 
-This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don't have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft's Tomb Rider. On the other hand, I did some google search to give you the context and placed them here.
+This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don't have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft's Tomb Raider. On the other hand, I did some google search to give you the context and placed them here.
 
 The aim of the project is to make sense of some text which I have no idea about. However, If you give feedback I will be happy to update the post.
 
@@ -73,7 +73,7 @@ Archeologists have escavated these tablets during the past 200 years.
 
 <b>2018.03.05 </b>
 
-We will start by loading our documents. We have many unwanted words and phrases. Some simple regular expressions will help us.
+We will start by loading our documents. 
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, results='hide'}
 Sys.setlocale(category = "LC_ALL", locale = "English_United States.1252")
@@ -100,7 +100,16 @@ oare4 <- readLines("OARE_04.txt") %>%
 
 txt <- bind_rows(list(oare1, oare2, oare3, oare4)) 
 colnames(txt) <- c("text", "title")
+```
 
+How many tablets do we have? We can simply count the Creators.
+```{r}
+library(stringr)
+str_c("We have ", nrow(txt[grep('^Creator', txt$text),]), " tablets")
+```
+
+We have many unwanted words and phrases. Some simple regular expressions will help us.
+```{r, message=FALSE, warning=FALSE}
 #see the lines give the information regarding the Creator of the record
 head(txt[grep('^Creator', txt$text),], 3)
 
@@ -164,7 +173,8 @@ library(tm)
 
 txt$text <- txt$text %>%
   removeNumbers() %>%
-  removePunctuation() %>% #in fact unnest_tokens function is handling this
+  removePunctuation() %>%
+  tolower() %>% #in fact unnest_tokens function handling this
   stripWhitespace()
 
 ```
@@ -195,7 +205,6 @@ It looks like these people were sending and receiving textiles, tin and copper. 
 Looking at the frequency plot again, what does **pusuken** mean? It is repeating more than 500 times...
 
 ```{r}
-library(stringr)
 head(original_text[str_detect(original_text$text, "Pusu-ken"), 1], 5)
 ```
 
@@ -261,22 +270,54 @@ cities <- cities %>%
 cities$n <- replace_na(cities$n, 0)
 ```
 
+
 ```{r}
-cities %>%
+cities <- cities %>%
   select(cityName, latitude, longitude, n) %>%
   rename(Occurance_In_Text = n) %>%
-  arrange(desc(Occurance_In_Text)) %>%
-  head() %>%
-  pander::pander()
+  arrange(desc(Occurance_In_Text))
 
 #cities to plot
 cities_in_text <- cities %>%
-  filter(n > 0)
+  filter(Occurance_In_Text > 0) 
+
 ```
 
-The city of Kanesh is our biggest hub. Probably a capital city. Our famous Pusheken family must have lived here.
 
-```{r, message=FALSE, warning=FALSE, fig.width=7,fig.height=4}
+We can create a data structure to understand the co occurance of these cities with words like "to" and "from". It can give us a **naive** estimate of goods and services coming in and out. "to" stands for import, "from" stands for export, summation of "in"+"at" stands for inventory.
+
+####Trading Power = **EXPORT** + **INVENTORY** - **IMPORT** 
+
+```{r}
+pointer <- c("to", "from", "in", "at")
+
+for(j in 1:length(pointer)) {
+
+      for(i in 1:length(cities_in_text$cityName)) {
+            
+                cities_in_text[i, pointer[j]] <- nrow(txt[grep(
+                      
+                                str_c(pointer[j], ' ', cities_in_text$cityName[i]), 
+                                                     
+                                txt$text), ])}
+                               }
+
+cities_in_text <- cities_in_text %>%
+                    mutate(import = to,
+                           export = from,
+                           inventory = `in` + at,
+                           trade_power = export + inventory - import) %>%
+                    select(cityName, Occurance_In_Text, trade_power, latitude, longitude) %>%
+                    arrange(desc(trade_power))
+
+cities_in_text %>%
+  select(cityName, Occurance_In_Text, trade_power) %>%
+  head() %>%
+  pander::pander()
+
+```
+
+```{r, message=FALSE, warning=FALSE, fig.width=8,fig.height=5}
 library(ggmap)
 library(ggthemes)
 
@@ -288,24 +329,29 @@ b <- get_map(bbox,maptype="watercolor",source="google")
 
 #plot the cities mentioned in the text
 ggmap(b) + geom_point(data = cities_in_text, 
-           aes(longitude, latitude, size=n),alpha=0.2, show.legend = F) +
-           scale_size_continuous(range = c(3, 10)) +
+           aes(longitude, latitude, size=trade_power),alpha=0.2, show.legend = F) +
+           scale_size_continuous(range = c(4, 15)) +
   
            labs(x = "Longitude", y = "Latitude",
-           title="City Locations / Size = Occurance in Text", color = "Type") +
+           title="City Locations and their Trading Power", color = "Type") +
   
            geom_text(data = cities_in_text, aes(longitude, latitude, label = cityName), 
                      check_overlap = TRUE) + 
 theme_gdocs()
+
 ```
+
 
 You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus. 
 
-The people who wrote these tablets were using the sea ports in Timelkiya, Ulama and Salatuwar. So we are talking about some complicated trade network here. Probably Pharaohs of ancient Egypt, Phonecians and Mycenaeans are all playing some role.
+The city of Kanesh is our biggest hub. Probably a capital city. And our famous Pusuken family have lived here.
+
+The people who wrote these tablets had access to the sea ports in the south. So we are talking about some complicated trade network here. Probably Pharaohs of ancient Egypt, Phonecians and Mycenaeans are all playing a role at some point.
 
 <b>2018.03.11 </b>
 
 We know the most frequent words in these documents. How about the most important ones? We can try tfidf here.
+
 ```{r}
 oare_words <- txt %>%
   unnest_tokens(word, text) %>%
@@ -346,6 +392,8 @@ oare_words %>%
   #facet_wrap(~title, ncol = 2, scales = "free") +
   coord_flip() + theme_gray()
 ```
+
+tf-idf algorithm decreases the weight for commonly used words and increases the weight for words that are not used very much. 
 
 We had ruling family names in the word frequency plot. They were the **Pusuken, Assurnada and Assurmalik** families. 
 
@@ -418,9 +466,11 @@ money <- data.frame(word = c("tin", "minas", "talent", "talents", "shekels", "mi
 
 How do these letters feel like? Mostly **positive** or **negative** language? And which words are contributing most to these sentiments? 
 
-I am going to use a special lexicon built for modern financial analysis. I am curious how it can perform on 4000 year old commercial records.  
+I am going to use a special lexicon built for modern financial analysis. This is a kind of lexicon which you can expect to see in an analysis of stock market trading. 
 
-```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=4, message=FALSE}
+I am curious how it can perform on 4000 year old commercial records.  
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=4}
 library(gridExtra)
 #first get the tidy format
 tidy_oare <- txt %>%
@@ -486,7 +536,7 @@ grid.arrange(p1, p2, ncol = 2)
 
 We see that we have quite many positive sentiment as well as negatives. And the financial analysis lexicon is giving accurate matches. For example seizing someone because of his debts.
 
-I apllied also Topic Modeling to the text and it turns out there is only 1 topic here: Trade
+
 
 ```{r, echo=FALSE, results='hide'}
 library(topicmodels)

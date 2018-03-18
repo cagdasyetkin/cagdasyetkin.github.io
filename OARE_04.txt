@@ -360,7 +360,7 @@ Body
 26-27He should then say: "The silver belongs to a tamkarum. 27-29Colleagues need not set witnesses for each other." 
 29-31Please, please! take care not to make me angry! 32-33If you are afraid (to go) to Hahhum, then go to Ursu instead. 
 34-35Please, please! Go alone!  35-36Do not enter Mamma together with the caravan! 37-44
-Further, in accordance with the orders of the City assembly your brother's caravan must be divided into three parts, so that the first may leave Mamma, and as soon as it has reached the land of Kanes, then the second will leave Ursu.
+Further, in accordance with the orders of the City assembly your brother's caravan must be divided into three parts, so that the first may leave Mamma, and as soon as it has reached the land of Kanesh, then the second will leave Ursu.
  45-46The third can then leave in the same way. 47-49
 Please, if you love me, pay heed to the words of the letter, and do not make me angry!
  
@@ -754,7 +754,7 @@ Translation
 Witnesses
 1-9Seal of ?ab-?illa-Assur son of su-Nunu, seal of su-Laban son of Al-?ab, seal of Pilah-Istar son of Assur-bani, seal of Anina son of U?ur-sa-Assur, seal of Idi-abum son of Assur-malik, seal of Sueyya son of Pusu-ken, seal of Buzazu son of Pusu-ken, seal of Ikuppasa son of Pusu-ken, seal of Ahaha daugher of Pusu-ken. 
 Settlement
-10-18The sons of Pusu-ken and the daughter of Pusu-ken, the ugbabtum-priestess, will not return to (did not return to?) their brother Assur mutabbil for the silver--the 40 minas silver which Ikuppiya son of Attaya owed to Pusu-ken in Kanes and Assur-mutabbil and which Belanum the attorney received. 
+10-18The sons of Pusu-ken and the daughter of Pusu-ken, the ugbabtum-priestess, will not return to (did not return to?) their brother Assur mutabbil for the silver--the 40 minas silver which Ikuppiya son of Attaya owed to Pusu-ken in Kanes h and Assur-mutabbil and which Belanum the attorney received. 
 18-23Now, right at his ascent to Kanesh, the sons of Pus-ken and the daughter of Pusu-ken, the ugbabtum-priestess, will give the tablet stating the debt of Ikuppiya son of Attaya to Assur-mutabbil. 
 24-26According to the verdict of the city, the sons of Pusu-ken and the daughter of Pusu-ken are paid (their) silver in full. 
 Note about representation
@@ -952,7 +952,7 @@ Translation
 Epistolary Formula
 1-2To Pusu-ken from Amur-Istar: 
 Discussing complicated matters
-3-10According to your message, regarding the 43 minas of tin which are brought to you and the 9 kutanum-textiles which you sent from Kanes, I said, "As for me, the man wrote to me. I did not strike(?) the share." 
+3-10According to your message, regarding the 43 minas of tin which are brought to you and the 9 kutanum-textiles which you sent from Kanesh, I said, "As for me, the man wrote to me. I did not strike(?) the share." 
 10-17I did my best with about a mina of silver of my own funds and I wrote a tablet which stated '10 minas of refined silver in the presence of Asina, the affiliated trader' and suluma brings it to you under his seal and my seal. 
 17-19My dear father, take care to send my textiles to Purushattum. 20-24I will take care to clear my own funds and come to you in Kanesh so that at that time you will open the tablets referring to the matters about which I wrote you. 
 25-28Becasue the matters do not 'go out' to justice, I did not inform those matters which were written in your letters. 
@@ -1140,7 +1140,7 @@ Translation
 Epistolary Formula
 1-2salim-ahum to Pusu-ken: 
 Relating the particulars of an arrangement
-3-6Puzur-Istar son of Assur-malik owes me 2/3 minas pasallum-gold from the journey to the city. 6-8He promised to pay upon his arrival in Kanes. 
+3-6Puzur-Istar son of Assur-malik owes me 2/3 minas pasallum-gold from the journey to the city. 6-8He promised to pay upon his arrival in Kanesh. 
 8-15Now, I personally gave you a copy of his certified tablet, (saying) “As for the man, there, he will pay in installments severally at his arrival. Travel overland, seize him, and make (him) pay the gold.” 
 16-17You said, "I will send it to you with PN son of su-Istar." 
 Making requests
@@ -1250,7 +1250,7 @@ Creator(s): Stratford, Edward P.
 Translation
 Stipulations
 1-121 talent tin which su-hubur gave to Il-bani son of Puzur-Istar, after Il-bani arrives in Kanesh, it will go for 15 months and he will pay 10 minas silver to Pusu-ken, the representative of su-hubur. 
-13-15He will pay the silver of su-hubur in Kanes. 
+13-15He will pay the silver of su-hubur in Kanesh. 
 Witnesses
 17-19In the presence of Kunania, Isme-Assur, and Uzuwa 
 
@@ -1556,7 +1556,7 @@ Primary Classification:  Text
 
 Translation
 Body 
-1-3Seal of Atata, seal of Mezini, seal of sarmama, seal of Ninni. 4-15Concerning 21 sacks of wheat (and) 20 of barley, (which) Ninni owes to Assur-nada--she will measure it out with my own pot-measure; if she has not measured it out at harvest time she will pay interest in accordance with the regulations of Kanes. 
+1-3Seal of Atata, seal of Mezini, seal of sarmama, seal of Ninni. 4-15Concerning 21 sacks of wheat (and) 20 of barley, (which) Ninni owes to Assur-nada--she will measure it out with my own pot-measure; if she has not measured it out at harvest time she will pay interest in accordance with the regulations of Kanesh. 
 
  
 TC 3 24
@@ -1676,7 +1676,7 @@ Decision
 TC 3 28
 logosyllabic, Akkadian
 Creator(s): Stratford, Edward P.
-This letter is particularly interesting becasue of the relationship it highlights between Pusu-ken and the traveller. Somewhere in Anatolia, Ahu-waqar is making his way, perhaps back toward Kanes. During the journey, it seems that he was waylaid while his donkeys were at teh disposal of an Ennam-Assur, who had taken them to a guard post or the like. When Ennam-Assur returned, he pressed Ahu-waqar to change the situation between himself and Pusu-ken. Ennam-Assur held Ahu-waqar's hem or fringe,of siginificant legal importance, which rendered Ahu-waqar stuck. Pusu-ken and Ennam-Assur had a dispute over silver, and he was using Ahu-waqar, successfully, as leverage. The tone of Ahu-waqar's letter reveals the interesting thing about the interchange. Though Ennam-Assur coudl apparently tie Ahu-waqar close enough to force Pusu-ken to negotiate over the matter, Ahu-waqar still felt a need to importune Pusu-ken for help, explaining that he needed to be on his way, as though his interests were not necessarily obvious to Pusu-ken.
+This letter is particularly interesting becasue of the relationship it highlights between Pusu-ken and the traveller. Somewhere in Anatolia, Ahu-waqar is making his way, perhaps back toward Kanesh. During the journey, it seems that he was waylaid while his donkeys were at teh disposal of an Ennam-Assur, who had taken them to a guard post or the like. When Ennam-Assur returned, he pressed Ahu-waqar to change the situation between himself and Pusu-ken. Ennam-Assur held Ahu-waqar's hem or fringe,of siginificant legal importance, which rendered Ahu-waqar stuck. Pusu-ken and Ennam-Assur had a dispute over silver, and he was using Ahu-waqar, successfully, as leverage. The tone of Ahu-waqar's letter reveals the interesting thing about the interchange. Though Ennam-Assur coudl apparently tie Ahu-waqar close enough to force Pusu-ken to negotiate over the matter, Ahu-waqar still felt a need to importune Pusu-ken for help, explaining that he needed to be on his way, as though his interests were not necessarily obvious to Pusu-ken.
 
 Translation
 Epistolary Formula
@@ -1684,7 +1684,7 @@ Epistolary Formula
 Explaining a sticky situation
 3-8On the day after su-Belim son of salim-Assur left, Ennam-Assur brought my loaded donkeys (back?) from the watchpost.  
 8-12He said, "Give me the silver, the price of the goods which I entrusted to you so that Pusu-ken comes and negotiates/discusses with me." 
-13-21I said, "The silver which he brought to Kanes came and you and Pusu-ken discuss and if the silver returns to the property of Pusu-ken, let him take it, and if it returns to your property, you (will) take it."  
+13-21I said, "The silver which he brought to Kanesh came and you and Pusu-ken discuss and if the silver returns to the property of Pusu-ken, let him take it, and if it returns to your property, you (will) take it."  
 22-24He said, "Let Pusu-ken come and let him discuss with me." 24-25The man holds my fringe. 25-26And he is repeatedly giving me to the guarantors. 
 Making the plea
 27-32My dear father and lord, when you read my tablet, take a strong tablet from the colony office so that I may get up and come. 
@@ -1985,7 +1985,7 @@ Body
 1-28
 Of the 11 kutanu-textiles, the rest of Kurub-Istar's textiles, that ?ab-?ill-Assur wrote a note about--1 kutanu-textile, in Zalpa a donkey was lost,
 so they took it (in compensation); 10 textiles were lost in Dadania so the ruler of Dadania took 1 kutanu-textile; the guides took 1 textile; 1 1/2 shekel of 
-pasallu-gold for the king; 1 1/2 mina of sickles for the kassu-official in Zalpa; 2 1/2 shekels of silver where he left the textiles; 4 shekels of silver for the guide from Kanes who I sent; 4 shekels, their import duty for the palace; 35 5/6 shekels of refined silver: additions; I balanced the silver for the City; 3 textiles were sold for 27 shekels. 
+pasallu-gold for the king; 1 1/2 mina of sickles for the kassu-official in Zalpa; 2 1/2 shekels of silver where he left the textiles; 4 shekels of silver for the guide from Kanesh who I sent; 4 shekels, their import duty for the palace; 35 5/6 shekels of refined silver: additions; I balanced the silver for the City; 3 textiles were sold for 27 shekels. 
 
  
 TC 3 87
@@ -2157,7 +2157,7 @@ Translation
 21-22Have you forgotten the words of the gods? 22-24Why are the words of the gods not important for you? 
 25Until now you have delayed. 26-27As for me, in whom can I trust?  Whose words, except yours, do I know?  
 29-32You must not fraudulently keep sending me silver in such a way that the colony authorities do not collect the transport tariff. 
-37-39Please, send him as soon as possible; also, let him bring the girl. 39-41If his silver is tied up in Kanes I shall restore it to him. 
+37-39Please, send him as soon as possible; also, let him bring the girl. 39-41If his silver is tied up in Kanesh I shall restore it to him. 
 41Send him! 
 
  

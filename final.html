@@ -433,7 +433,7 @@ cities$n &lt;- replace_na(cities$n, 0)</code></pre>
 #cities to plot
 cities_in_text &lt;- cities %&gt;%
   filter(Occurance_In_Text &gt; 0) </code></pre>
-<p>We can create a data structure to understand the co occurance of these cities with words like “to” and “from”. It can give us a <strong>naive</strong> estimate of goods and services coming in and out. “to” stands for import, “from” stands for export, summation of “in”+“at” stands for inventory.</p>
+<p>We can create a data structure to understand the co occurance of these cities with words like “to” and “from” in each line. It can give us a <strong>naive</strong> estimate of goods and services coming in and out. “to” stands for import, “from” stands for export, summation of “in”+“at” stands for inventory.</p>
 <div id="trading-power-export-inventory---import" class="section level4">
 <h4>Trading Power = <strong>EXPORT</strong> + <strong>INVENTORY</strong> - <strong>IMPORT</strong></h4>
 <pre class="r"><code>pointer &lt;- c(&quot;to&quot;, &quot;from&quot;, &quot;in&quot;, &quot;at&quot;)
@@ -520,7 +520,7 @@ b &lt;- get_map(bbox,maptype=&quot;watercolor&quot;,source=&quot;google&quot;)
 #plot the cities mentioned in the text
 ggmap(b) + geom_point(data = cities_in_text, 
            aes(longitude, latitude, size=trade_power),alpha=0.2, show.legend = F) +
-           scale_size_continuous(range = c(4, 15)) +
+           scale_size_continuous(range = c(2, 20)) +
   
            labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;,
            title=&quot;Cities and their Trading Power&quot;, color = &quot;Type&quot;) +
@@ -699,10 +699,6 @@ p2 &lt;- tidy_oare %&gt;%
 grid.arrange(p1, p2, ncol = 2)</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
 <p>We see that we have quite many positive sentiment as well as negatives. And the financial analysis lexicon is giving accurate matches. For example seizing someone because of his debts.</p>
-<pre><code>## Joining, by = &quot;word&quot;
-## Joining, by = &quot;word&quot;</code></pre>
-<pre><code>## Warning: Column `word` joining character vector and factor, coercing into
-## character vector</code></pre>
 <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 </div>
 

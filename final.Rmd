@@ -105,7 +105,8 @@ colnames(txt) <- c("text", "title")
 How many tablets do we have? We can simply count the Creators.
 ```{r}
 library(stringr)
-str_c("We have ", nrow(txt[grep('^Creator', txt$text),]), " tablets")
+str_c("We have ", nrow(txt[grep('^Creator', txt$text),]), " tablets") %>%
+  pander::pander()
 ```
 
 We have many unwanted words and phrases. Some simple regular expressions will help us.
@@ -116,6 +117,7 @@ head(txt[grep('^Creator', txt$text),], 3)
 #removing them
 txt <- txt %>%
   anti_join(txt[grep('^Creator', txt$text),])
+  
 ```
 
 
@@ -205,7 +207,8 @@ It looks like these people were sending and receiving textiles, tin and copper. 
 Looking at the frequency plot again, what does **pusuken** mean? It is repeating more than 500 times...
 
 ```{r}
-head(original_text[str_detect(original_text$text, "Pusu-ken"), 1], 5)
+head(original_text[str_detect(original_text$text, "Pusu-ken"), 1], 4) %>%
+  pander()
 ```
 
 A family business! It turns out Pusuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.
@@ -213,16 +216,17 @@ A family business! It turns out Pusuken was the most famous businessman. Probabl
 Another frequent word is 'son'. Let's find out why.
 
 ```{r}
-tail(original_text[str_detect(original_text$text, "son"), 1], 5)
+tail(original_text[str_detect(original_text$text, "son"), 1], 5)[c(1, 3), ] %>%
+  pander()
 ```
 
-son of Assurnada, son of Inahili, son of Iddin... Of course, these are family names. That's why it repeats a lot.
+son of Assurnada, son of Inahili, son of Kakkabanim... Of course, these are family names. That's why it repeats a lot.
 
 <b>2018.03.10 </b>
 
 Now we have a fairly good understanding of the most frequent words. Let's get a big picture of the ancient cities mentioned in our text. 
 
-Ancient city names are easily available online. We will join their dataframe with our text. Our objective is to see how many times these cities are mentioned in our text and visualize them.
+Ancient city names are easily available online. I created a dataframe called "Citites" which contain their geolocations. We will join information into this dataframe from our text. Our objective is to come up with some metric which can represent trading power of these cities, and visualize them.
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 #Information from archeological findings
@@ -284,7 +288,7 @@ cities_in_text <- cities %>%
 ```
 
 
-We can create a data structure to understand the co occurance of these cities with words like "to" and "from". It can give us a **naive** estimate of goods and services coming in and out. "to" stands for import, "from" stands for export, summation of "in"+"at" stands for inventory.
+We can create a data structure to understand the co occurance of these cities with words like "to" and "from" in each line. It can give us a **naive** estimate of goods and services coming in and out. "to" stands for import, "from" stands for export, summation of "in"+"at" stands for inventory.
 
 ####Trading Power = **EXPORT** + **INVENTORY** - **IMPORT** 
 
@@ -300,7 +304,8 @@ for(j in 1:length(pointer)) {
                                 str_c(pointer[j], ' ', cities_in_text$cityName[i]), 
                                                      
                                 txt$text), ])}
-                               }
+}
+
 
 cities_in_text <- cities_in_text %>%
                     mutate(import = to,
@@ -330,10 +335,10 @@ b <- get_map(bbox,maptype="watercolor",source="google")
 #plot the cities mentioned in the text
 ggmap(b) + geom_point(data = cities_in_text, 
            aes(longitude, latitude, size=trade_power),alpha=0.2, show.legend = F) +
-           scale_size_continuous(range = c(4, 15)) +
+           scale_size_continuous(range = c(2, 20)) +
   
            labs(x = "Longitude", y = "Latitude",
-           title="City Locations and their Trading Power", color = "Type") +
+           title="Cities and their Trading Power", color = "Type") +
   
            geom_text(data = cities_in_text, aes(longitude, latitude, label = cityName), 
                      check_overlap = TRUE) + 
@@ -538,28 +543,6 @@ We see that we have quite many positive sentiment as well as negatives. And the 
 
 
 
-```{r, echo=FALSE, results='hide'}
-library(topicmodels)
-library(tm)
-#first get the tidy format
-oare_dtm <- txt %>%
-  unnest_tokens(word, text) %>%
-  anti_join(stop_words) %>%
-  anti_join(money) %>%
-  count(title, word) %>%
-  cast_dtm(title, word, n)
-
-oare_lda <- LDA(oare_dtm, k = 2, control = list(seed = 1234))
-
-#per-topic-per-word probabilities
-oare_topics <- tidy(oare_lda, matrix = "beta")
-
-top_terms <- oare_topics %>%
-  group_by(topic) %>%
-  top_n(5, beta) %>%
-  ungroup() %>%
-  arrange(topic, -beta)
-```
 
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

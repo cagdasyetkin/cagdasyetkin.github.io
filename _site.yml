@@ -1,7 +1,7 @@
 name: Cagdas Yetkin
 output_dir: '.'
 navbar:
-#  title: Cagdas Yetkin
+  title: Cagdas Yetkin
   left:
   - text: Home
     href: index.html

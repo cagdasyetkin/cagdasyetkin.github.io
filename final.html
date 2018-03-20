@@ -227,7 +227,7 @@ $(document).ready(function () {
 <style> body { text-align: justify} </style>
 <div id="i-analyze-a-large-dataset-of-commercial-records-produced-by-assyrian-merchants-in-the-19th-century-bce" class="section level3">
 <h3>I analyze a large dataset of commercial records produced by Assyrian merchants in the 19th Century BCE…</h3>
-<p>This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don’t have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft’s Tomb Rider. On the other hand, I did some google search to give you the context and placed them here.</p>
+<p>This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don’t have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft’s Tomb Raider. On the other hand, I did some google search to give you the context and placed them here.</p>
 <p>The aim of the project is to make sense of some text which I have no idea about. However, If you give feedback I will be happy to update the post.</p>
 <p>This is about an acient language from the Bronze Age, meaning like 4000 years ago.</p>
 <p><a href="https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker" title="from Gilgamesh">this is how the language sounded like…</a></p>
@@ -285,8 +285,9 @@ txt &lt;- bind_rows(list(oare1, oare2, oare3, oare4))
 colnames(txt) &lt;- c(&quot;text&quot;, &quot;title&quot;)</code></pre>
 <p>How many tablets do we have? We can simply count the Creators.</p>
 <pre class="r"><code>library(stringr)
-str_c(&quot;We have &quot;, nrow(txt[grep(&#39;^Creator&#39;, txt$text),]), &quot; tablets&quot;)</code></pre>
-<pre><code>## [1] &quot;We have 609 tablets&quot;</code></pre>
+str_c(&quot;We have &quot;, nrow(txt[grep(&#39;^Creator&#39;, txt$text),]), &quot; tablets&quot;) %&gt;%
+  pander::pander()</code></pre>
+<p>We have 609 tablets</p>
 <p>We have many unwanted words and phrases. Some simple regular expressions will help us.</p>
 <pre class="r"><code>#see the lines give the information regarding the Creator of the record
 head(txt[grep(&#39;^Creator&#39;, txt$text),], 3)</code></pre>
@@ -360,30 +361,58 @@ txt %&gt;%
 <p>It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 talents of gold to Ibalaya for 200 shekels of silver, on behalf of Iddin-Istar.</p>
 <p><b>2018.03.08 </b></p>
 <p>Looking at the frequency plot again, what does <strong>pusuken</strong> mean? It is repeating more than 500 times…</p>
-<pre class="r"><code>head(original_text[str_detect(original_text$text, &quot;Pusu-ken&quot;), 1], 5)</code></pre>
-<pre><code>## # A tibble: 5 x 1
-##   text                                                                    
-##   &lt;chr&gt;                                                                   
-## 1 &quot;1-3To Amur-Istar and Pusu-ken from Kuzallum: &quot;                         
-## 2 &quot;1-2From su-hubur to Pusu-ken: &quot;                                        
-## 3 &quot;1-7Zupa seized us against the sons of Pusu-ken and Zupa said to the so~
-## 4 &quot;7-9Why is it that Suen-re&#39;i detains me? 10-18The sons of Pusu-ken (res~
-## 5 &quot;51 1/2 shekels (to?) Ahu-waqar. 6x shekel(s) (to?) Pusu-ken. 72 shekel~</code></pre>
+<pre class="r"><code>head(original_text[str_detect(original_text$text, &quot;Pusu-ken&quot;), 1], 4) %&gt;%
+  pander()</code></pre>
+<table style="width:44%;">
+<colgroup>
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1-3To Amur-Istar and Pusu-ken from Kuzallum:</td>
+</tr>
+<tr class="even">
+<td align="center">1-2From su-hubur to Pusu-ken:</td>
+</tr>
+<tr class="odd">
+<td align="center">1-7Zupa seized us against the sons of Pusu-ken and Zupa said to the sons of Pusu-ken, “Your father took the silver stated in my sealed tablets.</td>
+</tr>
+<tr class="even">
+<td align="center">7-9Why is it that Suen-re’i detains me? 10-18The sons of Pusu-ken (responded): “Our father received the silver of the sealed tablet of Zupa. Release it and we will give you the matter.”</td>
+</tr>
+</tbody>
+</table>
 <p>A family business! It turns out Pusuken was the most famous businessman. Probably he was the leader of a powerful family controlling most of the trade happening in the region. His sons were handling the transactions. Assurnada and Assurmalik are the other two notable tradesmen coming out from the frequency table.</p>
 <p>Another frequent word is ‘son’. Let’s find out why.</p>
-<pre class="r"><code>tail(original_text[str_detect(original_text$text, &quot;son&quot;), 1], 5)</code></pre>
-<pre><code>## # A tibble: 5 x 1
-##   text                                                                    
-##   &lt;chr&gt;                                                                   
-## 1 Iddin-Istar son of Assur-nada owes 5 5/6                                
-## 2 &quot; 13-15The month Te&#39;inatum, eponymy Alahum son of Inah-ili.  16-18Witne~
-## 3 &quot;15-18Witnesses: Burqanim son of Kakkabanim son of su-Istar son of suay~
-## 4 &quot;3-5Assur-malik son of Erraya brought your silver -- 15 minas silver. 5~
-## 5 &quot;18-28Its value in silver 1 mina 5 shekels, 3 shekels- the feed of the ~</code></pre>
-<p>son of Assurnada, son of Inahili, son of Iddin… Of course, these are family names. That’s why it repeats a lot.</p>
+<pre class="r"><code>tail(original_text[str_detect(original_text$text, &quot;son&quot;), 1], 5)[c(1, 3), ] %&gt;%
+  pander()</code></pre>
+<table style="width:43%;">
+<colgroup>
+<col width="43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Iddin-Istar son of Assur-nada owes 5 5/6</td>
+</tr>
+<tr class="even">
+<td align="center">15-18Witnesses: Burqanim son of Kakkabanim son of su-Istar son of suaya</td>
+</tr>
+</tbody>
+</table>
+<p>son of Assurnada, son of Inahili, son of Kakkabanim… Of course, these are family names. That’s why it repeats a lot.</p>
 <p><b>2018.03.10 </b></p>
 <p>Now we have a fairly good understanding of the most frequent words. Let’s get a big picture of the ancient cities mentioned in our text.</p>
-<p>Ancient city names are easily available online. We will join their dataframe with our text. Our objective is to see how many times these cities are mentioned in our text and visualize them.</p>
+<p>Ancient city names are easily available online. I created a dataframe called “Citites” which contain their geolocations. We will join information into this dataframe from our text. Our objective is to come up with some metric which can represent trading power of these cities, and visualize them.</p>
 <pre class="r"><code>library(tidyr)
 
 cities &lt;- cities %&gt;%
@@ -418,7 +447,8 @@ for(j in 1:length(pointer)) {
                                 str_c(pointer[j], &#39; &#39;, cities_in_text$cityName[i]), 
                                                      
                                 txt$text), ])}
-                               }
+}
+
 
 cities_in_text &lt;- cities_in_text %&gt;%
                     mutate(import = to,
@@ -493,7 +523,7 @@ ggmap(b) + geom_point(data = cities_in_text,
            scale_size_continuous(range = c(4, 15)) +
   
            labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;,
-           title=&quot;City Locations and their Trading Power&quot;, color = &quot;Type&quot;) +
+           title=&quot;Cities and their Trading Power&quot;, color = &quot;Type&quot;) +
   
            geom_text(data = cities_in_text, aes(longitude, latitude, label = cityName), 
                      check_overlap = TRUE) + 

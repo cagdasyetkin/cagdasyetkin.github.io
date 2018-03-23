@@ -353,6 +353,8 @@ The city of Kanesh is our biggest hub. Probably a capital city. And our famous P
 
 The people who wrote these tablets had access to the sea ports in the south. So we are talking about some complicated trade network here. Probably Pharaohs of ancient Egypt, Phonecians and Mycenaeans are all playing a role at some point.
 
+Because this map is a static one, I spinned up an AWS instance and fired up a small shiny app as well, so that you can freely zoon in and out. Please click [**HERE**](http://34.241.213.133:3838/Assur/ "shinyapplink") to view it. 
+
 <b>2018.03.11 </b>
 
 We know the most frequent words in these documents. How about the most important ones? We can try tfidf here.
@@ -455,11 +457,11 @@ ggraph(bigram_graph, layout = "fr") +
 
 ```
 
-*Kuliya wakes up early morning with the sound of black >> donkeys. They are on the way to Ulama.*
+*Kuliya wakes up early morning with the sound of donkeys. They are on the way to Ulama.*
 
-*The main cargo is 300 kutanum >> textiles. It worths more than 10 talents >> and 50 minas >> of silver according to the tablet he is carrying with him. The letter starts with Dear >> brothers again. He doesn't understand why sons of Pusuken call these bastards brother all the time.*
+*The main cargo is 300 kutanum >> textiles. It worths more than 10 talents >> and 50 minas >> of silver according to the tablet he is carrying with him. It means it is almost 2 black >> donkeys! The letter starts with Dear >> brothers again. He doesn't understand why sons of Pusuken call these bastards brother all the time. Those Sea People can ambush them and loot the cargo. But this time they have a devision of guards from the colony >> office for protection. They can fight back.*
 
-*Transport >> tariff is 60 shekels >> of silver. They will report it to the colony >> office in Ulama when they arrive, with approved delivery notice. He will deliver a huge profit to the family to clear all the claims >> outstanding*
+*Transport >> tariff is 60 shekels >> of silver. They will report it in Ulama when they arrive, with approved delivery note. He will deliver a huge profit to the family to clear all the claims >> outstanding*
 
 This network plot is quite informative. We see the monatery system around the **silver** and the order of scale for measurement. Talent is the biggest and probably a **refined silver** is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of **colony office** is indicating a regulating superpower, most probably the Empire.
 
@@ -539,7 +541,20 @@ grid.arrange(p1, p2, ncol = 2)
 
 ```
 
-We see that we have quite many positive sentiment as well as negatives. And the financial analysis lexicon is giving accurate matches. For example seizing someone because of his debts.
+Quite many positive sentiment as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods must be in Kuliya's job description. Stresfull? Maybe...
+
+```{r}
+grep(".*(kuliya.*seize|seize.*kuliya).*", txt$text, value = TRUE)[1] %>%
+  pander()
+```
+
+Kuliya is carrying the Dagger of Assur now.
+
+
+
+
+
+
 
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

@@ -532,6 +532,7 @@ theme_gdocs()</code></pre>
 <p>You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus.</p>
 <p>The city of Kanesh is our biggest hub. Probably a capital city. And our famous Pusuken family have lived here.</p>
 <p>The people who wrote these tablets had access to the sea ports in the south. So we are talking about some complicated trade network here. Probably Pharaohs of ancient Egypt, Phonecians and Mycenaeans are all playing a role at some point.</p>
+<p>Because this map is a static one, I spinned up an AWS instance and fired up a small shiny app as well, so that you can freely zoon in and out. Please click <a href="http://34.241.213.133:3838/Assur/" title="shinyapplink"><strong>HERE</strong></a> to view it.</p>
 <p><b>2018.03.11 </b></p>
 <p>We know the most frequent words in these documents. How about the most important ones? We can try tfidf here.</p>
 <pre class="r"><code>oare_words &lt;- txt %&gt;%
@@ -629,9 +630,9 @@ ggraph(bigram_graph, layout = &quot;fr&quot;) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
-<p><em>Kuliya wakes up early morning with the sound of black &gt;&gt; donkeys. They are on the way to Ulama.</em></p>
-<p><em>The main cargo is 300 kutanum &gt;&gt; textiles. It worths more than 10 talents &gt;&gt; and 50 minas &gt;&gt; of silver according to the tablet he is carrying with him. The letter starts with Dear &gt;&gt; brothers again. He doesn’t understand why sons of Pusuken call these bastards brother all the time.</em></p>
-<p><em>Transport &gt;&gt; tariff is 60 shekels &gt;&gt; of silver. They will report it to the colony &gt;&gt; office in Ulama when they arrive, with approved delivery notice. He will deliver a huge profit to the family to clear all the claims &gt;&gt; outstanding</em></p>
+<p><em>Kuliya wakes up early morning with the sound of donkeys. They are on the way to Ulama.</em></p>
+<p><em>The main cargo is 300 kutanum &gt;&gt; textiles. It worths more than 10 talents &gt;&gt; and 50 minas &gt;&gt; of silver according to the tablet he is carrying with him. It means it is almost 2 black &gt;&gt; donkeys! The letter starts with Dear &gt;&gt; brothers again. He doesn’t understand why sons of Pusuken call these bastards brother all the time. Those Sea People can ambush them and loot the cargo. But this time they have a devision of guards from the colony &gt;&gt; office for protection. They can fight back.</em></p>
+<p><em>Transport &gt;&gt; tariff is 60 shekels &gt;&gt; of silver. They will report it in Ulama when they arrive, with approved delivery note. He will deliver a huge profit to the family to clear all the claims &gt;&gt; outstanding</em></p>
 <p>This network plot is quite informative. We see the monatery system around the <strong>silver</strong> and the order of scale for measurement. Talent is the biggest and probably a <strong>refined silver</strong> is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of <strong>colony office</strong> is indicating a regulating superpower, most probably the Empire.</p>
 <pre class="r"><code>money &lt;- data.frame(word = c(&quot;tin&quot;, &quot;minas&quot;, &quot;talent&quot;, &quot;talents&quot;, &quot;shekels&quot;, &quot;mina&quot;, &quot;refined&quot;, &quot;silver&quot;))</code></pre>
 <p><b>2018.03.13 </b></p>
@@ -698,7 +699,11 @@ p2 &lt;- tidy_oare %&gt;%
 
 grid.arrange(p1, p2, ncol = 2)</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
-<p>We see that we have quite many positive sentiment as well as negatives. And the financial analysis lexicon is giving accurate matches. For example seizing someone because of his debts.</p>
+<p>Quite many positive sentiment as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods must be in Kuliya’s job description. Stresfull? Maybe…</p>
+<pre class="r"><code>grep(&quot;.*(kuliya.*seize|seize.*kuliya).*&quot;, txt$text, value = TRUE)[1] %&gt;%
+  pander()</code></pre>
+<p>as soon as you hear our letter produce the dagger of assur and impose an oath and whoever has sold meteoric iron to a palace or having not yet sold it still carries it with him seize from him the tithe on the meteoric iron and hisits sadduututax of shekels silver per mina and let kuliya personally take it along</p>
+<p>Kuliya is carrying the Dagger of Assur now.</p>
 <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 </div>
 

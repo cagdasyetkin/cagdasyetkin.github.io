@@ -9,7 +9,7 @@
 
 This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don't have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft's Tomb Raider. On the other hand, I did some google search to give you the context and placed them here.
 
-The aim of the project is to make sense of some text which I have no idea about. However, If you give feedback I will be happy to update the post.
+The aim of the project is to make sense of some text which I have no idea about. However, If you give some feedback I will be happy to update the post.
 
 This is about an ancient language from the Bronze Age, meaning like 4000 years ago.
 
@@ -30,7 +30,7 @@ nu ninda en e-iz-za-te-ni </n>
 
 Translation:
 
-"Now you will eat bread and drink water"
+"Now you will eat bread and drink **water**"
 
 wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 
@@ -99,10 +99,10 @@ txt <- bind_rows(list(oare1, oare2, oare3, oare4))
 colnames(txt) <- c("text", "title")
 ```
 
-How many tablets do we have? We can simply count the Creators.
+How many tablets do we have? Each record has an original language indicator "logosyllabic, Akkadian". We can simply count them.
 ```{r}
 library(stringr)
-str_c("We have ", nrow(txt[grep('^Creator', txt$text),]), " tablets") %>%
+str_c("We have ", nrow(txt[grep('^logosyllabic', txt$text),]), " tablets") %>%
   pander::pander()
 ```
 
@@ -529,14 +529,14 @@ grid.arrange(p1, p2, ncol = 2)
 
 ```
 
-Quite many positive sentiments as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods as well as dealing with urgent deliveries must be in Kuliya's job description (he must have had a high spirit). Let's pick a record about 'seizing' and see what it says:
+Quite many positive sentiments as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods as well as dealing with urgent deliveries must be in Kuliya's job description (he must have had a strong character and a high spirit). Let's pick a record about 'seizing' and see what it says:
 
 ```{r}
 grep(".*(kuliya.*seize|seize.*kuliya).*", txt$text, value = TRUE)[1] %>%
   pander()
 ```
 
-####*The Chronicles of Mezzopotamia*
+####*The Chronicles of Mesopotamia*
 #####*Book 1: The Dagger of Assur*
 ######*Chapter 1: Meteora*
             *It was before the caravan's arrival to Kanesh, the city of chaos, when Kuliya got that astounding news...*
@@ -544,10 +544,19 @@ grep(".*(kuliya.*seize|seize.*kuliya).*", txt$text, value = TRUE)[1] %>%
 
 
 
-Now we can stop here and appreciate for a moment this  [**Tidy Approach**](https://www.amazon.com/Text-Mining-R-Tidy-Approach/dp/1491981652 "booklink"){target="_blank"} we followed for Text Mining, bearing in mind the majority of world's data is unstructured.
+Now we can stop here and appreciate for a moment this  [**Tidy Approach**](https://www.amazon.com/Text-Mining-R-Tidy-Approach/dp/1491981652 "booklink"){target="_blank"} we followed for Text Mining, bearing in mind the majority of world's data is unstructured:
 
-We started from knowing almost nothing and got to a point where we can write a fictional story in a Bronze Age Middle East setting. We were able to understand the building blocks of an ancient trade network and get its sentiments. We have a fairly good understanding of how those operations felt like. We could identify the trade lords (ruling families) and the most important person in the network who makes this trade engine work. We became good friends with him.
+We started from knowing almost nothing and got to a point where we can write a fictional story in a Bronze Age Middle East setting. 
 
+We were able to understand the building blocks of an ancient trade network and get its sentiments. We have a fairly good understanding of how those operations felt like. 
 
-My **special thanks** to [Kerem Cosar](https://twitter.com/a_kerem_cosar "KeremLink") from University of Virginia who gave me the text files. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.
+We could identify the trade lords (ruling families) and the most important person in the network who makes this trade engine work. In the end, he became our best friend. 
+
+Additionally, we meshed up our text with some information collected from the Internet and built an online dashboard.
+
+The analysis could be even more interesting if we had more collections of text covering more topics like warfare, government, religion.
+
+My **special thanks** to [Kerem Cosar](https://twitter.com/a_kerem_cosar "KeremLink"){target="_blank"} from the University of Virginia who accepted sharing these valuable text files with me. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.
+
+Thank you for reading and giving feedback...
 

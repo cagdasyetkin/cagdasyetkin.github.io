@@ -227,7 +227,7 @@ $(document).ready(function () {
 <div id="i-analyze-a-large-dataset-of-commercial-records-produced-by-assyrian-merchants-in-the-19th-century-bce" class="section level3">
 <h3>I analyze a large dataset of commercial records produced by Assyrian merchants in the 19th Century BCE…</h3>
 <p>This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don’t have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft’s Tomb Raider. On the other hand, I did some google search to give you the context and placed them here.</p>
-<p>The aim of the project is to make sense of some text which I have no idea about. However, If you give feedback I will be happy to update the post.</p>
+<p>The aim of the project is to make sense of some text which I have no idea about. However, If you give some feedback I will be happy to update the post.</p>
 <p>This is about an ancient language from the Bronze Age, meaning like 4000 years ago.</p>
 <p><a href="https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker" target="_blank" title="from Gilgamesh">this is how the language sounded like…</a></p>
 </div>
@@ -239,7 +239,7 @@ $(document).ready(function () {
 <h3>Some smart people decrypted these languages. For example</h3>
 <p>nu ninda en e-iz-za-te-ni </n> <b>wa-a-tar</b>-ma e-ku-ut-te-ni</p>
 <p>Translation:</p>
-<p>“Now you will eat bread and drink water”</p>
+<p>“Now you will eat bread and drink <strong>water</strong>”</p>
 <p>wa-a-tar means water. ninda means bread. Quite familiar isn’t it?</p>
 </div>
 <div id="our-data-looks-like-this" class="section level3">
@@ -279,11 +279,11 @@ oare4 &lt;- readLines(&quot;OARE_04.txt&quot;) %&gt;%
 
 txt &lt;- bind_rows(list(oare1, oare2, oare3, oare4)) 
 colnames(txt) &lt;- c(&quot;text&quot;, &quot;title&quot;)</code></pre>
-<p>How many tablets do we have? We can simply count the Creators.</p>
+<p>How many tablets do we have? Each record has an original language indicator “logosyllabic, Akkadian”. We can simply count them.</p>
 <pre class="r"><code>library(stringr)
-str_c(&quot;We have &quot;, nrow(txt[grep(&#39;^Creator&#39;, txt$text),]), &quot; tablets&quot;) %&gt;%
+str_c(&quot;We have &quot;, nrow(txt[grep(&#39;^logosyllabic&#39;, txt$text),]), &quot; tablets&quot;) %&gt;%
   pander::pander()</code></pre>
-<p>We have 609 tablets</p>
+<p>We have 689 tablets</p>
 <p>We have many unwanted words and phrases. Some simple regular expressions will help us.</p>
 <pre class="r"><code>#see the lines give the information regarding the Creator of the record
 head(txt[grep(&#39;^Creator&#39;, txt$text),], 3)</code></pre>
@@ -686,20 +686,25 @@ p2 &lt;- tidy_oare %&gt;%
 
 grid.arrange(p1, p2, ncol = 2)</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
-<p>Quite many positive sentiments as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods as well as dealing with urgent deliveries must be in Kuliya’s job description (he must have had a high spirit). Let’s pick a record about ‘seizing’ and see what it says:</p>
+<p>Quite many positive sentiments as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods as well as dealing with urgent deliveries must be in Kuliya’s job description (he must have had a strong character and a high spirit). Let’s pick a record about ‘seizing’ and see what it says:</p>
 <pre class="r"><code>grep(&quot;.*(kuliya.*seize|seize.*kuliya).*&quot;, txt$text, value = TRUE)[1] %&gt;%
   pander()</code></pre>
 <p>as soon as you hear our letter produce the dagger of assur and impose an oath and whoever has sold meteoric iron to a palace or having not yet sold it still carries it with him seize from him the tithe on the meteoric iron and hisits sadduututax of shekels silver per mina and let kuliya personally take it along</p>
-<div id="the-chronicles-of-mezzopotamia" class="section level4">
-<h4><em>The Chronicles of Mezzopotamia</em></h4>
+<div id="the-chronicles-of-mesopotamia" class="section level4">
+<h4><em>The Chronicles of Mesopotamia</em></h4>
 <div id="book-1-the-dagger-of-assur" class="section level5">
 <h5><em>Book 1: The Dagger of Assur</em></h5>
 <div id="chapter-1-meteora" class="section level6">
 <h6><em>Chapter 1: Meteora</em></h6>
 <pre><code>        *It was before the caravan&#39;s arrival to Kanesh, the city of chaos, when Kuliya got that astounding news...*</code></pre>
-<p>Now we can stop here and appreciate for a moment this <a href="https://www.amazon.com/Text-Mining-R-Tidy-Approach/dp/1491981652" target="_blank" title="booklink"><strong>Tidy Approach</strong></a> we followed for Text Mining, bearing in mind the majority of world’s data is unstructured.</p>
-<p>We started from knowing almost nothing and got to a point where we can write a fictional story in a Bronze Age Middle East setting. We were able to understand the building blocks of an ancient trade network and get its sentiments. We have a fairly good understanding of how those operations felt like. We could identify the trade lords (ruling families) and the most important person in the network who makes this trade engine work. We became good friends with him.</p>
-<p>My <strong>special thanks</strong> to <a href="https://twitter.com/a_kerem_cosar" title="KeremLink">Kerem Cosar</a> from University of Virginia who gave me the text files. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.</p>
+<p>Now we can stop here and appreciate for a moment this <a href="https://www.amazon.com/Text-Mining-R-Tidy-Approach/dp/1491981652" target="_blank" title="booklink"><strong>Tidy Approach</strong></a> we followed for Text Mining, bearing in mind the majority of world’s data is unstructured:</p>
+<p>We started from knowing almost nothing and got to a point where we can write a fictional story in a Bronze Age Middle East setting.</p>
+<p>We were able to understand the building blocks of an ancient trade network and get its sentiments. We have a fairly good understanding of how those operations felt like.</p>
+<p>We could identify the trade lords (ruling families) and the most important person in the network who makes this trade engine work. In the end, he became our best friend.</p>
+<p>Additionally, we meshed up our text with some information collected from the Internet and built an online dashboard.</p>
+<p>The analysis could be even more interesting if we had more collections of text covering more topics like warfare, government, religion.</p>
+<p>My <strong>special thanks</strong> to <a href="https://twitter.com/a_kerem_cosar" target="_blank" title="KeremLink">Kerem Cosar</a> from the University of Virginia who accepted sharing these valuable text files with me. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.</p>
+<p>Thank you for reading and giving feedback…</p>
 </div>
 </div>
 </div>

@@ -556,7 +556,7 @@ Additionally, we meshed up our text with some information collected from the Int
 
 The analysis could be even more interesting if we had more collections of text covering more topics like warfare, government, religion.
 
-My **special thanks** to [Kerem Cosar](https://twitter.com/a_kerem_cosar "KeremLink"){target="_blank"} from the University of Virginia who accepted sharing these valuable text files with me. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.
+My **special thanks** to [Kerem Cosar](https://twitter.com/a_kerem_cosar "KeremLink"){target="_blank"} from the University of Virginia who accepted sharing these valuable text files. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.
 
 Thank you for reading and giving feedback...
 

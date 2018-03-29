@@ -223,20 +223,17 @@ $(document).ready(function () {
 
 <hr />
 <hr />
-<b>2018.27.02 </b>
 <style> body { text-align: justify} </style>
 <div id="i-analyze-a-large-dataset-of-commercial-records-produced-by-assyrian-merchants-in-the-19th-century-bce" class="section level3">
 <h3>I analyze a large dataset of commercial records produced by Assyrian merchants in the 19th Century BCE…</h3>
 <p>This is a text mining project for Unstructured Text Data Course I take from Business Analytics department of Central European University. I don’t have any history, archeology or any social science background other than watching Indiana Jones and playing Lara Croft’s Tomb Raider. On the other hand, I did some google search to give you the context and placed them here.</p>
 <p>The aim of the project is to make sense of some text which I have no idea about. However, If you give feedback I will be happy to update the post.</p>
-<p>This is about an acient language from the Bronze Age, meaning like 4000 years ago.</p>
-<p><a href="https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker" title="from Gilgamesh">this is how the language sounded like…</a></p>
-<p><b>2018.01.03 </b></p>
+<p>This is about an ancient language from the Bronze Age, meaning like 4000 years ago.</p>
+<p><a href="https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker" target="_blank" title="from Gilgamesh">this is how the language sounded like…</a></p>
 </div>
 <div id="and-this-is-how-it-looked-like" class="section level3">
 <h3>And this is how it looked like:</h3>
 <p><img src="final_files/sample.PNG" alt="sample" height="200" width="300"></p>
-<p><b>2018.02.03 </b></p>
 </div>
 <div id="some-smart-people-decrypted-these-languages.-for-example" class="section level3">
 <h3>Some smart people decrypted these languages. For example</h3>
@@ -248,20 +245,19 @@ $(document).ready(function () {
 <div id="our-data-looks-like-this" class="section level3">
 <h3>Our data looks like this:</h3>
 <p>This is a txt file.</p>
-<p><img src="final_files/sample2.PNG" alt="data" height="300" width="500"></p>
+<p><img src="final_files/sample2.PNG" alt="data" height="350" width="550"></p>
 <p>But how did I get here? It started with a tweet by Gabor Bekes:</p>
 <p><img src="final_files/tweetgabor.PNG" alt="data" height="300" width="500"></p>
 <p>I contacted the authors of this academic paper from the University of Virginia. They were so kind and provided me these text files:</p>
 <p><img src="final_files/kerememail.PNG" alt="data" height="300" width="500"></p>
 <p>Archeologists have escavated these tablets during the past 200 years.</p>
 </div>
-<div id="an-escavated-tablet-looks-like-this" class="section level3">
-<h3>An escavated tablet looks like this:</h3>
+<div id="an-excavated-tablet-looks-like-this" class="section level3">
+<h3>An excavated tablet looks like this:</h3>
 <p><img src="final_files/sample3.png" alt="tablet" height="200" width="200"></p>
 </div>
 <div id="these-people-lived-4000-years-ago-in-the-middle-east-and-the-asia-minor" class="section level3">
 <h3>These people lived 4000 years ago in the Middle East and the Asia Minor</h3>
-<p><b>2018.03.05 </b></p>
 <p>We will start by loading our documents.</p>
 <pre class="r"><code>#we have a collection of 4 documents
 library(dplyr)
@@ -301,7 +297,6 @@ head(txt[grep(&#39;^Creator&#39;, txt$text),], 3)</code></pre>
 txt &lt;- txt %&gt;%
   anti_join(txt[grep(&#39;^Creator&#39;, txt$text),])</code></pre>
 <p>This is one way of cleaning such unwanted words… We can create a list of them, match and then anti_join easily.</p>
-<p><b>2018.03.06 </b></p>
 <p>toMatch is a vector of unwanted character strings with some regular expressions just like above example. We remove them from our text below.</p>
 <pre class="r"><code>library(pander)
 matches &lt;- unique (grep(paste(toMatch,collapse=&quot;|&quot;), 
@@ -335,7 +330,6 @@ pander(txt[149:150, 1])</code></pre>
 </table>
 <p>Here we are reading a business letter from a guy called Abela to Idnaya. Just a quick look makes it clear that these people were not savages at all. Freight charges, clearing a debt on behalf of another entity and stamps (seals) are all in place.</p>
 <p>The paragraph is almost clean. Next, we need to remove the numbers.</p>
-<p><b>2018.03.07 </b></p>
 <pre class="r"><code># Remove numbers using removeNumber function from tm library
 library(tm)
 
@@ -358,8 +352,7 @@ txt %&gt;%
   ggplot(aes(word, n)) + geom_col() + xlab(NULL) + coord_flip() +
   ggtitle(&quot;Word Frequency&quot;)</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 talents of gold to Ibalaya for 200 shekels of silver, on behalf of Iddin-Istar.</p>
-<p><b>2018.03.08 </b></p>
+<p>It looks like these people were sending and receiving textiles, tin, and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas, and talents. Example: Abele sends 5 talents of gold to Ibalaya for 200 shekels of silver, on behalf of Iddin-Istar.</p>
 <p>Looking at the frequency plot again, what does <strong>pusuken</strong> mean? It is repeating more than 500 times…</p>
 <pre class="r"><code>head(original_text[str_detect(original_text$text, &quot;Pusu-ken&quot;), 1], 4) %&gt;%
   pander()</code></pre>
@@ -410,9 +403,8 @@ txt %&gt;%
 </tbody>
 </table>
 <p>son of Assurnada, son of Inahili, son of Kakkabanim… Of course, these are family names. That’s why it repeats a lot.</p>
-<p><b>2018.03.10 </b></p>
 <p>Now we have a fairly good understanding of the most frequent words. Let’s get a big picture of the ancient cities mentioned in our text.</p>
-<p>Ancient city names are easily available online. I created a dataframe called “Citites” which contain their geolocations. We will join information into this dataframe from our text. Our objective is to come up with some metric which can represent trading power of these cities, and visualize them.</p>
+<p>Ancient city names are easily available online. I created a dataframe called “Cities” which contain their geolocations. We will join information into this dataframe from our text. Our objective is to come up with some metric which can represent the trading power of these cities, and visualize them.</p>
 <pre class="r"><code>library(tidyr)
 
 cities &lt;- cities %&gt;%
@@ -433,7 +425,7 @@ cities$n &lt;- replace_na(cities$n, 0)</code></pre>
 #cities to plot
 cities_in_text &lt;- cities %&gt;%
   filter(Occurance_In_Text &gt; 0) </code></pre>
-<p>We can create a data structure to understand the co occurance of these cities with words like “to” and “from” in each line. It can give us a <strong>naive</strong> estimate of goods and services coming in and out. “to” stands for import, “from” stands for export, summation of “in”+“at” stands for inventory.</p>
+<p>We can create a data structure to understand the co occurence of these cities with words like “to” and “from” in each line. It can give us a <strong>naive</strong> estimate of goods and services coming in and out. “to” stands for import, “from” stands for export, the summation of “in”+“at” stands for inventory.</p>
 <div id="trading-power-export-inventory---import" class="section level4">
 <h4>Trading Power = <strong>EXPORT</strong> + <strong>INVENTORY</strong> - <strong>IMPORT</strong></h4>
 <pre class="r"><code>pointer &lt;- c(&quot;to&quot;, &quot;from&quot;, &quot;in&quot;, &quot;at&quot;)
@@ -520,7 +512,7 @@ b &lt;- get_map(bbox,maptype=&quot;watercolor&quot;,source=&quot;google&quot;)
 #plot the cities mentioned in the text
 ggmap(b) + geom_point(data = cities_in_text, 
            aes(longitude, latitude, size=trade_power),alpha=0.2, show.legend = F) +
-           scale_size_continuous(range = c(2, 20)) +
+           scale_size_continuous(range = c(2, 20)) + #for visualization purposes
   
            labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;,
            title=&quot;Cities and their Trading Power&quot;, color = &quot;Type&quot;) +
@@ -529,11 +521,10 @@ ggmap(b) + geom_point(data = cities_in_text,
                      check_overlap = TRUE) + 
 theme_gdocs()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-15-1.png" width="768" /></p>
-<p>You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus.</p>
+<p>You are looking at the Asia Minor, Mesopotamia, the Middle East, Greece and the southeast Mediterranean Sea. The largest islands you see are the island of Crete and Cyprus.</p>
 <p>The city of Kanesh is our biggest hub. Probably a capital city. And our famous Pusuken family have lived here.</p>
 <p>The people who wrote these tablets had access to the sea ports in the south. So we are talking about some complicated trade network here. Probably Pharaohs of ancient Egypt, Phonecians and Mycenaeans are all playing a role at some point.</p>
-<p>Because this map is a static one, I spinned up an AWS instance and fired up a small shiny app as well, so that you can freely zoon in and out. Please click <a href="http://34.241.213.133:3838/Assur/" title="shinyapplink"><strong>HERE</strong></a> to view it.</p>
-<p><b>2018.03.11 </b></p>
+<p>I fired up a shiny app as well, you can freely play around. Please click <a href="http://34.241.213.133:3838/Assur/" target="_blank" title="shinyapplink"><strong>HERE</strong></a> to view it (It is a micro instance, I hope it can stay stable).</p>
 <p>We know the most frequent words in these documents. How about the most important ones? We can try tfidf here.</p>
 <pre class="r"><code>oare_words &lt;- txt %&gt;%
   unnest_tokens(word, text) %&gt;%
@@ -559,18 +550,15 @@ oare_words %&gt;%
 <pre class="r"><code>oare_words %&gt;%
   arrange(desc(tf_idf)) %&gt;%
   mutate(word = factor(word, levels = rev(unique(word)))) %&gt;% 
-  #group_by(title) %&gt;% 
   top_n(5) %&gt;% 
-  #ungroup %&gt;%
   ggplot(aes(word, tf_idf, fill = title)) +
   geom_col(show.legend = FALSE) +
   labs(x = NULL, y = &quot;tf-idf&quot;) +
-  #facet_wrap(~title, ncol = 2, scales = &quot;free&quot;) +
   coord_flip() + theme_gray()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-18-1.png" width="576" /></p>
-<p>tf-idf algorithm decreases the weight for commonly used words and increases the weight for words that are not used very much.</p>
-<p>We had ruling family names in the word frequency plot. They were the <strong>Pusuken, Assurnada and Assurmalik</strong> families.</p>
-<p>Now we have some other names being reported in tfidf plots. And by far, the most significant names are <strong>Kuliya and Aliabum</strong>. These names are more important then the powerful families according to the algorithm. They are also more important then gold, silver and the trade items. Maybe they are not mentioned that much. But they seem to play some significant role. This is really curious. Who are these people?</p>
+<p>tf-idf algorithm decreases the weight of commonly used words and increases the weight of words that are not used very much.</p>
+<p>We had ruling family names in the word frequency plot. They were the <strong>Pusuken, Assurnada, and Assurmalik</strong> families.</p>
+<p>Now we have some other names being reported in tfidf plots. And by far, the most significant names are <strong>Kuliya and Aliabum</strong>. These names are more important than the powerful families according to the algorithm. They are also more important than gold, silver and the trade items. Maybe they are not mentioned that much. But they seem to play some significant role. This is really curious. Who are these people?</p>
 <pre class="r"><code>head(original_text[str_detect(original_text$text, &quot;Kuliya&quot;), 1], 15)[4, ] %&gt;%
   pander::pander()</code></pre>
 <table style="width:44%;">
@@ -588,11 +576,11 @@ oare_words %&gt;%
 </tr>
 </tbody>
 </table>
-<p>Kuliya is a servant of Pusuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pusuken. He takes the caravans from Kanesh and brings to the city of Ulama in the south. There he gives the cargo to the representatives of Sea People. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.</p>
+<p>Kuliya is a servant of Pusuken family. He delivers messages, goods, and payments. He is Kuliya, son of Aliabum. Loyal servant to the sons of Pusuken. He takes the caravans from Kanesh and brings to the city of Ulama in the south. There he gives the cargo to the representatives of Sea People. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network cannot function without him.</p>
 </div>
 </div>
-<div id="an-unsual-autopsy-of-ancient-trade-records" class="section level3">
-<h3>An unsual autopsy of ancient trade records</h3>
+<div id="an-unusual-autopsy-of-ancient-trade-records" class="section level3">
+<h3>An unusual autopsy of ancient trade records</h3>
 <pre class="r"><code>library(tidyr)
 library(igraph)
 library(ggraph)
@@ -631,14 +619,13 @@ ggraph(bigram_graph, layout = &quot;fr&quot;) +
   theme_void()</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
 <p><em>Kuliya wakes up early morning with the sound of donkeys. They are on the way to Ulama.</em></p>
-<p><em>The main cargo is 300 kutanum &gt;&gt; textiles. It worths more than 10 talents &gt;&gt; and 50 minas &gt;&gt; of silver according to the tablet he is carrying with him. It means it is almost 2 black &gt;&gt; donkeys! The letter starts with Dear &gt;&gt; brothers again. He doesn’t understand why sons of Pusuken call these bastards brother all the time. Those Sea People can ambush them and loot the cargo. But this time they have a devision of guards from the colony &gt;&gt; office for protection. They can fight back.</em></p>
-<p><em>Transport &gt;&gt; tariff is 60 shekels &gt;&gt; of silver. They will report it in Ulama when they arrive, with approved delivery note. He will deliver a huge profit to the family to clear all the claims &gt;&gt; outstanding</em></p>
-<p>This network plot is quite informative. We see the monatery system around the <strong>silver</strong> and the order of scale for measurement. Talent is the biggest and probably a <strong>refined silver</strong> is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of <strong>colony office</strong> is indicating a regulating superpower, most probably the Empire.</p>
+<p><em>The main cargo is 300 kutanum &gt;&gt; textiles. It worths more than 10 talents &gt;&gt; and 50 minas &gt;&gt; of silver according to the tablet he is carrying with him. It means it is almost 2 black &gt;&gt; donkeys! The letter starts with Dear &gt;&gt; brothers again. He doesn’t understand why sons of Pusuken call these bastards brother all the time. Those Sea People could ambush them and loot the cargo. But not this time: A division of Iron Guards from the colony &gt;&gt; office is protecting them.</em></p>
+<p><em>Transport &gt;&gt; tariff is 60 shekels &gt;&gt; of silver. They will write a report in Ulama when they arrive, along with an approved delivery note. He will deliver a huge profit to the family to clear all the claims &gt;&gt; outstanding</em></p>
+<p>This network plot is quite informative. We see the monetary system around the <strong>silver</strong> and the order of scale for measurement. Talent is the biggest and probably a <strong>refined silver</strong> is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. The strong presence of <strong>colony office</strong> is indicating a regulating superpower, most probably the Empire.</p>
 <pre class="r"><code>money &lt;- data.frame(word = c(&quot;tin&quot;, &quot;minas&quot;, &quot;talent&quot;, &quot;talents&quot;, &quot;shekels&quot;, &quot;mina&quot;, &quot;refined&quot;, &quot;silver&quot;))</code></pre>
-<p><b>2018.03.13 </b></p>
 <p>How do these letters feel like? Mostly <strong>positive</strong> or <strong>negative</strong> language? And which words are contributing most to these sentiments?</p>
 <p>I am going to use a special lexicon built for modern financial analysis. This is a kind of lexicon which you can expect to see in an analysis of stock market trading.</p>
-<p>I am curious how it can perform on 4000 year old commercial records.</p>
+<p>I am curious how it can perform on 4000-year-old commercial records.</p>
 <pre class="r"><code>library(gridExtra)
 #first get the tidy format
 tidy_oare &lt;- txt %&gt;%
@@ -699,12 +686,23 @@ p2 &lt;- tidy_oare %&gt;%
 
 grid.arrange(p1, p2, ncol = 2)</code></pre>
 <p><img src="final_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
-<p>Quite many positive sentiment as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods must be in Kuliya’s job description. Stresfull? Maybe…</p>
+<p>Quite many positive sentiments as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods as well as dealing with urgent deliveries must be in Kuliya’s job description (he must have had a high spirit). Let’s pick a record about ‘seizing’ and see what it says:</p>
 <pre class="r"><code>grep(&quot;.*(kuliya.*seize|seize.*kuliya).*&quot;, txt$text, value = TRUE)[1] %&gt;%
   pander()</code></pre>
 <p>as soon as you hear our letter produce the dagger of assur and impose an oath and whoever has sold meteoric iron to a palace or having not yet sold it still carries it with him seize from him the tithe on the meteoric iron and hisits sadduututax of shekels silver per mina and let kuliya personally take it along</p>
-<p>Kuliya is carrying the Dagger of Assur now.</p>
-<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+<div id="the-chronicles-of-mezzopotamia" class="section level4">
+<h4><em>The Chronicles of Mezzopotamia</em></h4>
+<div id="book-1-the-dagger-of-assur" class="section level5">
+<h5><em>Book 1: The Dagger of Assur</em></h5>
+<div id="chapter-1-meteora" class="section level6">
+<h6><em>Chapter 1: Meteora</em></h6>
+<pre><code>        *It was before the caravan&#39;s arrival to Kanesh, the city of chaos, when Kuliya got that astounding news...*</code></pre>
+<p>Now we can stop here and appreciate for a moment this <a href="https://www.amazon.com/Text-Mining-R-Tidy-Approach/dp/1491981652" target="_blank" title="booklink"><strong>Tidy Approach</strong></a> we followed for Text Mining, bearing in mind the majority of world’s data is unstructured.</p>
+<p>We started from knowing almost nothing and got to a point where we can write a fictional story in a Bronze Age Middle East setting. We were able to understand the building blocks of an ancient trade network and get its sentiments. We have a fairly good understanding of how those operations felt like. We could identify the trade lords (ruling families) and the most important person in the network who makes this trade engine work. We became good friends with him.</p>
+<p>My <strong>special thanks</strong> to <a href="https://twitter.com/a_kerem_cosar" title="KeremLink">Kerem Cosar</a> from University of Virginia who gave me the text files. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.</p>
+</div>
+</div>
+</div>
 </div>
 
 

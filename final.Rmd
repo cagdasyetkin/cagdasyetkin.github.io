@@ -2,7 +2,7 @@
 
 ---
 
-<b>2018.27.02 </b>
+
 <style> body { text-align: justify} </style>
 
 ###I analyze a large dataset of commercial records produced by Assyrian merchants in the 19th Century BCE...
@@ -11,19 +11,16 @@ This is a text mining project for Unstructured Text Data Course I take from Busi
 
 The aim of the project is to make sense of some text which I have no idea about. However, If you give feedback I will be happy to update the post.
 
-This is about an acient language from the Bronze Age, meaning like 4000 years ago.
+This is about an ancient language from the Bronze Age, meaning like 4000 years ago.
 
-[this is how the language sounded like...](https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker "from Gilgamesh")
+[this is how the language sounded like...](https://soundcloud.com/user444756202/the-epic-of-gilgames-standard-version-tablet-xi-lines-1-163-read-by-karl-hecker "from Gilgamesh"){target="_blank"}
 
 
-<b>2018.01.03 </b>
 
 ###And this is how it looked like:
 
 <img src="final_files/sample.png" alt="sample" height="200" width="300">
 
-
-<b>2018.02.03 </b>
 
 
 ###Some smart people decrypted these languages. For example
@@ -43,7 +40,7 @@ wa-a-tar means water. ninda means bread. Quite familiar isn't it?
 This is a txt file.
 
 
-<img src="final_files/sample2.png" alt="data" height="300" width="500">
+<img src="final_files/sample2.png" alt="data" height="350" width="550">
 
 
 But how did I get here? It started with a tweet by Gabor Bekes:
@@ -63,7 +60,7 @@ I contacted the authors of this academic paper from the University of Virginia. 
 
 Archeologists have escavated these tablets during the past 200 years.
 
-###An escavated tablet looks like this:
+###An excavated tablet looks like this:
 
 <img src="final_files/sample3.png" alt="tablet" height="200" width="200">
 
@@ -71,7 +68,7 @@ Archeologists have escavated these tablets during the past 200 years.
 
 ###These people lived 4000 years ago in the Middle East and the Asia Minor
 
-<b>2018.03.05 </b>
+
 
 We will start by loading our documents. 
 
@@ -123,7 +120,6 @@ txt <- txt %>%
 
 This is one way of cleaning such unwanted words... We can create a list of them, match and then anti_join easily.
 
-<b>2018.03.06 </b>
 
 toMatch is a vector of unwanted character strings with some regular expressions just like above example.
 We remove them from our text below.
@@ -167,7 +163,6 @@ Here we are reading a business letter from a guy called Abela to Idnaya. Just a 
 The paragraph is almost clean. Next, we need to remove the numbers.
 
 
-<b>2018.03.07 </b>
 
 ```{r, message=FALSE, warning=FALSE}
 # Remove numbers using removeNumber function from tm library
@@ -199,10 +194,9 @@ txt %>%
   
 ```
 
-It looks like these people were sending and receiving textiles, tin and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas and talents. Example: Abele sends 5 talents of gold to Ibalaya for 200 shekels of silver, on behalf of Iddin-Istar.
+It looks like these people were sending and receiving textiles, tin, and copper. Transportation was mostly depending on donkeys and the payments were in silvers most of the time. The units of measurement (like the weight) were shekels, minas, and talents. Example: Abele sends 5 talents of gold to Ibalaya for 200 shekels of silver, on behalf of Iddin-Istar.
 
 
-<b>2018.03.08 </b>
 
 Looking at the frequency plot again, what does **pusuken** mean? It is repeating more than 500 times...
 
@@ -222,11 +216,10 @@ tail(original_text[str_detect(original_text$text, "son"), 1], 5)[c(1, 3), ] %>%
 
 son of Assurnada, son of Inahili, son of Kakkabanim... Of course, these are family names. That's why it repeats a lot.
 
-<b>2018.03.10 </b>
 
 Now we have a fairly good understanding of the most frequent words. Let's get a big picture of the ancient cities mentioned in our text. 
 
-Ancient city names are easily available online. I created a dataframe called "Citites" which contain their geolocations. We will join information into this dataframe from our text. Our objective is to come up with some metric which can represent trading power of these cities, and visualize them.
+Ancient city names are easily available online. I created a dataframe called "Cities" which contain their geolocations. We will join information into this dataframe from our text. Our objective is to come up with some metric which can represent the trading power of these cities, and visualize them.
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 #Information from archeological findings
@@ -288,7 +281,7 @@ cities_in_text <- cities %>%
 ```
 
 
-We can create a data structure to understand the co occurance of these cities with words like "to" and "from" in each line. It can give us a **naive** estimate of goods and services coming in and out. "to" stands for import, "from" stands for export, summation of "in"+"at" stands for inventory.
+We can create a data structure to understand the co occurence of these cities with words like "to" and "from" in each line. It can give us a **naive** estimate of goods and services coming in and out. "to" stands for import, "from" stands for export, the summation of "in"+"at" stands for inventory.
 
 ####Trading Power = **EXPORT** + **INVENTORY** - **IMPORT** 
 
@@ -335,7 +328,7 @@ b <- get_map(bbox,maptype="watercolor",source="google")
 #plot the cities mentioned in the text
 ggmap(b) + geom_point(data = cities_in_text, 
            aes(longitude, latitude, size=trade_power),alpha=0.2, show.legend = F) +
-           scale_size_continuous(range = c(2, 20)) +
+           scale_size_continuous(range = c(2, 20)) + #for visualization purposes
   
            labs(x = "Longitude", y = "Latitude",
            title="Cities and their Trading Power", color = "Type") +
@@ -347,15 +340,14 @@ theme_gdocs()
 ```
 
 
-You are looking at the Asia Minor, Mezzopotamia, the Middle East, Greece and the southeast Mediterrenean Sea. The largest islands you see are the island of Crete and Cyprus. 
+You are looking at the Asia Minor, Mesopotamia, the Middle East, Greece and the southeast Mediterranean Sea. The largest islands you see are the island of Crete and Cyprus. 
 
 The city of Kanesh is our biggest hub. Probably a capital city. And our famous Pusuken family have lived here.
 
 The people who wrote these tablets had access to the sea ports in the south. So we are talking about some complicated trade network here. Probably Pharaohs of ancient Egypt, Phonecians and Mycenaeans are all playing a role at some point.
 
-Because this map is a static one, I spinned up an AWS instance and fired up a small shiny app as well, so that you can freely zoon in and out. Please click [**HERE**](http://34.241.213.133:3838/Assur/ "shinyapplink") to view it. 
+I fired up a shiny app as well, you can freely play around. Please click [**HERE**](http://34.241.213.133:3838/Assur/ "shinyapplink"){target="_blank"} to view it (It is a micro instance, I hope it can stay stable). 
 
-<b>2018.03.11 </b>
 
 We know the most frequent words in these documents. How about the most important ones? We can try tfidf here.
 
@@ -390,21 +382,18 @@ oare_words %>%
 oare_words %>%
   arrange(desc(tf_idf)) %>%
   mutate(word = factor(word, levels = rev(unique(word)))) %>% 
-  #group_by(title) %>% 
   top_n(5) %>% 
-  #ungroup %>%
   ggplot(aes(word, tf_idf, fill = title)) +
   geom_col(show.legend = FALSE) +
   labs(x = NULL, y = "tf-idf") +
-  #facet_wrap(~title, ncol = 2, scales = "free") +
   coord_flip() + theme_gray()
 ```
 
-tf-idf algorithm decreases the weight for commonly used words and increases the weight for words that are not used very much. 
+tf-idf algorithm decreases the weight of commonly used words and increases the weight of words that are not used very much. 
 
-We had ruling family names in the word frequency plot. They were the **Pusuken, Assurnada and Assurmalik** families. 
+We had ruling family names in the word frequency plot. They were the **Pusuken, Assurnada, and Assurmalik** families. 
 
-Now we have some other names being reported in tfidf plots. And by far, the most significant names are **Kuliya and Aliabum**. These names are more important then the powerful families according to the algorithm. They are also more important then gold, silver and the trade items. Maybe they are not mentioned that much. But they seem to play some significant role. This is really curious. Who are these people?
+Now we have some other names being reported in tfidf plots. And by far, the most significant names are **Kuliya and Aliabum**. These names are more important than the powerful families according to the algorithm. They are also more important than gold, silver and the trade items. Maybe they are not mentioned that much. But they seem to play some significant role. This is really curious. Who are these people?
 
 
 ```{r, fig.align='center'}
@@ -412,9 +401,9 @@ head(original_text[str_detect(original_text$text, "Kuliya"), 1], 15)[4, ] %>%
   pander::pander()
 ```
 
-Kuliya is a servant of Pusuken family. He delivers messages, goods and payments. He is Kuliya, son of Aliabum. Loyal servant of the sons of Pusuken. He takes the caravans from Kanesh and brings to the city of Ulama in the south. There he gives the cargo to the representatives of Sea People. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network can not function without him.
+Kuliya is a servant of Pusuken family. He delivers messages, goods, and payments. He is Kuliya, son of Aliabum. Loyal servant to the sons of Pusuken. He takes the caravans from Kanesh and brings to the city of Ulama in the south. There he gives the cargo to the representatives of Sea People. Aliabum is his father. They call him Kuliya, son of Aliabum. This trade network cannot function without him.
 
-### An unsual autopsy of ancient trade records
+### An unusual autopsy of ancient trade records
 
 ```{r, warning=FALSE, message=FALSE, fig.width=10}
 library(tidyr)
@@ -459,23 +448,22 @@ ggraph(bigram_graph, layout = "fr") +
 
 *Kuliya wakes up early morning with the sound of donkeys. They are on the way to Ulama.*
 
-*The main cargo is 300 kutanum >> textiles. It worths more than 10 talents >> and 50 minas >> of silver according to the tablet he is carrying with him. It means it is almost 2 black >> donkeys! The letter starts with Dear >> brothers again. He doesn't understand why sons of Pusuken call these bastards brother all the time. Those Sea People can ambush them and loot the cargo. But this time they have a devision of guards from the colony >> office for protection. They can fight back.*
+*The main cargo is 300 kutanum >> textiles. It worths more than 10 talents >> and 50 minas >> of silver according to the tablet he is carrying with him. It means it is almost 2 black >> donkeys! The letter starts with Dear >> brothers again. He doesn't understand why sons of Pusuken call these bastards brother all the time. Those Sea People could ambush them and loot the cargo. But not this time: A division of Iron Guards from the colony >> office is protecting them.*
 
-*Transport >> tariff is 60 shekels >> of silver. They will report it in Ulama when they arrive, with approved delivery note. He will deliver a huge profit to the family to clear all the claims >> outstanding*
+*Transport >> tariff is 60 shekels >> of silver. They will write a report in Ulama when they arrive, along with an approved delivery note. He will deliver a huge profit to the family to clear all the claims >> outstanding*
 
-This network plot is quite informative. We see the monatery system around the **silver** and the order of scale for measurement. Talent is the biggest and probably a **refined silver** is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. Strong presence of **colony office** is indicating a regulating superpower, most probably the Empire.
+This network plot is quite informative. We see the monetary system around the **silver** and the order of scale for measurement. Talent is the biggest and probably a **refined silver** is the most valuable. Shekels should be like cents. Shekel - Minas - Silver is the strongest triangle of payment. Textile measurements are in kutanum. The strong presence of **colony office** is indicating a regulating superpower, most probably the Empire.
 
 ```{r}
 money <- data.frame(word = c("tin", "minas", "talent", "talents", "shekels", "mina", "refined", "silver"))
 ```
 
-<b>2018.03.13 </b>
 
 How do these letters feel like? Mostly **positive** or **negative** language? And which words are contributing most to these sentiments? 
 
 I am going to use a special lexicon built for modern financial analysis. This is a kind of lexicon which you can expect to see in an analysis of stock market trading. 
 
-I am curious how it can perform on 4000 year old commercial records.  
+I am curious how it can perform on 4000-year-old commercial records.  
 
 ```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=4}
 library(gridExtra)
@@ -541,24 +529,25 @@ grid.arrange(p1, p2, ncol = 2)
 
 ```
 
-Quite many positive sentiment as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods must be in Kuliya's job description. Stresfull? Maybe...
+Quite many positive sentiments as well as negatives. Not a bad performance by our financial analysis lexicon. Seizing some people or some goods as well as dealing with urgent deliveries must be in Kuliya's job description (he must have had a high spirit). Let's pick a record about 'seizing' and see what it says:
 
 ```{r}
 grep(".*(kuliya.*seize|seize.*kuliya).*", txt$text, value = TRUE)[1] %>%
   pander()
 ```
 
-Kuliya is carrying the Dagger of Assur now.
+####*The Chronicles of Mezzopotamia*
+#####*Book 1: The Dagger of Assur*
+######*Chapter 1: Meteora*
+            *It was before the caravan's arrival to Kanesh, the city of chaos, when Kuliya got that astounding news...*
 
 
 
 
+Now we can stop here and appreciate for a moment this  [**Tidy Approach**](https://www.amazon.com/Text-Mining-R-Tidy-Approach/dp/1491981652 "booklink"){target="_blank"} we followed for Text Mining, bearing in mind the majority of world's data is unstructured.
+
+We started from knowing almost nothing and got to a point where we can write a fictional story in a Bronze Age Middle East setting. We were able to understand the building blocks of an ancient trade network and get its sentiments. We have a fairly good understanding of how those operations felt like. We could identify the trade lords (ruling families) and the most important person in the network who makes this trade engine work. We became good friends with him.
 
 
-
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-
+My **special thanks** to [Kerem Cosar](https://twitter.com/a_kerem_cosar "KeremLink") from University of Virginia who gave me the text files. He is one of the authors of the paper; Trade, Merchants, and the Lost Cities of the Bronze Age which made me start typing the first line of code.
 

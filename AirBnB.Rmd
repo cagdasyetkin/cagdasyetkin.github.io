@@ -508,6 +508,7 @@ Cross Validation and Test Set RMSE scores are almost identical. It is logical si
 
 We would use these models also for predicting 2018 prices for London. Because we think that 2018 will be similar to 2017. On the other hand Budapest prices are very different. I wouldn't predict the price by using a model from London. It will overshoot first of all... Having said that, I can use the experience I gained from London to build new models for other cities. Especially during the process of picking the right coefficients or variables.
 
+
 In my second iteration I would also use one of the variables I dropped at the beginning which are related to reviews. Probably reviews and review scores would have some effect if engineered carefully. Reviews, review scores are more touching to behavioural science and tend to contain more noise.
 
 I would also be curious about how rating scores change over time.

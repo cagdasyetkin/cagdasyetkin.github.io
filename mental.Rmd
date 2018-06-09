@@ -486,7 +486,7 @@ score_glm <- test_prediction_probs$Yes
 summary(score_glm)
 ```
 
-```{r}
+```{r, fig.height=4, fig.width=5}
 actual_vs_predicted <- data.table(actual = truth_numeric,
                                   predicted = score_glm)
 
@@ -509,7 +509,7 @@ This one is **well calibrated**. Predicted mean groups are similar to the actual
 
 Below we will see the calibration when we take squre root of the predictions. In general if we are following the 45 degree line it is a good sign for calibration.
 
-```{r}
+```{r, fig.height=4, fig.width=5}
 actual_vs_predicted <- data.table(actual = truth_numeric,
                                   predicted = prediction_sqrt)
 
@@ -530,7 +530,7 @@ Of course since we increased the values of our predictions they went up in the y
 
 We will see a similar effect below to the **other** direction.
 
-```{r}
+```{r, fig.height=4, fig.width=5}
 actual_vs_predicted <- data.table(actual = truth_numeric,
                                   predicted = prediction_sq)
 

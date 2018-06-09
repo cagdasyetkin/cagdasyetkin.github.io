@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="main.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cagdas Yetkin</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="final.html">final</a>
+</li>
+<li>
+  <a href="textdata.html">Textdata</a>
+</li>
+<li>
+  <a href="AirBnB.html">AirBnB</a>
+</li>
+<li>
+  <a href="mental.html">Mental</a>
+</li>
+<li>
+  <a href="ml.html">Machine Leaning</a>
+</li>
+<li>
+  <a href="dl.html">Deep Leaning</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/cagdasyetkin">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/cagdasyetkin">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/cagdasyetkin/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<hr />
+<hr />
+<div id="application-of-h2o-and-keras-in-deep-learning" class="section level4">
+<h4>Application of H2O and Keras in Deep Learning</h4>
+</div>
+<div id="chapter-1" class="section level2">
+<h2>Chapter 1</h2>
+<div id="deep-learning-with-h2o" class="section level3">
+<h3>Deep learning with h2o</h3>
+<p>This data is about patients taking an appointment from the doctors. They are labeled as ‘no-show’ when they have an appointment but never showed up. The original data is on Kaggle.</p>
+<pre class="r"><code>library(ggplot2)
+library(data.table)
+library(magrittr)
+
+data &lt;- fread(&quot;data/noshowdata/no-show-data.csv&quot;)
+
+# some data cleaning
+data[, c(&quot;PatientId&quot;, &quot;AppointmentID&quot;, &quot;Neighbourhood&quot;) := NULL]
+setnames(data, 
+         c(&quot;No-show&quot;, 
+           &quot;Age&quot;, 
+           &quot;Gender&quot;,
+           &quot;ScheduledDay&quot;, 
+           &quot;AppointmentDay&quot;,
+           &quot;Scholarship&quot;,
+           &quot;Hipertension&quot;,
+           &quot;Diabetes&quot;,
+           &quot;Alcoholism&quot;,
+           &quot;Handcap&quot;,
+           &quot;SMS_received&quot;), 
+         c(&quot;no_show&quot;, 
+           &quot;age&quot;, 
+           &quot;gender&quot;, 
+           &quot;scheduled_day&quot;, 
+           &quot;appointment_day&quot;,
+           &quot;scholarship&quot;,
+           &quot;hypertension&quot;,
+           &quot;diabetes&quot;,
+           &quot;alcoholism&quot;,
+           &quot;handicap&quot;,
+           &quot;sms_received&quot;))
+
+# for binary prediction, the target variable must be a factor
+data[, no_show := factor(no_show, levels = c(&quot;Yes&quot;, &quot;No&quot;))]
+data[, handicap := ifelse(handicap &gt; 0, 1, 0)]
+
+# create new variables
+data[, gender := factor(gender)]
+data[, scholarship := factor(scholarship)]
+data[, hypertension := factor(hypertension)]
+data[, alcoholism := factor(alcoholism)]
+data[, handicap := factor(handicap)]
+
+data[, scheduled_day := as.Date(scheduled_day)]
+data[, appointment_day := as.Date(appointment_day)]
+data[, days_since_scheduled := as.integer(appointment_day - scheduled_day)]
+
+# clean up a little bit
+data &lt;- data[age %between% c(0, 95)]
+data &lt;- data[days_since_scheduled &gt; -1]
+data[, c(&quot;scheduled_day&quot;, &quot;appointment_day&quot;, &quot;sms_received&quot;) := NULL]
+
+library(h2o)
+h2o.init()</code></pre>
+<p>take a look to remember how the data looked like</p>
+<pre class="r"><code>data &lt;- data.table(data)
+skimr::skim(data)</code></pre>
+<p>turn it into a h2o dataframe</p>
+<pre class="r"><code>h2o_data &lt;- as.h2o(data) #
+str(h2o_data)</code></pre>
+<p>Create train / validation / test sets, cutting the data into 5% - 45% - 50% parts.</p>
+<pre class="r"><code>#3 parts
+splitted_data &lt;- h2o.splitFrame(h2o_data, 
+                                ratios = c(0.05, 0.45), #3 parts
+                                seed = 123)
+data_train &lt;- splitted_data[[1]]
+data_valid &lt;- splitted_data[[2]]
+data_test &lt;- splitted_data[[3]]
+
+#just cross checking the number of rows
+nrow(data_train) #5508 rows
+nrow(data_valid) #49793 rows
+nrow(data_test) #55174 rows
+
+nrow(data_test) + nrow(data_train) + nrow(data_valid) </code></pre>
+<p>Train a benchmark model of your choice using h2o (such as random forest, gbm or glm) and evaluate it on the validation set.</p>
+<p>Lets get a benchmark of RF:</p>
+<pre class="r"><code>y &lt;- &quot;no_show&quot;
+X &lt;- setdiff(names(h2o_data), y) #take the set difference. i dont drop any other variables
+print(X) #cross check if variables are right
+
+
+benchmark &lt;-   h2o.randomForest(X, y, #
+               training_frame = data_train, #specify training frame
+               ntrees = 200,# 
+               nfolds = 5, #5 folds
+               seed = 123)</code></pre>
+<p>check out the AUC alone, coming from cv</p>
+<pre class="r"><code>print(h2o.auc(benchmark, xval = TRUE))</code></pre>
+<pre><code>## [1] 0.6881471</code></pre>
+<p>now, evaluate it on the validation set.</p>
+<pre class="r"><code>validation_performances &lt;- list(
+  &quot;rf&quot; = h2o.auc(h2o.performance(benchmark, newdata = data_valid))) #we could collect more models under a list like this... We will do it during deep learning below
+
+validation_performances</code></pre>
+<pre><code>## $rf
+## [1] 0.7004903</code></pre>
+<div id="build-deep-learning-models." class="section level4">
+<h4>Build deep learning models.</h4>
+<p>Experiment with parameter settings</p>
+<p>For all models, supply the validation_frame and use AUC as a stopping metric. Present different model versions and evaluate them on the validation set. Which one performs the best?</p>
+<pre class="r"><code>dl_1 &lt;- h2o.deeplearning(x = X, 
+                             y = y, 
+                             training_frame = data_train, 
+                             validation_frame = data_valid, #early stop to prevent overfitting
+                             stopping_metric = &#39;AUC&#39;,
+                             reproducible = TRUE,  # makes training slower but makes it reproducible
+                             seed = 123)</code></pre>
+<p>First we play a bit with topology: varying number of layers and nodes within layers…</p>
+<p>The default: two hidden layers with 200-200 neurons. Makes sense to experiment with shallower but more neuron or with deeper and less neurons per layer architectures.</p>
+<pre class="r"><code>dl_2 &lt;- h2o.deeplearning(x = X, #shallow_small_model
+                             y = y, 
+                             training_frame = data_train, 
+                             validation_frame = data_valid,
+                             stopping_metric = &#39;AUC&#39;,
+                             reproducible = TRUE,  # makes training slower but makes it reproducible
+                             hidden = c(50), #this is only 1 hidden layer. 50 node in it.
+                             seed = 123)</code></pre>
+<pre class="r"><code>dl_3 &lt;- h2o.deeplearning(x = X, #shallow_large_model
+                             y = y, 
+                             training_frame = data_train, 
+                             validation_frame = data_valid,
+                             stopping_metric = &#39;AUC&#39;,
+                             reproducible = TRUE,  # makes training slower but makes it reproducible
+                             hidden = c(500), #shallow but large number of neurons.
+                             seed = 123)</code></pre>
+<pre class="r"><code>dl_4 &lt;- h2o.deeplearning(x = X, #deep_small_model
+                             y = y, 
+                             training_frame = data_train, 
+                             validation_frame = data_valid,
+                             stopping_metric = &#39;AUC&#39;,
+                             reproducible = TRUE,  # makes training slower but makes it reproducible
+                             hidden = c(30, 30, 30, 30, 30, 30, 30),#7 layers, 30 nodes in 
+                             seed = 123)</code></pre>
+<p>keeping in mind, there is no one single recipe for good results, try, iterate and see…</p>
+<pre class="r"><code>dl_5 &lt;- h2o.deeplearning(x = X, #deep_large_model
+                             y = y, 
+                             training_frame = data_train, 
+                             validation_frame = data_valid,
+                             stopping_metric = &#39;AUC&#39;,
+                             reproducible = TRUE,  # makes training slower but makes it reproducible
+                             hidden = c(100, 100, 100, 100, 100),
+                             seed = 123)</code></pre>
+<p>Now experiment with activation function</p>
+<p>…the nonlinear transformative function used. Its defaultis Rectifier.</p>
+<pre class="r"><code>dl_6 &lt;- h2o.deeplearning(x = X, #tanh_model
+                 y = y, 
+                 training_frame = data_train, 
+                 validation_frame = data_valid,
+                 stopping_metric = &#39;AUC&#39;,
+                 reproducible = TRUE,  # 
+                 hidden = c(30, 30, 30, 30, 30),
+                 activation = &quot;Tanh&quot;, #similar to the sigmoid. transformed variant of sigmoid
+                 seed = 123)</code></pre>
+<p>Trying with epochs..</p>
+<p>How many times will all training datapoints be used to adjust the model in the course of the optimization (note: early stopping is used by default so there is no guarantee that all epochs will be used).</p>
+<p>The algorithm is stachoastic gradient descent. It is a computationally optimum variant. Takes all the points and they are used one by one, once.</p>
+<pre class="r"><code>dl_7 &lt;- h2o.deeplearning(x = X, #more_epochs_model 
+                 y = y, 
+                 training_frame = data_train, 
+                 validation_frame = data_valid,
+                 stopping_metric = &#39;AUC&#39;,
+                 reproducible = TRUE,  # 
+                 hidden = c(100, 100, 100),
+                 activation = &quot;Tanh&quot;,
+                 epochs = 20, #typically increase this and make it stop earlier.
+                 seed = 123)</code></pre>
+<p>Now experiment with dropout (both hidden and input layers)</p>
+<p>with how large probability will neurons be left out of the model at a step (defaults to 0.5). Have to use “WithDropout” activation to use dropout.</p>
+<p>Basically at each update we are shutting down some nodes, randomly. this way we will have a large variaty of networks. A bit similar to random forest idea.</p>
+<pre class="r"><code>dl_8 &lt;- h2o.deeplearning(x = X, #dropout_model
+                 y = y,
+                 reproducible = T,
+                 training_frame = data_train, 
+                 validation_frame = data_valid,
+                 stopping_metric = &#39;AUC&#39;,
+                 hidden = c(100, 100, 100),
+                 activation = &quot;RectifierWithDropout&quot;, #withDropout!
+                 hidden_dropout_ratios = c(0.05, 0.05, 0.1), #for each hidden layer give a probability. leave out 10% of the neurons. defaults to 0.5 if you dont specify.
+                 seed = 123)</code></pre>
+<p>input dropout ratio to drop some input features randomly similar to the one above, this time for imputs..</p>
+<pre class="r"><code>dl_9 &lt;- h2o.deeplearning(x = X, #input_dropout_model
+                 y = y,
+                 reproducible = T,
+                 training_frame = data_train, 
+                 validation_frame = data_valid,
+                 stopping_metric = &#39;AUC&#39;,
+                 hidden = c(100, 100, 100),
+                 input_dropout_ratio = 0.3,
+                 activation = &quot;RectifierWithDropout&quot;, #withDropout!
+                 hidden_dropout_ratios = c(0.05, 0.05, 0.1), #for each hidden layer give a probability. leave out 10% of the neurons. defaults to 0.5 if you dont specify.
+                 seed = 123)</code></pre>
+<p>Experiment with lasso, ridge regularization <code>l1</code>, <code>l2</code>, penalty terms. This is like in the penalized models we have done before.</p>
+<pre class="r"><code>dl_10 &lt;- h2o.deeplearning(x = X, #regularized_model
+                 y = y, 
+                 training_frame = data_train, 
+                 validation_frame = data_valid,
+                 stopping_metric = &#39;AUC&#39;,
+                 reproducible = T,
+                 hidden = c(100, 100, 100),
+                 activation = &quot;RectifierWithDropout&quot;, #withDropout!
+                 hidden_dropout_ratios = c(0.05, 0.05, 0.1), #for each hidden layer give a probability.
+                 l1 = 0.001,
+                 l2 = 0.001,
+                 seed = 123)</code></pre>
+<p>Now, early stopping (changing stopping rounds, tolerance) and add also number of epochs</p>
+<p>We have our metric (AUC). A moving average is calculated for AUC. Question is how much is enough so that we continue the optimzation. The answer is stopping tolerance. 0.01 is needed in order to continue training in our example below. If it was 0 then any increase would be fine and it would take a long long time.</p>
+<p>validation frame. point is performing an optimization ultimately we want our data to perform out of sample. we check this out continusly at each step. then we see if it worths to continue training this.</p>
+<pre class="r"><code>dl_11 &lt;- h2o.deeplearning(x = X, #early_stopping_model
+                 y = y, 
+                 training_frame = data_train, 
+                 validation_frame = data_valid,
+                 stopping_metric = &quot;AUC&quot;,
+                 reproducible = T,
+                 hidden = c(100, 100, 100),
+                 epochs = 100,
+                 stopping_rounds = 2,
+                 activation = &quot;RectifierWithDropout&quot;, #withDropout!
+                 hidden_dropout_ratios = c(0.05, 0.05, 0.1), #for each hidden layer give a probability.     
+                 stopping_tolerance = 0.01,
+                 seed = 123)</code></pre>
+<pre class="r"><code>validation_performances &lt;- list(
+  &quot;benchmark&quot; = h2o.auc(h2o.performance(benchmark, newdata = data_valid)),
+  &quot;dl_01&quot; = h2o.auc(h2o.performance(dl_1, newdata = data_valid)),
+  &quot;dl_02&quot; = h2o.auc(h2o.performance(dl_2, newdata = data_valid)),
+  &quot;dl_03&quot; = h2o.auc(h2o.performance(dl_3, newdata = data_valid)),
+  &quot;dl_04&quot; = h2o.auc(h2o.performance(dl_4, newdata = data_valid)),
+  &quot;dl_05&quot; = h2o.auc(h2o.performance(dl_5, newdata = data_valid)),
+  &quot;dl_06&quot; = h2o.auc(h2o.performance(dl_6, newdata = data_valid)),
+  &quot;dl_07&quot; = h2o.auc(h2o.performance(dl_7, newdata = data_valid)),
+  &quot;dl_08&quot; = h2o.auc(h2o.performance(dl_8, newdata = data_valid)),
+  &quot;dl_09&quot; = h2o.auc(h2o.performance(dl_9, newdata = data_valid)),
+  &quot;dl_10&quot; = h2o.auc(h2o.performance(dl_10, newdata = data_valid)),
+  &quot;dl_11&quot; = h2o.auc(h2o.performance(dl_11, newdata = data_valid))
+  )</code></pre>
+<p>Make a data frame and present the results</p>
+<pre class="r"><code>library(tidyr)
+library(dplyr)
+
+df &lt;- data.frame(validation_performances) %&gt;%
+  gather(&quot;model&quot;, &quot;AUC&quot;) %&gt;%
+  arrange(desc(AUC))
+
+df %&gt;%
+  head() %&gt;%
+  pander::pander()</code></pre>
+<table style="width:22%;">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">model</th>
+<th align="center">AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">dl_04</td>
+<td align="center">0.7096</td>
+</tr>
+<tr class="even">
+<td align="center">dl_01</td>
+<td align="center">0.7083</td>
+</tr>
+<tr class="odd">
+<td align="center">dl_08</td>
+<td align="center">0.7079</td>
+</tr>
+<tr class="even">
+<td align="center">dl_06</td>
+<td align="center">0.7068</td>
+</tr>
+<tr class="odd">
+<td align="center">dl_07</td>
+<td align="center">0.7056</td>
+</tr>
+<tr class="even">
+<td align="center">dl_05</td>
+<td align="center">0.7051</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>library(ggplot2) 
+library(ggthemes)
+mycolours &lt;- c(&quot;TRUE&quot; = &quot;red&quot;, &quot;FALSE&quot; = &quot;grey50&quot;)
+
+df %&gt;%
+  filter(AUC &gt;= 0.69) %&gt;% #sometimes I got models less than 69%, i dont need them
+  mutate(maxAUC = if_else(AUC == max(AUC), TRUE, FALSE)) %&gt;%
+  ggplot(aes(model,AUC, group = 1)) + 
+  geom_line() + 
+  geom_point(size = 3, aes(colour = maxAUC)) +
+  scale_color_manual(&quot;Winner&quot;, values = mycolours) +
+  scale_y_continuous(labels=scales::percent) +
+  ggtitle(&quot;The Box of Pandora&quot;) +
+  theme_fivethirtyeight()</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-21-1.png" width="912" /></p>
+<p>This was a back and forth process. I was tuning and plotting different possibilities.</p>
+<p>Let me save this as a function and use in my future analysis. Because it feels like this kind of comparison will repeat a lot. The function is called “pandora”. It takes a list of model performances, makes a dataframe and gives out visualization. And actually Pandora is a bad name. A better name can be something like: make_performance_comparison_plot_validset(). I just like using the word Pandora from the book Elements of Statistical Learning. There the autor uses this word when he is comparing different models: “Now it is time to open the box of Pandora and see the results…”</p>
+<p>Evaluate the model that performs best based on the validation set on the test set.</p>
+<pre class="r"><code>print(h2o.auc(h2o.performance(dl_4, newdata = data_test)))</code></pre>
+<pre><code>## [1] 0.7094104</code></pre>
+<p>We got almost the same result as validation set…</p>
+</div>
+</div>
+</div>
+<div id="stacking-with-h2o" class="section level2">
+<h2>Stacking with h2o</h2>
+<p>Next task is to apply Stacking. Take the same problem and data splits.</p>
+We will build 4 models of different families using cross validation, keeping cross validated predictions. We will evaluate validation set performance of each model.
+</p>
+<p>We will also see how large are the correlations of predicted scores of the validation set produced by the base learners.</p>
+<pre class="r"><code>glm_model &lt;- h2o.glm(
+  X, y,
+  training_frame = data_train,
+  family = &quot;binomial&quot;,
+  alpha = 1, 
+  lambda_search = TRUE,
+  seed = 123,
+  nfolds = 5, 
+  keep_cross_validation_predictions = TRUE
+)</code></pre>
+<pre class="r"><code>gbm_model &lt;- h2o.gbm(
+  X, y,
+  training_frame = data_train,
+  ntrees = 200, 
+  max_depth = 10, 
+  learn_rate = 0.1, 
+  seed = 123,
+  nfolds = 5, 
+  keep_cross_validation_predictions = TRUE
+)</code></pre>
+<pre class="r"><code>deeplearning_model &lt;- h2o.deeplearning(
+  X, y,
+  training_frame = data_train,
+  hidden = c(32, 8),
+  seed = 123,
+  nfolds = 5, 
+  keep_cross_validation_predictions = TRUE
+)</code></pre>
+<pre class="r"><code>rf_model &lt;- h2o.randomForest(
+  X, y,
+  training_frame = data_train,
+  ntrees = 200, 
+  seed = 123,
+  nfolds = 5, 
+  keep_cross_validation_predictions = TRUE
+)</code></pre>
+<pre class="r"><code>ensemble_model &lt;- h2o.stackedEnsemble(
+  X, y,
+  training_frame = data_train,
+  base_models = list(glm_model, 
+                     gbm_model,
+                     deeplearning_model,
+                     rf_model))</code></pre>
+<pre class="r"><code># inspect validation set correlations of scores
+predictions &lt;- data.table(
+  &quot;glm&quot; = as.data.frame(h2o.predict(glm_model, newdata = data_valid)$Y)$Y,
+  &quot;gbm&quot; = as.data.frame(h2o.predict(gbm_model, newdata = data_valid)$Y)$Y,
+  &quot;dl&quot; = as.data.frame(h2o.predict(deeplearning_model, newdata = data_valid)$Y),
+  &quot;rf&quot; = as.data.frame(h2o.predict(rf_model, newdata = data_valid)$Y)$Y
+)</code></pre>
+<pre class="r"><code>GGally::ggcorr(predictions, label = TRUE, label_round = 2)</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-30-1.png" width="288" /> We can see very clear correlations. Highly correlated ones are moving together. It means when RF is saying “yes”, most of the time GBM is also saying “yes”. They have similarity in predicted probability scores. This kind of relationship is not as much strong between GBM and GLM.</p>
+<p>The more uncorrelated predictions are, the more room there is to improve individual models.</p>
+<pre class="r"><code>valid_performances &lt;- list(
+  &quot;glm&quot; = h2o.auc(h2o.performance(glm_model, newdata = data_valid)),
+  &quot;gbm&quot; = h2o.auc(h2o.performance(gbm_model, newdata = data_valid)),
+  &quot;dl&quot; = h2o.auc(h2o.performance(deeplearning_model, newdata = data_valid)),
+  &quot;rf&quot; = h2o.auc(h2o.performance(rf_model, newdata = data_valid))
+  )
+
+#lets use the function we created before: pandora!
+pandora(valid_performances)</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-31-1.png" width="912" /> The bests are around 69.6% - 70.04%</p>
+<pre class="r"><code># for the ensemble model
+print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pre>
+<pre><code>## [1] 0.7105348</code></pre>
+<p><strong>an improvement</strong>! better then the individuals.</p>
+<p>The baseline meta-learner is a glm model. We can try GBM also:</p>
+<pre class="r"><code>ensemble_model_gbm &lt;- h2o.stackedEnsemble(
+  X, y,
+  training_frame = data_train,
+  metalearner_algorithm = &quot;gbm&quot;,
+  base_models = list(glm_model, 
+                     gbm_model,
+                     deeplearning_model,
+                     rf_model))</code></pre>
+<pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_gbm, newdata = data_valid)))</code></pre>
+<pre><code>## [1] 0.6951573</code></pre>
+<p>But it gave a lower score. We can maybe give deep learning a chance:</p>
+<pre class="r"><code>ensemble_model_dl &lt;- h2o.stackedEnsemble(
+  X, y,
+  training_frame = data_train,
+  metalearner_algorithm = &quot;deeplearning&quot;,
+  base_models = list(glm_model, 
+                     gbm_model,
+                     deeplearning_model,
+                     rf_model))</code></pre>
+<pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_dl, newdata = data_valid)))</code></pre>
+<pre><code>## [1] 0.6779634</code></pre>
+<p>The default glm metalearner is giving better result than deeplearning and gbm here. So let’s apply it to or test set:</p>
+<pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model, newdata = data_test)))</code></pre>
+<pre><code>## [1] 0.7092341</code></pre>
+<p>It is really very closed to the validation set performance of 71.2%!</p>
+</div>
+<div id="chapter-2" class="section level2">
+<h2>Chapter 2:</h2>
+<div id="fashion-image-classification-using-keras" class="section level3">
+<h3>Fashion image classification using keras</h3>
+<p>Take the “Fashion MNIST dataset” where images of fashion items are to be classified in a similar manner to what we saw with handwritten digits. Images are in exactly the same format as we saw digits: 28x28 pixel grayscale images. The task is to build deep neural net models to predict image classes. The goal is to have as accurate classifier as possible: we are using accuracy as a measure of predictive power.</p>
+<pre class="r"><code>library(keras)
+fashion_mnist &lt;- dataset_fashion_mnist()
+x_train &lt;- fashion_mnist$train$x
+y_train &lt;- fashion_mnist$train$y
+x_test &lt;- fashion_mnist$test$x
+y_test &lt;- fashion_mnist$test$y</code></pre>
+<pre class="r"><code>show_mnist_image &lt;- function(x) {
+  image(1:28, 1:28, t(x)[,nrow(x):1],col=gray((0:255)/255)) 
+}
+
+show_mnist_image(x_train[18, , ])</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-39-1.png" width="192" /></p>
+<pre class="r"><code>show_mnist_image(x_train[35, , ])</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-40-1.png" width="192" /></p>
+<pre class="r"><code>show_mnist_image(x_train[100, , ])</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-41-1.png" width="192" /></p>
+<p>But how many items do we have? OK it has a nice Github site. We have 10 classes again.</p>
+<pre class="r"><code># reshape
+x_train &lt;- array_reshape(x_train, c(dim(x_train)[1], 784)) 
+x_test &lt;- array_reshape(x_test, c(dim(x_test)[1], 784)) 
+# rescale
+x_train &lt;- x_train / 255 #between zero and one
+x_test &lt;- x_test / 255
+
+# one-hot encoding of the target variable
+y_train &lt;- to_categorical(y_train, 10)
+y_test &lt;- to_categorical(y_test, 10)</code></pre>
+<pre class="r"><code>model &lt;- keras_model_sequential() 
+model %&gt;% 
+  layer_dense(units = 128, activation = &#39;relu&#39;, input_shape = c(784)) %&gt;% #layers of neurons, dense means its a dense network. dropout is the probability of dropping. activation . 
+  layer_dropout(rate = 0.3) %&gt;%
+  layer_dense(units = 10, activation = &#39;softmax&#39;) #units of 10 because we want 10 cat. multiclass classification is done by softmax. input shape is important to give.</code></pre>
+<pre class="r"><code>summary(model)</code></pre>
+<pre><code>## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #     
+## ===========================================================================
+## dense_1 (Dense)                  (None, 128)                   100480      
+## ___________________________________________________________________________
+## dropout_1 (Dropout)              (None, 128)                   0           
+## ___________________________________________________________________________
+## dense_2 (Dense)                  (None, 10)                    1290        
+## ===========================================================================
+## Total params: 101,770
+## Trainable params: 101,770
+## Non-trainable params: 0
+## ___________________________________________________________________________</code></pre>
+<pre class="r"><code>model %&gt;% compile(
+  loss = &#39;categorical_crossentropy&#39;,
+  optimizer = optimizer_rmsprop(),
+  metrics = c(&#39;accuracy&#39;)
+)</code></pre>
+<p>I used 5 epochs in the end. I tried 25, 30, 60 and 35 epochs also. I started to flatten out after 3 epochs already</p>
+<pre class="r"><code>history &lt;- model %&gt;% fit(
+  x_train, y_train, #they are 2 separete objects! train train
+  epochs = 5, batch_size = 128, #after how many gradient to be computed
+  validation_split = 0.2
+)</code></pre>
+<pre class="r"><code>plot(history)</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<pre class="r"><code>model %&gt;% evaluate(x_test, y_test)</code></pre>
+<p>Test set results are acc 85.5% and loss 39%.</p>
+<p>It was 86% after 5 epochs. Test set performance is worse. Overall this is not a nice result. I should have played with the parameters better. This dataset is better than classic MNIST.</p>
+</div>
+</div>
+<div id="a-convolutional-neural-net-example" class="section level2">
+<h2>A convolutional neural net example</h2>
+<p>It makes use of the 2d structure of the original input data, applying filters exploiting the 2d images. In <code>h2o</code> there is no option to use such models by default.</p>
+<pre class="r"><code>mnist &lt;- dataset_mnist()
+x_train &lt;- mnist$train$x
+y_train &lt;- mnist$train$y
+x_test &lt;- mnist$test$x
+y_test &lt;- mnist$test$y
+
+x_train &lt;- array_reshape(x_train, c(nrow(x_train), 28, 28, 1)) #extra dim of 1. at each node we are not having real nubers but bew mageis are buint jeeking 2 dimen features. new artificial features and they are 2 dims.
+x_test &lt;- array_reshape(x_test, c(nrow(x_test), 28, 28, 1))
+
+# rescale
+x_train &lt;- x_train / 255
+x_test &lt;- x_test / 255
+
+# one-hot encoding of the target variable
+y_train &lt;- to_categorical(y_train, 10)
+y_test &lt;- to_categorical(y_test, 10)</code></pre>
+<p>it creates the neurons differently. keeps the original image.</p>
+<pre class="r"><code>cnn_model &lt;- keras_model_sequential() 
+cnn_model %&gt;% 
+  layer_conv_2d(filters = 32, #
+                kernel_size = c(3, 3), #28 28 looks up 3 by 3 pixels and applys filters.
+                activation = &#39;relu&#39;,
+                input_shape = c(28, 28, 1)) %&gt;%
+  layer_max_pooling_2d(pool_size = c(2, 2)) %&gt;% 
+  layer_dropout(rate = 0.25) %&gt;%
+  layer_flatten() %&gt;% #data transformation vectorization of 2 dim into 1.
+  layer_dense(units = 32, activation = &#39;relu&#39;) %&gt;% 
+  layer_dense(units = 10, activation = &#39;softmax&#39;)</code></pre>
+<pre class="r"><code>summary(cnn_model)</code></pre>
+<pre><code>## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #     
+## ===========================================================================
+## conv2d_1 (Conv2D)                (None, 26, 26, 32)            320         
+## ___________________________________________________________________________
+## max_pooling2d_1 (MaxPooling2D)   (None, 13, 13, 32)            0           
+## ___________________________________________________________________________
+## dropout_2 (Dropout)              (None, 13, 13, 32)            0           
+## ___________________________________________________________________________
+## flatten_1 (Flatten)              (None, 5408)                  0           
+## ___________________________________________________________________________
+## dense_3 (Dense)                  (None, 32)                    173088      
+## ___________________________________________________________________________
+## dense_4 (Dense)                  (None, 10)                    330         
+## ===========================================================================
+## Total params: 173,738
+## Trainable params: 173,738
+## Non-trainable params: 0
+## ___________________________________________________________________________</code></pre>
+<pre class="r"><code>cnn_model %&gt;% compile(
+  loss = &#39;categorical_crossentropy&#39;,
+  optimizer = optimizer_rmsprop(),
+  metrics = c(&#39;accuracy&#39;)
+)</code></pre>
+<pre class="r"><code>history &lt;- cnn_model %&gt;% fit(
+  x_train, y_train, 
+  epochs = 5, 
+  batch_size = 128, 
+  validation_split = 0.2
+)</code></pre>
+<p>after 5 epochs: val_loss: 0.0571 - val_acc: 0.9840</p>
+<pre class="r"><code>plot(history)</code></pre>
+<p><img src="dl_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<pre class="r"><code>cnn_model %&gt;% evaluate(x_test, y_test)</code></pre>
+<p>CNN acc is 98.13% and loss is 5.7%. This is a much better result than deep neural net! Amazing!</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

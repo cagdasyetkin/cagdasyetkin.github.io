@@ -666,6 +666,7 @@ toMatch <- c("^Primary", "^Translation", "^logosyllabic", "^Epistolary", "^Formu
 
 ```
 
+
 ```{r, message=FALSE, warning=FALSE, fig.align = 'center'}
 library(pander)
 matches <- unique (grep(paste(toMatch,collapse="|"), 

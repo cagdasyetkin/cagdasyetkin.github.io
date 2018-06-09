@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="main.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cagdas Yetkin</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="textdata.html">textdata</a>
+</li>
+<li>
+  <a href="AirBnB.html">AirBnB</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/cagdasyetkin">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/cagdasyetkin">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/cagdasyetkin/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<hr />
+<hr />
+<p><img src="images/AirBnB_images/londonMap.PNG" alt="london_map" height="400" width="600"></p>
+<p>London, city of Sherlock, Harry Potter, Dorian Gray and many others…</p>
+<p>Our client is a mid size real estate company trying to enter into airbnb business in London. Their new revenue model is to build or purchase flats and houses, renovate them and then list on the website. They also want to expand the business to Budapest Hungary soon.</p>
+<p>Our task is to help them on the pricing issue by using the historical data publicly available online.</p>
+<pre class="r"><code>library(doParallel)
+library(ggplot2)
+library(data.table)
+library(caret)
+library(glmnet)
+library(dplyr)
+library(ggthemes) #fivethirtyeight plots
+library(skimr) #magical summaries
+library(gridExtra) #combine plots
+library(stargazer) #checked a few coeffs
+library(knitr)
+library(kableExtra) #html formating
+
+registerDoParallel(cores = 4)
+knitr::opts_chunk$set(warning = FALSE)</code></pre>
+<p>We need to get rid of some dublicates</p>
+<pre class="r"><code>data &lt;- fread(&quot;data/airbnbdata/airbnb_london_workfile.csv&quot;, stringsAsFactors = TRUE)
+
+data[, c(&quot;neighbourhood_cleansed&quot;, &quot;cancellation_policy&quot;, 
+         &quot;usd_price_day&quot;, &quot;property_type&quot;, &quot;room_type&quot;)  := NULL]
+
+data[, neighbourhood_cleansed := NULL]
+
+names(data)</code></pre>
+<pre><code>##  [1] &quot;usd_cleaning_fee&quot;          &quot;f_property_type&quot;          
+##  [3] &quot;f_room_type&quot;               &quot;f_cancellation_policy&quot;    
+##  [5] &quot;f_bed_type&quot;                &quot;f_neighbourhood_cleansed&quot; 
+##  [7] &quot;p_host_response_rate&quot;      &quot;n_accommodates&quot;           
+##  [9] &quot;n_bathrooms&quot;               &quot;n_review_scores_rating&quot;   
+## [11] &quot;n_number_of_reviews&quot;       &quot;n_guests_included&quot;        
+## [13] &quot;n_reviews_per_month&quot;       &quot;n_extra_people&quot;           
+## [15] &quot;n_minimum_nights&quot;          &quot;n_beds&quot;                   
+## [17] &quot;n_days_since&quot;              &quot;d_24hourcheckin&quot;          
+## [19] &quot;d_airconditioning&quot;         &quot;d_breakfast&quot;              
+## [21] &quot;d_buzzerwirelessintercom&quot;  &quot;d_cabletv&quot;                
+## [23] &quot;d_carbonmonoxidedetector&quot;  &quot;d_cats&quot;                   
+## [25] &quot;d_dogs&quot;                    &quot;d_doorman&quot;                
+## [27] &quot;d_doormanentry&quot;            &quot;d_dryer&quot;                  
+## [29] &quot;d_elevatorinbuilding&quot;      &quot;d_essentials&quot;             
+## [31] &quot;d_familykidfriendly&quot;       &quot;d_fireextinguisher&quot;       
+## [33] &quot;d_firstaidkit&quot;             &quot;d_freeparkingonpremises&quot;  
+## [35] &quot;d_freeparkingonstreet&quot;     &quot;d_gym&quot;                    
+## [37] &quot;d_hairdryer&quot;               &quot;d_hangers&quot;                
+## [39] &quot;d_heating&quot;                 &quot;d_hottub&quot;                 
+## [41] &quot;d_indoorfireplace&quot;         &quot;d_internet&quot;               
+## [43] &quot;d_iron&quot;                    &quot;d_keypad&quot;                 
+## [45] &quot;d_kitchen&quot;                 &quot;d_laptopfriendlyworkspace&quot;
+## [47] &quot;d_lockonbedroomdoor&quot;       &quot;d_lockbox&quot;                
+## [49] &quot;d_otherpets&quot;               &quot;d_paidparkingoffpremises&quot; 
+## [51] &quot;d_petsallowed&quot;             &quot;d_petsliveonthisproperty&quot; 
+## [53] &quot;d_pool&quot;                    &quot;d_privateentrance&quot;        
+## [55] &quot;d_privatelivingroom&quot;       &quot;d_safetycard&quot;             
+## [57] &quot;d_selfcheckin&quot;             &quot;d_shampoo&quot;                
+## [59] &quot;d_smartlock&quot;               &quot;d_smokedetector&quot;          
+## [61] &quot;d_smokingallowed&quot;          &quot;d_suitableforevents&quot;      
+## [63] &quot;d_tv&quot;                      &quot;d_washer&quot;                 
+## [65] &quot;d_washerdryer&quot;             &quot;d_wheelchairaccessible&quot;   
+## [67] &quot;d_wirelessinternet&quot;        &quot;price&quot;</code></pre>
+<pre class="r"><code>data[, price := as.numeric(price)]</code></pre>
+<p>Since these properties will be renovated new listings, they will not have any review or review related scores. Later on we can build a new model for the existing ones. However, we will drop them for this initial study.</p>
+<p>Cleaning of the properties will be outsourced to another company and it will be a standardized process. In the data when the cleaning fee is missing it is actually zero. And sometimes this feature is misused by the oweners. We will not use this feature as well.</p>
+<pre class="r"><code>data[, c(&quot;n_review_scores_rating&quot;, &quot;n_reviews_per_month&quot;, 
+         &quot;n_number_of_reviews&quot;, &quot;n_days_since&quot;, &quot;p_host_response_rate&quot;, &quot;usd_cleaning_fee&quot;)  := NULL]</code></pre>
+<p>Do we have missing variables?</p>
+<pre class="r"><code>sapply(data, function(x) sum(is.na(x))) %&gt;%
+  pander()</code></pre>
+<table style="width:94%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="25%" />
+<col width="19%" />
+<col width="33%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">f_property_type</th>
+<th align="center">f_room_type</th>
+<th align="center">f_cancellation_policy</th>
+<th align="center">f_bed_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="35%" />
+<col width="22%" />
+<col width="18%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">f_neighbourhood_cleansed</th>
+<th align="center">n_accommodates</th>
+<th align="center">n_bathrooms</th>
+<th align="center">n_guests_included</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">237</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:86%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="23%" />
+<col width="26%" />
+<col width="12%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">n_extra_people</th>
+<th align="center">n_minimum_nights</th>
+<th align="center">n_beds</th>
+<th align="center">d_24hourcheckin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">167</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="27%" />
+<col width="19%" />
+<col width="37%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_airconditioning</th>
+<th align="center">d_breakfast</th>
+<th align="center">d_buzzerwirelessintercom</th>
+<th align="center">d_cabletv</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="36%" />
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_carbonmonoxidedetector</th>
+<th align="center">d_cats</th>
+<th align="center">d_dogs</th>
+<th align="center">d_doorman</th>
+<th align="center">d_doormanentry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:96%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="13%" />
+<col width="31%" />
+<col width="20%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_dryer</th>
+<th align="center">d_elevatorinbuilding</th>
+<th align="center">d_essentials</th>
+<th align="center">d_familykidfriendly</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:86%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="29%" />
+<col width="22%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_fireextinguisher</th>
+<th align="center">d_firstaidkit</th>
+<th align="center">d_freeparkingonpremises</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="29%" />
+<col width="9%" />
+<col width="17%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_freeparkingonstreet</th>
+<th align="center">d_gym</th>
+<th align="center">d_hairdryer</th>
+<th align="center">d_hangers</th>
+<th align="center">d_heating</th>
+<th align="center">d_hottub</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:89%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="27%" />
+<col width="18%" />
+<col width="12%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_indoorfireplace</th>
+<th align="center">d_internet</th>
+<th align="center">d_iron</th>
+<th align="center">d_keypad</th>
+<th align="center">d_kitchen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="37%" />
+<col width="29%" />
+<col width="16%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_laptopfriendlyworkspace</th>
+<th align="center">d_lockonbedroomdoor</th>
+<th align="center">d_lockbox</th>
+<th align="center">d_otherpets</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="34%" />
+<col width="20%" />
+<col width="34%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_paidparkingoffpremises</th>
+<th align="center">d_petsallowed</th>
+<th align="center">d_petsliveonthisproperty</th>
+<th align="center">d_pool</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="27%" />
+<col width="30%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_privateentrance</th>
+<th align="center">d_privatelivingroom</th>
+<th align="center">d_safetycard</th>
+<th align="center">d_selfcheckin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:86%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="16%" />
+<col width="19%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_shampoo</th>
+<th align="center">d_smartlock</th>
+<th align="center">d_smokedetector</th>
+<th align="center">d_smokingallowed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="27%" />
+<col width="8%" />
+<col width="13%" />
+<col width="20%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_suitableforevents</th>
+<th align="center">d_tv</th>
+<th align="center">d_washer</th>
+<th align="center">d_washerdryer</th>
+<th align="center">d_wheelchairaccessible</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:39%;">
+<colgroup>
+<col width="29%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">d_wirelessinternet</th>
+<th align="center">price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>n_bathrooms (237), n_beds (167) have missing values.</p>
+<p>We will use median value for the bathrooms assuming that 1 bathroom should be available. Number of beds should be equal to the number of accommodate for the missing ones.</p>
+<pre class="r"><code>data[, n_bathrooms := 
+       ifelse(is.na(n_bathrooms), median(n_bathrooms, na.rm = T), n_bathrooms)]
+
+data[, n_beds := 
+       ifelse(is.na(n_beds), n_accommodates, n_beds)]
+
+#a few observations with strange prices. Illogical and outscope numbers create noise to our business question.
+data &lt;- data[data$price &gt; 10, ]
+data &lt;- data[data$price &lt; 700, ]</code></pre>
+<pre class="r"><code>#Below is the small gadget i wrote to study my variables in detail.
+sapply(data, function(x) if (class(x) == &#39;factor&#39;) {unique(x)
+  } else if (class(x) != &#39;factor&#39;) {skim(x)})</code></pre>
+<pre class="r"><code>#take another look 
+glimpse(data)</code></pre>
+<p>How is the average price changing district by district?</p>
+<pre class="r"><code>data[, .(count = .N, 
+         avg_price = round(mean(price)),
+         median_price = round(median(price)),
+         min = min(price),
+         max = max(price)), 
+                 by = f_neighbourhood_cleansed][order(-avg_price)] %&gt;%
+  filter(count &gt; 1000)</code></pre>
+<pre><code>##    f_neighbourhood_cleansed count avg_price median_price min max
+## 1    Kensington and Chelsea  3327       145          120  20 695
+## 2               Westminster  5202       137          110  19 691
+## 3                    Camden  3623       112           95  15 666
+## 4    Hammersmith and Fulham  2689       104           82  11 699
+## 5                Wandsworth  2602        96           75  15 650
+## 6                 Islington  3478        94           80  11 654
+## 7                 Southwark  3241        86           69  11 699
+## 8                   Lambeth  3176        84           65  15 682
+## 9                     Brent  1537        81           60  15 669
+## 10                  Hackney  4492        80           65  11 500
+## 11            Tower Hamlets  5431        77           60  12 650
+## 12                   Newham  1120        70           50  14 572
+## 13                 Haringey  1402        69           50  12 570
+## 14                 Lewisham  1448        61           48  15 400</code></pre>
+<p>Now time to select a random district… We will select a random district and compare it with the entire London. This will also help us to analyze several different districts without changing the code. However, I will set a seed below for reproducability of this one</p>
+<pre class="r"><code>#a dplyr way...
+set.seed(22) #reproduce
+selection_table &lt;- data %&gt;%
+                      group_by(f_neighbourhood_cleansed) %&gt;%
+                      tally() %&gt;%
+                      filter(n &gt; 1000) %&gt;%
+                      arrange(desc(n))
+
+
+lottery_winner &lt;- as.vector(sample(selection_table$f_neighbourhood_cleansed, 1))
+lottery_winner</code></pre>
+<pre><code>## [1] &quot;Islington&quot;</code></pre>
+<p>Hello My District… This is the area where <strong>Sherlock Holmes</strong> lived.</p>
+<pre class="r"><code>district &lt;- data %&gt;%
+              filter(f_neighbourhood_cleansed == lottery_winner)</code></pre>
+<pre class="r"><code>## Distribution of price by type
+plot1 &lt;- ggplot(data, aes(price, fill = f_room_type)) + 
+         ggtitle(&quot;Price Density, London&quot;) +
+         geom_density(alpha = 0.3) + theme_fivethirtyeight()
+
+## Boxplot of price by room type
+plot2 &lt;- ggplot(data, aes(f_room_type, price)) + 
+         ggtitle(&quot;Price in London&quot;) +
+         geom_boxplot()+ theme_fivethirtyeight()
+
+plot3 &lt;- ggplot(district, aes(price, fill = f_room_type)) + 
+         ggtitle(&quot;Price Density, District&quot;) +
+         geom_density(alpha = 0.3) + theme_fivethirtyeight()
+
+## Boxplot of price by room type
+plot4 &lt;- ggplot(district, aes(f_room_type, price)) + 
+         ggtitle(&quot;Price in District&quot;) +
+         geom_boxplot()+ theme_fivethirtyeight()
+
+grid.arrange(plot1, plot2, plot3, plot4, ncol=2, nrow=2)</code></pre>
+<p><img src="AirBnB_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Distributions are similar. We see the skewness to the right and how price changes by property type.</p>
+<pre class="r"><code>plot5 &lt;- ggplot(data, aes(x = factor(n_accommodates), y = price, fill = factor(f_property_type))) +
+         geom_boxplot(alpha=0.8) +
+         scale_x_discrete(name = &quot;Accomodate Persons&quot;) +
+         ggtitle(&quot;Price Per Accommodate in London&quot;) + theme_fivethirtyeight()
+
+plot6 &lt;- ggplot(data = data) +
+         geom_bar(data = data,
+         aes(x = factor(n_accommodates),
+         color = f_room_type, fill = f_room_type)) +
+         ggtitle(&quot;# Accomodations and property types London&quot;) +
+         xlab(&#39;Accommodates&#39;) + theme_fivethirtyeight()
+
+grid.arrange(plot5, plot6, nrow=2)</code></pre>
+<p><img src="AirBnB_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Accommodate is an important feature we will need to pay attention.</p>
+<p>There is a wide range of price. So there must be some factors which make differences. Now I will leave the path and enter into a random forest to see which variables it picks.</p>
+<p>This will be a heuristic approach. Because I am lacking the domain knowledge in this business, I will use random forest to pick the most important (highly likely) variables for me. It is probabilistic, however, it can be a better start than knowing nothing at all.</p>
+<pre class="r"><code># Fit random forest
+RFtrainControl &lt;- trainControl(method = &quot;cv&quot;, 
+                               number = 2, 
+                               verboseIter = TRUE)
+set.seed(1234)
+RFmodel &lt;- train(
+  price ~ .,
+  tuneLength = 1,
+  data = district, 
+  method = &#39;ranger&#39;,
+  na.action = na.omit,
+  importance = &#39;impurity&#39;,
+  trControl = RFtrainControl)</code></pre>
+<pre><code>## Aggregating results
+## Selecting tuning parameters
+## Fitting mtry = 9, splitrule = variance, min.node.size = 5 on full training set</code></pre>
+<pre class="r"><code>varImp(RFmodel)</code></pre>
+<pre><code>## ranger variable importance
+## 
+##   only 20 most important variables shown (out of 94)
+## 
+##                             Overall
+## n_accommodates              100.000
+## f_room_typePrivate room      68.106
+## n_beds                       63.804
+## n_bathrooms                  47.317
+## n_guests_included            24.744
+## f_property_typeHouse         16.489
+## n_minimum_nights             15.975
+## d_tv                         13.948
+## f_cancellation_policystrict  13.741
+## n_extra_people               13.692
+## d_familykidfriendly          12.316
+## d_laptopfriendlyworkspace     5.564
+## d_cabletv                     5.243
+## d_dryer                       5.018
+## d_elevatorinbuilding          4.859
+## d_indoorfireplace             4.723
+## d_buzzerwirelessintercom      4.602
+## d_carbonmonoxidedetector      4.592
+## d_shampoo                     4.329
+## d_iron                        4.285</code></pre>
+<p>Accommodates looks like the most important variable indeed. And for example being kid friendly might have some effect. Below we can see its plot, error bars added to emphasise the level of uncertainty.</p>
+<pre class="r"><code>library(psych)
+
+stats &lt;- describeBy(data$price,list(data$f_room_type,data$d_familykidfriendly), mat=TRUE,digits=2)
+stats$se = stats$sd/sqrt(stats$n)
+names(stats)[names(stats) == &#39;group1&#39;] = &#39;Type&#39;
+names(stats)[names(stats) == &#39;group2&#39;] = &#39;KidFriendly&#39;
+
+stats_2 &lt;- describeBy(data$price,list(data$f_room_type,data$d_tv), mat=TRUE,digits=2)
+stats_2$se = stats_2$sd/sqrt(stats_2$n)
+names(stats_2)[names(stats_2) == &#39;group1&#39;] = &#39;Type&#39;
+names(stats_2)[names(stats_2) == &#39;group2&#39;] = &#39;TV&#39;
+
+
+limits = aes(ymax = mean + (1.96*se), ymin=mean - (1.96*se))
+dodge = position_dodge(width=0.9)
+
+apatheme=theme_bw()+
+  theme(panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.border=element_blank(),
+        axis.line=element_line())
+
+p7 &lt;- ggplot(stats, aes(x = Type, y = mean, fill = KidFriendly))+
+  geom_bar(stat=&#39;identity&#39;, position=dodge)+
+  geom_errorbar(limits, position=dodge, width=0.25)+
+  ylab(&#39;Mean Price&#39;)+
+  theme_fivethirtyeight() + apatheme +
+  scale_fill_grey()
+
+p8&lt;- ggplot(stats_2, aes(x = Type, y = mean, fill = TV))+
+  geom_bar(stat=&#39;identity&#39;, position=dodge)+
+  geom_errorbar(limits, position=dodge, width=0.25)+
+  ylab(&#39;Mean Price&#39;)+
+  theme_fivethirtyeight() + apatheme +
+  scale_fill_grey()
+
+grid.arrange(p7, p8, ncol=2)</code></pre>
+<p><img src="AirBnB_files/figure-html/unnamed-chunk-15-1.png" width="864" /></p>
+<p>Playing our card to be-kid-friendly, we can increase our profits. Maybe the families with small kids are ready to pay more than young couples and singles. We will try these interactions during modeling.</p>
+<pre class="r"><code>london &lt;- data[complete.cases(data)]
+district &lt;- data.table(district)
+district &lt;- district[complete.cases(district)]</code></pre>
+<p>partitioning to training and test sets</p>
+<pre class="r"><code>training_ratio &lt;- 0.7
+
+set.seed(1234)
+train_indices &lt;- createDataPartition(y = london[[&quot;price&quot;]],
+                                     times = 1,
+                                     p = training_ratio,
+                                     list = FALSE)
+london_train &lt;- london[train_indices, ]
+london_test &lt;- london[-train_indices, ]</code></pre>
+<pre class="r"><code>set.seed(1234)
+train_indices &lt;- createDataPartition(y = district[[&quot;price&quot;]],
+                                     times = 1,
+                                     p = training_ratio,
+                                     list = FALSE)
+
+district_train &lt;- district[train_indices, ]
+district_test &lt;- district[-train_indices, ]</code></pre>
+<pre class="r"><code>fit_control &lt;- trainControl(method = &quot;cv&quot;, number = 10)</code></pre>
+<div id="linear-1" class="section level3">
+<h3>1) Linear 1</h3>
+<pre class="r"><code>set.seed(1234) # The most simple one for benchmarking or comparing...
+model_1_london &lt;- train(price ~ n_accommodates, 
+                   data = london_train, 
+                   method = &quot;lm&quot;, 
+                   trControl = fit_control)</code></pre>
+<pre class="r"><code>set.seed(1234)
+model_1_district &lt;- train(price ~ n_accommodates, 
+                   data = district_train, 
+                   method = &quot;lm&quot;, 
+                   trControl = fit_control)</code></pre>
+</div>
+<div id="linear-2" class="section level3">
+<h3>2) Linear 2</h3>
+<pre class="r"><code>set.seed(1234) # Adding some more variables from our exploration to see the effects
+model_2_london &lt;- train(price ~ n_accommodates + n_beds + f_room_type + 
+                         n_minimum_nights + n_guests_included + n_bathrooms, 
+                   data = london_train, 
+                   method = &quot;lm&quot;, 
+                   trControl = fit_control)</code></pre>
+<pre class="r"><code>set.seed(1234) #
+model_2_district &lt;- train(price ~ n_accommodates + n_beds + f_room_type + 
+                         n_minimum_nights + n_guests_included + n_bathrooms, 
+                   data = district_train, 
+                   method = &quot;lm&quot;, 
+                   trControl = fit_control)</code></pre>
+</div>
+<div id="linear-3" class="section level3">
+<h3>3) Linear 3</h3>
+<pre class="r"><code>set.seed(1234) # load the variables from random forest varible importance list and some interactions and polynomials
+model_3_london &lt;- train(price ~ n_accommodates + n_beds + f_room_type + n_bathrooms + n_guests_included +
+                          n_minimum_nights + f_property_type + n_extra_people + f_cancellation_policy +
+                          d_tv + d_familykidfriendly + d_cabletv + d_laptopfriendlyworkspace + d_dryer +
+                          d_elevatorinbuilding + d_indoorfireplace  + d_buzzerwirelessintercom 
+                          + d_carbonmonoxidedetector + d_hangers + d_internet +
+                          n_accommodates^2 + n_beds^2 + f_property_type*d_familykidfriendly +
+                          n_accommodates*d_tv + n_accommodates*d_familykidfriendly + n_accommodates*d_cabletv,
+                   data = london_train, 
+                   method = &quot;lm&quot;, 
+                   trControl = fit_control)</code></pre>
+<pre class="r"><code>set.seed(1234) #load the variables from random forest varible importance list and some interactions and polynomials
+model_3_district &lt;- train(price ~ n_accommodates + n_beds + f_room_type + n_bathrooms + n_guests_included +
+                          n_minimum_nights + f_property_type + n_extra_people + f_cancellation_policy +
+                          d_tv + d_familykidfriendly + d_cabletv + d_laptopfriendlyworkspace + d_dryer +
+                          d_elevatorinbuilding + d_indoorfireplace  + d_buzzerwirelessintercom 
+                          + d_carbonmonoxidedetector + d_hangers + d_internet +
+                          n_accommodates^2 + n_beds^2 + f_property_type*d_familykidfriendly +
+                          n_accommodates*d_tv + n_accommodates*d_familykidfriendly + n_accommodates*d_cabletv,
+                   data = district_train, 
+                   method = &quot;lm&quot;, 
+                   trControl = fit_control)</code></pre>
+</div>
+<div id="lasso-with-super-low-lambdas-targeting-lower-rmse-score-here" class="section level3">
+<h3>4) LASSO with super low lambdas, targeting lower RMSE score here:</h3>
+<pre class="r"><code>tune_grid &lt;- expand.grid(&quot;alpha&quot; = 1,
+                         &quot;lambda&quot; = seq(0.028, 0.036, 0.001))
+
+set.seed(1234) # lasso.
+model_4_london &lt;- train(price ~ .,
+                   data = london_train, 
+                   method = &quot;glmnet&quot;, 
+                   trControl = fit_control,
+                   metric = &quot;RMSE&quot;,
+                   preProcess = c(&quot;center&quot;,&quot;scale&quot;),
+                   tuneGrid = tune_grid,
+                   tuneLength=3)</code></pre>
+<pre class="r"><code>tune_grid &lt;- expand.grid(&quot;alpha&quot; = 1,
+                         &quot;lambda&quot; = seq(0.25, 0.35, 0.01))
+
+set.seed(1234) # lasso
+model_4_district &lt;- train(price ~ .,
+                   data = district_train, 
+                   method = &quot;glmnet&quot;, 
+                   trControl = fit_control,
+                   metric = &quot;RMSE&quot;,
+                   tuneGrid = tune_grid)</code></pre>
+<p>Cross Validation RMSEs</p>
+<pre class="r"><code>model_1_london_rmse_cv &lt;- model_1_london$results[[&quot;RMSE&quot;]]
+model_2_london_rmse_cv &lt;- model_2_london$results[[&quot;RMSE&quot;]]
+model_3_london_rmse_cv &lt;- model_3_london$results[[&quot;RMSE&quot;]]
+model_4_london_rmse_cv &lt;- min(model_4_london$results[[&quot;RMSE&quot;]])
+
+model_1_district_rmse_cv &lt;- model_1_district$results[[&quot;RMSE&quot;]]
+model_2_district_rmse_cv &lt;- model_2_district$results[[&quot;RMSE&quot;]]
+model_3_district_rmse_cv &lt;- model_3_district$results[[&quot;RMSE&quot;]]
+model_4_district_rmse_cv &lt;- min(model_4_district$results[[&quot;RMSE&quot;]])</code></pre>
+<p>How do these models perform on test sets and the full sample? I have run all the predictions and listed them in a table below. These are RMSE scores:</p>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="10%" />
+<col width="15%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">model</th>
+<th align="center">London.CV</th>
+<th align="center">London.FULL</th>
+<th align="center">London.Test</th>
+<th align="center">District.CV</th>
+<th align="center">District.FULL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">56.89</td>
+<td align="center">56.86</td>
+<td align="center">56.77</td>
+<td align="center">44.86</td>
+<td align="center">56.89</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">51.88</td>
+<td align="center">51.91</td>
+<td align="center">52.01</td>
+<td align="center">43.33</td>
+<td align="center">52.51</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">50.71</td>
+<td align="center">50.7</td>
+<td align="center">50.8</td>
+<td align="center">41.3</td>
+<td align="center">52.43</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">47.97</td>
+<td align="center">47.91</td>
+<td align="center">48.1</td>
+<td align="center">40.98</td>
+<td align="center">52.01</td>
+</tr>
+</tbody>
+</table>
+<table style="width:21%;">
+<colgroup>
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">District.Test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">44.87</td>
+</tr>
+<tr class="even">
+<td align="center">41.26</td>
+</tr>
+<tr class="odd">
+<td align="center">41.38</td>
+</tr>
+<tr class="even">
+<td align="center">40.45</td>
+</tr>
+</tbody>
+</table>
+<p>lasso (number 4) is giving better RMSE results on test set, for both London and the district. I would use Lasso for both of them.</p>
+<p>District is a representative sample of London. Price is distributed very similarly. However, when we try the model of the district to predict the entire London, we do a poor job. District is a small sample and its model cant capture the variation for the entire city.</p>
+<p>Cross Validation and Test Set RMSE scores are almost identical. It is logical since the process of CV is to create several test sets and they are coming from the same data using random sampling.</p>
+<p>We would use these models also for predicting 2018 prices for London. Because we think that 2018 will be similar to 2017. On the other hand Budapest prices are very different. I wouldn’t predict the price by using a model from London. It will overshoot first of all… Having said that, I can use the experience I gained from London to build new models for other cities. Especially during the process of picking the right coefficients or variables.</p>
+<p>In my second iteration I would also use one of the variables I dropped at the beginning which are related to reviews. Probably reviews and review scores would have some effect if engineered carefully. Reviews, review scores are more touching to behavioural science and tend to contain more noise.</p>
+<p>I would also be curious about how rating scores change over time.</p>
+</div>
+<div id="cart-and-random-forest-results" class="section level3">
+<h3>CART and Random Forest Results</h3>
+<p>Now we can grow a tree and see its results.</p>
+<pre class="r"><code>trctrl &lt;- trainControl(method = &quot;cv&quot;, number = 10)
+
+set.seed(1234)
+model_tree1_london &lt;- train(price ~ ., 
+                     
+                     data = london_train, method = &quot;rpart&quot;,
+                     metric = &quot;RMSE&quot;,
+                     trControl=trctrl,
+                     tuneLength = 20,
+                     tuneGrid = data.frame(cp=seq(0.001, 0.01, 0.01))) #0.00001, 0.001, 0.0001
+model_tree1_london</code></pre>
+<pre><code>## CART 
+## 
+## 36090 samples
+##    61 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 32481, 32481, 32481, 32481, 32480, 32482, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE    
+##   48.24238  0.5944131  29.1418
+## 
+## Tuning parameter &#39;cp&#39; was held constant at a value of 0.001</code></pre>
+<pre class="r"><code>postResample(london_test$price, predict(model_tree1_london, newdata = london_test, type = &quot;raw&quot;))</code></pre>
+<pre><code>##       RMSE   Rsquared        MAE 
+## 48.7178292  0.5904734 29.4880805</code></pre>
+<p>A regression tree is giving quite promising results for the london test set. RMSE is already as good as the Lasso.</p>
+<p>Lets get the result also for our district:</p>
+<pre class="r"><code>trctrl &lt;- trainControl(method = &quot;cv&quot;, number = 10)
+
+set.seed(1234)
+model_tree1_district &lt;- train(price ~ ., 
+                     
+                     data = district_train, method = &quot;rpart&quot;,
+                     metric = &quot;RMSE&quot;,
+                     trControl=trctrl,
+                     tuneLength = 20,
+                     tuneGrid = data.frame(cp=seq(0.003, 0.0036, 0.0001)))
+model_tree1_district</code></pre>
+<pre><code>## CART 
+## 
+## 2436 samples
+##   61 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 2193, 2193, 2192, 2192, 2194, 2191, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp      RMSE      Rsquared   MAE     
+##   0.0030  39.65540  0.6178117  25.71466
+##   0.0031  39.65540  0.6178117  25.71466
+##   0.0032  39.64336  0.6180021  25.75005
+##   0.0033  39.64210  0.6180115  25.74834
+##   0.0034  39.64587  0.6178014  25.79159
+##   0.0035  39.64611  0.6176206  25.79206
+##   0.0036  39.75832  0.6160279  25.86119
+## 
+## RMSE was used to select the optimal model using the smallest value.
+## The final value used for the model was cp = 0.0033.</code></pre>
+<p>Here we can see RMSE change vs complexity parameter of the tree</p>
+<pre class="r"><code>plot(model_tree1_district)</code></pre>
+<p><img src="AirBnB_files/figure-html/unnamed-chunk-34-1.png" width="288" /></p>
+<pre class="r"><code>postResample(district_test$price, predict(model_tree1_district, newdata = district_test, type = &quot;raw&quot;))</code></pre>
+<pre><code>##       RMSE   Rsquared        MAE 
+## 41.1274597  0.6239557 25.4295441</code></pre>
+<p>Again the tree is doing almost as good as lasso.</p>
+<pre class="r"><code># Fit random forest to district
+RFtrainControl &lt;- trainControl(method = &quot;cv&quot;, 
+                               number = 2, 
+                               verboseIter = TRUE)
+set.seed(1234)
+model_RF_district &lt;- train(
+  price ~ .,
+  tuneLength = 1,
+  data = district_train, 
+  method = &#39;ranger&#39;,
+  na.action = na.omit,
+  importance = &#39;impurity&#39;,
+  trControl = RFtrainControl)</code></pre>
+<pre><code>## Aggregating results
+## Selecting tuning parameters
+## Fitting mtry = 9, splitrule = variance, min.node.size = 5 on full training set</code></pre>
+<pre class="r"><code>RFmodel</code></pre>
+<pre><code>## Random Forest 
+## 
+## 3478 samples
+##   61 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (2 fold) 
+## Summary of sample sizes: 1739, 1739 
+## Resampling results across tuning parameters:
+## 
+##   splitrule   RMSE      Rsquared   MAE     
+##   variance    38.78331  0.6647095  24.45589
+##   extratrees  39.31677  0.6621379  24.93305
+## 
+## Tuning parameter &#39;mtry&#39; was held constant at a value of 9
+## Tuning
+##  parameter &#39;min.node.size&#39; was held constant at a value of 5
+## RMSE was used to select the optimal model using the smallest value.
+## The final values used for the model were mtry = 9, splitrule =
+##  variance and min.node.size = 5.</code></pre>
+<pre class="r"><code>postResample(district_test$price, predict(model_RF_district, newdata = district_test, type = &quot;raw&quot;))</code></pre>
+<pre><code>##       RMSE   Rsquared        MAE 
+## 38.3658077  0.6890767 24.1235225</code></pre>
+<p>This Random Forest RMSE is the best so far. It is giving better results than the others. However, it is difficult to explain it to our business stakeholders.</p>
+<p>We can plot the trees and explain the linear regression coeffs more effectively to the people. RF model wont enjoy that much clarity. That’s because I would prefer to tweak and play with my linear models and lasso with an objective to get closer to the Random Forest.</p>
+<p>Later on I can try the same coeffs to Budapest. I would use the model we built for entire London to work on Budapest. The model we used for the district is less likely to be generalized.</p>
+<p>I would like to close this small paper with the plot below showing Lasso Model predictions to show the errors. Predictions are getting worse and worse as the real rental price increases: Predicting less than it is. Similar trend is visible for the predictions of other models as well.</p>
+<pre class="r"><code>ggplot(london_test, aes(price, model_4_london_pred_test - price, col = f_room_type)) + geom_point() +
+  geom_abline(intercept = 0, slope = 0) + theme_fivethirtyeight()</code></pre>
+<p><img src="AirBnB_files/figure-html/unnamed-chunk-38-1.png" width="864" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

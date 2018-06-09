@@ -7,6 +7,8 @@ navbar:
     href: index.html
   - text: textdata
     href: textdata.html
+  - text: AirBnB
+    href: AirBnB.html
 
   right:
   - icon: fa-github fa-lg

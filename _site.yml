@@ -6,7 +6,7 @@ navbar:
   - text: Home
     href: index.html
   - text: Quiz
-    href: quiz.html
+    href: textdata.html
   - text: Final Project
     href: final.html
   right:

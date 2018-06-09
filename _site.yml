@@ -9,6 +9,8 @@ navbar:
     href: textdata.html
   - text: AirBnB
     href: AirBnB.html
+  - text: Mental
+    href: mental.html
 
   right:
   - icon: fa-github fa-lg

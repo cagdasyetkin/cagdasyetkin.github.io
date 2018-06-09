@@ -1,0 +1,559 @@
+---
+
+---
+
+<img src="images/mental_images/mychimp.PNG" alt="chimp" height="450" width="450">
+
+
+Can we do better than a Dart Throwing Chimpanzee? It is said by the experts that a dart throwing chimp can hit the target 60% of the time!
+
+## Chapter 1
+###Going Mental in the Tech Industry...
+
+In this task we are going to predict mental illness for workers in the tech sector. The data comes from Kaggle. The variable to predict is 'treatment'.
+
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(data.table)
+library(caret)
+library(glmnet)
+library(ROCR)
+library(dplyr)
+library(ggthemes)
+
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+```
+
+###Predicting mental health problems in the tech sector
+
+```{r}
+data <- fread("data/mentaldata/survey_cleaned.csv")
+data <- data[ ,c("comments", "state","work_interfere") := NULL]
+data[, age := as.numeric(age)]
+data[ , treatment := factor(treatment, levels = c("Yes", "No"))]
+```
+
+Explore some predictors that can be used to predict treatment
+
+```{r}
+names(data)
+glimpse(data)
+```
+```{r}
+sapply(data, function(x) sum(is.na(x)))
+```
+```{r}
+data$gender %>% unique()
+```
+```{r}
+data[, age_cat := cut(age, .(-Inf,20,35,65,Inf), labels = c('Kids','Young','Middle','Old'))]
+```
+
+```{r, fig.width=6, fig.height=4}
+ggplot(data, aes(age_cat)) + geom_bar() + facet_grid(~gender) + theme_economist_white()
+```
+This data is mostly about young males which is representative for the tech industry. But which one is seeking relatively more treatment? Males or females?
+
+```{r, fig.width=6, fig.height=4}
+ggplot(data, aes(x = treatment, group = gender)) + 
+  geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") +
+  geom_text(aes( label = scales::percent(..prop..),
+                   y= ..prop.. ), stat= "count", vjust = -.1) +
+  scale_y_continuous(labels=scales::percent) +
+  facet_grid(~gender) +
+  labs(y = "Percent", fill="Treatment") +
+  theme_fivethirtyeight() + scale_fill_grey()
+  
+```
+
+I said males or females and the trans gender came out with a surprise
+
+How about family history?
+
+```{r, fig.width=6, fig.height=4}
+ggplot(data, aes(x = treatment, group = family_history)) + 
+  geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") +
+    geom_text(aes( label = scales::percent(..prop..),
+                   y= ..prop.. ), stat= "count", vjust = -.1) +
+  scale_y_continuous(labels=scales::percent) +
+  facet_grid(~family_history) +
+  labs(y = "Percent", fill="Treatment") +
+  theme_fivethirtyeight() + scale_fill_grey()
+```
+
+Family really matters a big deal!
+
+
+```{r, fig.width=6, fig.height=4}
+ggplot(data, aes(x = treatment, group = age_cat)) + 
+  geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") +
+    geom_text(aes( label = scales::percent(..prop..),
+                   y= ..prop.. ), stat= "count", vjust = -.1) +
+  scale_y_continuous(labels=scales::percent) +
+  facet_grid(~age_cat) +
+  labs(y = "Percent", fill="Treatment") +
+  theme_fivethirtyeight() + scale_fill_grey()
+
+```
+
+We can see a pattern here. Older the age category, more the treatment. Similarly younger age categories are seeking less and less treatment.
+
+Why do I have 100% in the oldest age category?
+```{r}
+data %>% filter(age > 65) %>% select(age_cat, gender, family_history, treatment)
+```
+It turns out there are only 3 observations over there. As we have seen above the dominant age category is 20-35 years old.
+
+
+```{r, fig.width=6, fig.height=4}
+ggplot(data, aes(x = treatment, group = seek_help)) + 
+  geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") +
+  geom_text(aes( label = scales::percent(..prop..),
+                   y= ..prop.. ), stat= "count", vjust = -.1) +
+  labs(y = "Percent", fill="treatment") +
+  facet_grid(~seek_help) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_fivethirtyeight() + scale_fill_grey()
+
+```
+
+There can be some evidence for the higher probability of ending up in a treatment for the people who are aware of their employer's services regarding mental issues
+
+
+```{r, fig.width=7, fig.height=4}
+ggplot(data, aes(x = treatment, group = leave)) + 
+  geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") +
+  geom_text(aes( label = scales::percent(..prop..),
+                   y= ..prop.. ), stat= "count", vjust = -.2) +
+  labs(y = "Percent", fill="treatment") +
+  facet_grid(~leave) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_fivethirtyeight() + scale_fill_grey()
+
+
+```
+
+People who indicate that there is some difficulty on getting a leave for mental issue reasons might giving us signal.
+
+
+
+Partitioning the data to 70% training and 30% test samples.
+
+
+```{r}
+set.seed(123)
+my_ratio <- 0.7
+train_indices <- createDataPartition(y = data[["treatment"]],
+                                     times = 1,
+                                     p = my_ratio,
+                                     list = FALSE)
+
+data_train <- data[train_indices, ]
+data_test  <- data[-train_indices, ]
+
+```
+
+
+Build models with glmnet and rpart that predict the binary outcome of treatment. Using cross-validation on the training set and AUC as a selection measure.
+
+
+```{r}
+train_control <- trainControl(method = "cv",
+                              number = 5,
+                              classProbs = TRUE,
+                              summaryFunction = twoClassSummary)
+
+tune_grid <- expand.grid("alpha" = c(0, 1),
+                         "lambda" = seq(0.1, 0.14, 0.01))
+
+set.seed(123)
+glmnet_model <- train(treatment ~ age_cat + seek_help + benefits + supervisor +
+                                  family_history + leave + gender,
+                      data = data_train,
+                      method = "glmnet",
+                      preProcess = c("center", "scale"),
+                      trControl = train_control,
+                      tuneGrid = tune_grid,
+                      metric = "ROC") 
+glmnet_model
+```
+
+```{r}
+
+trctrl <- trainControl(method = "cv", 
+                       number = 5, 
+                       classProbs = T, 
+                       #verboseIter = T, 
+                       summaryFunction = twoClassSummary)
+
+tune_grid <- data.frame(cp=seq(0.0001, 0.01, 0.001))
+
+set.seed(123)
+treeCPModel <- train(treatment ~ age_cat + seek_help + benefits + supervisor +
+                                 family_history + leave + gender,
+                     data = data_train, 
+                     method = "rpart",
+                     trControl = trctrl,
+                     preProcess = c("center", "scale"),
+                     tuneGrid = tune_grid,
+                     metric = 'ROC')
+                  
+treeCPModel
+```
+
+Now, compare models based on their predictive performance based on the cross-validation information. We can just use the mean AUC to select the best model. 
+
+###Glmnet performs better than the tree: 74.5% vs 71.9% area under the curve.
+
+Now evaluating the better performing model on the test set, drawing a ROC curve and interpreting the AUC.
+
+```{r}
+test_prediction <- predict.train(glmnet_model, newdata = data_test)
+test_truth <- data_test[["treatment"]]
+```
+
+There are 4 cases:
+
+* true positives: those that are positive in reality and we correctly predict
+them to be positive
+* false positives: those that are negative in reality and we falsely predict
+them to be positive
+* true negatives: those that are negative in reality and we correctly predict
+them to be negative
+* false negatives: those that are positive in reality and we falsely predict
+them to be negative
+
+```{r}
+confusionMatrix(test_prediction, test_truth)
+```
+
+The various types of errors have to be examined and we have to decide
+based on them.
+
+```{r}
+# obtain probabilities instead of binary predictions
+test_prediction_probs <- predict.train(glmnet_model, 
+                                       newdata = data_test, 
+                                       type = "prob")
+head(test_prediction_probs)
+```
+```{r}
+summary(test_prediction_probs$Yes)
+```
+
+By default, predict.train uses the 50% threshold for prediction. We can try 45% also:
+
+```{r}
+test_prediction_v2 <- ifelse(test_prediction_probs$Yes > 0.45, "Yes", "No")
+test_prediction_v2 <- factor(test_prediction_v2, levels = c("Yes", "No"))
+confusionMatrix(test_prediction_v2, test_truth)
+```
+
+We lowered our false negatives a bit by using the threshold of 0.45 above. Lets do a search for threshold.
+
+###Varying thresholds
+
+If we increase the threshold for predicting something to be positive:
+we will have less and less cases that we label as positive. Both of those
+that are positive in reality and of those that are negative. Thus, both
+the true positives and the false positives increase.
+
+```{r}
+thresholds <- seq(0.3, 0.6, by = 0.05)
+
+for (thr in thresholds) {
+  test_prediction <- ifelse(test_prediction_probs$Yes > thr, "Yes", "No")
+  test_prediction <- factor(test_prediction, levels = c("Yes", "No"))
+  print(paste("Threshold:", thr))
+  print(confusionMatrix(test_prediction, test_truth)[["table"]])
+} 
+```
+
+What to choose then? I would choose .45 threshold because it is a balanced point for my business objectives.
+
+My strategy is to minimize the situations where I predict no-treatment but in reality it is a yes. In those cases I do a terrible mistake. The outcome has a high cost for the company. I am not aware of the troubled people around. It is like sitting on a time bomb which we dont know it exists.
+
+However, I cant lower my threshold too much also. In that case I would do too many false positives which has other kind of costs. It will impact the time and productivity negatively.
+
+On the other hand, we can accept False Positives until to a centain extend. There is a sweet spot where they are not much costly compared to False Negatives. Just like some false fire alarms will not cause a lot of trouble.
+
+After some scientific meditation, 0.45 will be the threshold I would use.
+
+At 0.45 Threshold Point I have:
+<p>a) 78.9% True Positive Rate. That is TP/(TP+FN) >> 150/(150+40)</p>
+
+<p>b) 44% False Positive Rate. That is FP/(FP+TN) >> 82/(82+104)</p>
+
+82 False Posities and 40 False Negatives.
+
+### Lets see The ROC curve
+
+The ROC curve summarizes how a binary classifier performs "overall", taking
+into accounts all possible thresholds. It shows the trade-off 
+between true positive rate (a.k.a sensitivity, # true positives / 
+# all positives) and the false positive rate (a.k.a 1 - specificity, 
+# false positive / # negatives).
+
+```{r, fig.width=4, fig.height=3}
+# a ggplot
+# using prediction function from ROCR package
+glmnet_prediction <- prediction(test_prediction_probs$Yes,
+                              data_test[["treatment"]])
+glmnet_perf <- performance(glmnet_prediction, measure = "tpr", x.measure = "fpr")
+
+glmnet_roc_df <- data.table(
+  model = "glm",
+  FPR = glmnet_perf@x.values[[1]],
+  TPR = glmnet_perf@y.values[[1]],
+  cutoff = glmnet_perf@alpha.values[[1]]
+)
+
+ggplot(glmnet_roc_df) +
+  geom_line(aes(FPR, TPR, color = cutoff), size = 2) +
+  geom_ribbon(aes(FPR, ymin = 0, ymax = TPR), alpha = 0.1) +
+  geom_abline(intercept = 0, slope = 1,  linetype = "dotted", col = "black") +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, .1)) +
+  scale_x_continuous(limits = c(0, 1), breaks = seq(0, 1, .1)) +
+  theme_fivethirtyeight() + scale_fill_grey() 
+```
+
+### AUC 
+
+Higher AUC generally means better classification.
+
+```{r}
+# calculate AUC
+AUC <- performance(glmnet_prediction, "auc")@y.values[[1]]
+print(AUC)
+```
+
+The colored field's area in the plot is 0.725. A superb classifier would yield an area very close to 1. This is not one of the best models. However, it is better than flipping a coin. Or, it is better than a **dart throwing chimpanzee** 
+
+
+## Chapter 2 
+
+###Transformed scores
+
+####The application of Calibration in prediction tasks.
+
+This data is about patients taking an appointment from the doctors. They are labeled as 'no-show' when they have an appointment but never showed up. We will first predict this no-show behaviour and then do some calibration.
+
+```{r}
+# https://www.kaggle.com/joniarroba/noshowappointments
+data <- fread("data/noshowdata/no-show-data.csv")
+glimpse(data)
+```
+
+```{r}
+# some data cleaning
+data[, c("PatientId", "AppointmentID", "Neighbourhood") := NULL]
+setnames(data, 
+         c("No-show", 
+           "Age", 
+           "Gender",
+           "ScheduledDay", 
+           "AppointmentDay",
+           "Scholarship",
+           "Hipertension",
+           "Diabetes",
+           "Alcoholism",
+           "Handcap",
+           "SMS_received"), 
+         c("no_show", 
+           "age", 
+           "gender", 
+           "scheduled_day", 
+           "appointment_day",
+           "scholarship",
+           "hypertension",
+           "diabetes",
+           "alcoholism",
+           "handicap",
+           "sms_received"))
+# clean up a little bit
+data <- data[age %between% c(0, 95)]
+# for binary prediction with caret, the target variable must be a factor
+data[, no_show := factor(no_show, levels = c("Yes", "No"))] #first one got to be YES, the positive
+data[, no_show_num := ifelse(no_show == "Yes", 1, 0)]
+data[, handicap := ifelse(handicap > 0, 1, 0)]
+
+# create new variables
+data[, scheduled_day := as.Date(scheduled_day)]
+data[, appointment_day := as.Date(appointment_day)]
+data[, days_since_scheduled := as.integer(appointment_day - scheduled_day)]
+data <- data[days_since_scheduled > -1]
+```
+
+
+```{r}
+data[, no_show_num := NULL]
+
+data[, days_category := cut(
+  days_since_scheduled, 
+  breaks = c(-1, 0, 1, 2, 5, 10, 30, Inf), 
+  include.lowest = TRUE)]
+
+data[, age_category := cut(age, 
+                           breaks = seq(0, 100, by = 5), 
+                           include.lowest = TRUE)]
+```
+
+Now create a training and a test data and estimate a simple logistic regression
+to predict `no_show`. 
+```{r}
+training_ratio <- 0.5 
+set.seed(1234)
+train_indices <- createDataPartition(y = data[["no_show"]],
+                                     times = 1,
+                                     p = training_ratio,
+                                     list = FALSE)
+data_train <- data[train_indices, ]
+data_test <- data[-train_indices, ]
+```
+
+
+```{r, warning=FALSE}
+train_control <- trainControl(method = "cv",
+                              number = 5,
+                              classProbs = TRUE)
+set.seed(857)
+glm_model <- train(no_show ~ age_category + gender + days_since_scheduled,
+                   method = "glm",
+                   data = data_train,
+                   trControl = train_control)
+
+test_prediction <- predict.train(glm_model, newdata = data_test)
+test_truth <- data_test[["no_show"]]
+```
+
+
+```{r message=FALSE, warning=FALSE}
+# obtain probabilities instead of binary predictions
+test_prediction_probs <- predict.train(glm_model, 
+                                       newdata = data_test, 
+                                       type = "prob")
+```
+```{r message=FALSE, warning=FALSE}
+summary(test_prediction_probs$Yes)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+prediction <- test_prediction_probs$Yes
+prediction_sqrt <- sqrt(prediction)
+prediction_sq <- prediction^2
+```
+
+
+```{r message=FALSE, warning=FALSE, fig.width=3, fig.height=3}
+rocr_prediction <- prediction(prediction, test_truth)
+rocr_sqrt <- prediction(prediction_sqrt, test_truth)
+rocr_sq <- prediction(prediction_sq, test_truth)
+# built-in plot method
+
+plot(performance(rocr_sqrt, "tpr", "fpr"), colorize = FALSE) 
+plot(performance(rocr_sq, "tpr", "fpr"), add = TRUE, colorize = FALSE) 
+plot(performance(rocr_prediction, "tpr", "fpr"), add = TRUE, colorize = FALSE) 
+```
+
+Area under the curves are the same for all three of them. Because it is the same model. Sensitivity and specificity have an inverse relationship. Increasing one would always decrease the other and Area Under the Curve remains the same.
+
+```{r}
+# calculate AUC
+AUC <- performance(rocr_prediction, "auc")@y.values[[1]]
+AUC_sqrt <- performance(rocr_sqrt, "auc")@y.values[[1]]
+AUC_sq <- performance(rocr_sq, "auc")@y.values[[1]]
+
+
+AUC_results <- c(AUC, AUC_sqrt, AUC_sq)
+AUC_results
+```
+
+
+### Calibration
+
+Can the scores produced by the model be regarded as probabilities?
+Let's calculate the predicted and actual share of positive cases for groups
+of observations in the test set based on their predicted scores.
+
+```{r}
+truth_numeric <- ifelse(test_truth == "Yes", 1, 0)
+score_glm <- test_prediction_probs$Yes
+
+summary(score_glm)
+```
+
+```{r}
+actual_vs_predicted <- data.table(actual = truth_numeric,
+                                  predicted = score_glm)
+
+actual_vs_predicted[, score_category := cut(predicted,
+                                    seq(0, 0.4, 0.1),
+                                    include.lowest = TRUE)]
+calibration <- actual_vs_predicted[, .(mean_actual = mean(actual),
+                                       mean_predicted = mean(predicted),
+                                       num_obs = .N),
+                                   keyby = .(score_category)]
+ggplot(calibration,
+       aes(x = mean_actual, y = mean_predicted, size = num_obs)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  ylim(0, 1) + xlim(0, 1)
+```
+
+This one is **well calibrated**. Predicted mean groups are similar to the actual means. It looks like a well calibrated classifier does not mean a perfect classifier.
+
+
+Below we will see the calibration when we take squre root of the predictions. In general if we are following the 45 degree line it is a good sign for calibration.
+
+```{r}
+actual_vs_predicted <- data.table(actual = truth_numeric,
+                                  predicted = prediction_sqrt)
+
+actual_vs_predicted[, score_category := cut(predicted,
+                                    seq(0, 0.4, 0.05),
+                                    include.lowest = TRUE)]
+calibration <- actual_vs_predicted[, .(mean_actual = mean(actual),
+                                       mean_predicted = mean(predicted),
+                                       num_obs = .N),
+                                   keyby = .(score_category)]
+ggplot(calibration,
+       aes(x = mean_actual, y = mean_predicted, size = num_obs)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  ylim(0, 1) + xlim(0, 1)
+```
+Of course since we increased the values of our predictions they went up in the y axis, and the transformation was not a linear one.
+
+We will see a similar effect below to the **other** direction.
+
+```{r}
+actual_vs_predicted <- data.table(actual = truth_numeric,
+                                  predicted = prediction_sq)
+
+actual_vs_predicted[, score_category := cut(predicted,
+                                    seq(0, 0.4, 0.05),
+                                    include.lowest = TRUE)]
+calibration <- actual_vs_predicted[, .(mean_actual = mean(actual),
+                                       mean_predicted = mean(predicted),
+                                       num_obs = .N),
+                                   keyby = .(score_category)]
+ggplot(calibration,
+       aes(x = mean_actual, y = mean_predicted, size = num_obs)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  ylim(0, 1) + xlim(0, 1)
+```
+Nevertheless, even after perfect calibration of a classifier, its ROC is not affected and its classification ability remains unchanged. This is discussed in this paper in detail if you are interested:
+http://www.stat.wvu.edu/~jharner/courses/dsci503/docs/vuk.pdf
+
+A good example about calibration is discussed also in Nate Silver's book the Signal and Noise regarding weather forecasts being tweaked a bit on tv channels to predict more rain. It is called the 'wet bias'. They want to predict more rain than the evidence suggests, not to make people angry.
+
+Thank for surviving until here! See you in the next chapters.
+
+
+
+

@@ -183,13 +183,16 @@ $(document).ready(function () {
   <a href="final.html">final</a>
 </li>
 <li>
-  <a href="textdata.html">textdata</a>
+  <a href="textdata.html">Textdata</a>
 </li>
 <li>
   <a href="AirBnB.html">AirBnB</a>
 </li>
 <li>
   <a href="mental.html">Mental</a>
+</li>
+<li>
+  <a href="ml.html">Machine Leaning</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -813,7 +816,7 @@ ggplot(calibration,
   geom_point() +
   geom_abline(intercept = 0, slope = 1, linetype = &quot;dashed&quot;) +
   ylim(0, 1) + xlim(0, 1)</code></pre>
-<p><img src="mental_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="mental_files/figure-html/unnamed-chunk-36-1.png" width="480" /></p>
 <p>This one is <strong>well calibrated</strong>. Predicted mean groups are similar to the actual means. It looks like a well calibrated classifier does not mean a perfect classifier.</p>
 <p>Below we will see the calibration when we take squre root of the predictions. In general if we are following the 45 degree line it is a good sign for calibration.</p>
 <pre class="r"><code>actual_vs_predicted &lt;- data.table(actual = truth_numeric,
@@ -831,7 +834,7 @@ ggplot(calibration,
   geom_point() +
   geom_abline(intercept = 0, slope = 1, linetype = &quot;dashed&quot;) +
   ylim(0, 1) + xlim(0, 1)</code></pre>
-<p><img src="mental_files/figure-html/unnamed-chunk-37-1.png" width="672" /> Of course since we increased the values of our predictions they went up in the y axis, and the transformation was not a linear one.</p>
+<p><img src="mental_files/figure-html/unnamed-chunk-37-1.png" width="480" /> Of course since we increased the values of our predictions they went up in the y axis, and the transformation was not a linear one.</p>
 <p>We will see a similar effect below to the <strong>other</strong> direction.</p>
 <pre class="r"><code>actual_vs_predicted &lt;- data.table(actual = truth_numeric,
                                   predicted = prediction_sq)
@@ -848,7 +851,7 @@ ggplot(calibration,
   geom_point() +
   geom_abline(intercept = 0, slope = 1, linetype = &quot;dashed&quot;) +
   ylim(0, 1) + xlim(0, 1)</code></pre>
-<p><img src="mental_files/figure-html/unnamed-chunk-38-1.png" width="672" /> Nevertheless, even after perfect calibration of a classifier, its ROC is not affected and its classification ability remains unchanged. This is discussed in this paper in detail if you are interested: <a href="http://www.stat.wvu.edu/~jharner/courses/dsci503/docs/vuk.pdf" class="uri">http://www.stat.wvu.edu/~jharner/courses/dsci503/docs/vuk.pdf</a></p>
+<p><img src="mental_files/figure-html/unnamed-chunk-38-1.png" width="480" /> Nevertheless, even after perfect calibration of a classifier, its ROC is not affected and its classification ability remains unchanged. This is discussed in this paper in detail if you are interested: <a href="http://www.stat.wvu.edu/~jharner/courses/dsci503/docs/vuk.pdf" class="uri">http://www.stat.wvu.edu/~jharner/courses/dsci503/docs/vuk.pdf</a></p>
 <p>A good example about calibration is discussed also in Nate Silver’s book the Signal and Noise regarding weather forecasts being tweaked a bit on tv channels to predict more rain. It is called the ‘wet bias’. They want to predict more rain than the evidence suggests, not to make people angry.</p>
 <p>Thank for surviving until here! See you in the next chapters.</p>
 </div>

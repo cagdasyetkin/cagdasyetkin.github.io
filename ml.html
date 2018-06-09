@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="main.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cagdas Yetkin</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="final.html">final</a>
+</li>
+<li>
+  <a href="textdata.html">Textdata</a>
+</li>
+<li>
+  <a href="AirBnB.html">AirBnB</a>
+</li>
+<li>
+  <a href="mental.html">Mental</a>
+</li>
+<li>
+  <a href="ml.html">Machine Leaning</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/cagdasyetkin">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/cagdasyetkin">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/cagdasyetkin/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<hr />
+<hr />
+<p><img src="images/ml_images/Palpatine.jpg" alt="Palpatine" height="450" width="450"></p>
+<pre class="r"><code>library(data.table)
+library(dplyr) #which is better? dplyr or data.table? or a combination of both?
+library(stringr) #str_split usefull while tabulating model results
+library(tidyr) #gather function usefull when listing model results
+
+#modeling libs
+library(caret)
+library(rpart)
+library(xgboost)
+library(randomForest)
+library(glmnet)
+library(ROCR)
+library(gbm)
+library(ISLR) 
+
+#viz libs
+library(ggplot2)
+library(ggthemes)
+library(rpart.plot)
+library(gridExtra)
+
+library(doParallel)
+registerDoParallel(cores = 4)</code></pre>
+<div id="the-data-of-juice" class="section level3">
+<h3>The Data of Juice</h3>
+<p><img src="images/ml_images/CHMM.png" alt="juice" height="200" width="400"></p>
+<p>This dataset records purchases of two types of orange juices and presents customer and product characteristics as features. The goal is to predict which of the juices is chosen in a given purchase situation.</p>
+<p>But first let me give you a fact: the orange juice you buy today was likely squeezed last summer. They first kill it and then add the orange flavor before they pack and sell you. Ever wonder why your orange juice tastes the same, in all the seasons? Yes, orange juice is a dirty business. Long story short, don’t buy it.</p>
+<p>Obviously most people buy it. That’s why we have a dataset like this. In this study we will call this phenomenal purchasing behaviour as <strong>The Kamikaze</strong> event.</p>
+<pre class="r"><code>data(OJ)
+data &lt;- data.table(OJ)
+glimpse(data)</code></pre>
+<pre><code>## Observations: 1,070
+## Variables: 18
+## $ Purchase       &lt;fct&gt; CH, CH, CH, MM, CH, CH, CH, CH, CH, CH, CH, CH,...
+## $ WeekofPurchase &lt;dbl&gt; 237, 239, 245, 227, 228, 230, 232, 234, 235, 23...
+## $ StoreID        &lt;dbl&gt; 1, 1, 1, 1, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,...
+## $ PriceCH        &lt;dbl&gt; 1.75, 1.75, 1.86, 1.69, 1.69, 1.69, 1.69, 1.75,...
+## $ PriceMM        &lt;dbl&gt; 1.99, 1.99, 2.09, 1.69, 1.69, 1.99, 1.99, 1.99,...
+## $ DiscCH         &lt;dbl&gt; 0.00, 0.00, 0.17, 0.00, 0.00, 0.00, 0.00, 0.00,...
+## $ DiscMM         &lt;dbl&gt; 0.00, 0.30, 0.00, 0.00, 0.00, 0.00, 0.40, 0.40,...
+## $ SpecialCH      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,...
+## $ SpecialMM      &lt;dbl&gt; 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,...
+## $ LoyalCH        &lt;dbl&gt; 0.500000, 0.600000, 0.680000, 0.400000, 0.95653...
+## $ SalePriceMM    &lt;dbl&gt; 1.99, 1.69, 2.09, 1.69, 1.69, 1.99, 1.59, 1.59,...
+## $ SalePriceCH    &lt;dbl&gt; 1.75, 1.75, 1.69, 1.69, 1.69, 1.69, 1.69, 1.75,...
+## $ PriceDiff      &lt;dbl&gt; 0.24, -0.06, 0.40, 0.00, 0.00, 0.30, -0.10, -0....
+## $ Store7         &lt;fct&gt; No, No, No, No, Yes, Yes, Yes, Yes, Yes, Yes, Y...
+## $ PctDiscMM      &lt;dbl&gt; 0.000000, 0.150754, 0.000000, 0.000000, 0.00000...
+## $ PctDiscCH      &lt;dbl&gt; 0.000000, 0.000000, 0.091398, 0.000000, 0.00000...
+## $ ListPriceDiff  &lt;dbl&gt; 0.24, 0.24, 0.23, 0.00, 0.00, 0.30, 0.30, 0.24,...
+## $ STORE          &lt;dbl&gt; 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...</code></pre>
+<pre class="r"><code>#learn more about the variables
+#?ISLR::OJ</code></pre>
+<pre class="r"><code>training_ratio &lt;- 0.75 
+set.seed(1234)
+train_indices &lt;- createDataPartition(y = data[[&quot;Purchase&quot;]],
+                                     times = 1,
+                                     p = training_ratio,
+                                     list = FALSE)
+data_train &lt;- data[train_indices, ]
+data_test &lt;- data[-train_indices, ]</code></pre>
+<p>Let’s see a benchmark: a simple classification tree.</p>
+<pre class="r"><code>train_control &lt;- trainControl(method = &quot;cv&quot;, classProbs = T,
+                              number = 10, summaryFunction = twoClassSummary,
+                              selectionFunction = &quot;oneSE&quot;)
+
+set.seed(1981)
+simple_tree_model &lt;- train(Purchase ~ .,
+                      method = &quot;rpart&quot;,
+                      data = data_train,
+                      tuneGrid = data.frame(cp = seq(0.001, 0.1, 0.01)),
+                      trControl = train_control,
+                      metric = &quot;ROC&quot;)
+simple_tree_model</code></pre>
+<pre><code>## CART 
+## 
+## 803 samples
+##  17 predictor
+##   2 classes: &#39;CH&#39;, &#39;MM&#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 723, 723, 722, 723, 723, 723, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp     ROC        Sens       Spec     
+##   0.001  0.8643546  0.8632653  0.7248992
+##   0.011  0.8521673  0.8673469  0.7601815
+##   0.021  0.8269380  0.8632653  0.7345766
+##   0.031  0.7924076  0.8551020  0.7220766
+##   0.041  0.7920785  0.8653061  0.7188508
+##   0.051  0.7920785  0.8653061  0.7188508
+##   0.061  0.7920785  0.8653061  0.7188508
+##   0.071  0.7920785  0.8653061  0.7188508
+##   0.081  0.7920785  0.8653061  0.7188508
+##   0.091  0.7920785  0.8653061  0.7188508
+## 
+## ROC was used to select the optimal model using  the one SE rule.
+## The final value used for the model was cp = 0.011.</code></pre>
+<p>According to oneSE rule, The simplest model within one standard error is the better choice. Thus, it picks cp 0.011 with AUC 0.85, although it is smaller than the first option above!</p>
+<p>How does our <strong>Kamikaze event</strong> tree look like?</p>
+<pre class="r"><code>rpart.plot(simple_tree_model[[&quot;finalModel&quot;]], type = 0)</code></pre>
+<p><img src="ml_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
+<p>Looks like loyalty, price diff and special CH are important for our tree.</p>
+<p>Predicting a new observation is quite straight forward. We just follow the tree by using the rules. First decision is LoyalCH (Customer brand loyalty for Citrus Hill). If that score is greater than or equal to 0.45, we take the left branch. If not, then to the right. We use this method on each node to arrive to the final <strong>Kamikaze</strong> event: Intake of carcinogen substances into body using Citrus Hill or Minute Maid…</p>
+<pre class="r"><code>#predict on the test set
+test_prob_rpart &lt;- predict.train(simple_tree_model, newdata = data_test, type = &quot;prob&quot;)
+test_pred_rpart &lt;- prediction(test_prob_rpart$MM, data_test[[&quot;Purchase&quot;]])
+
+rpart_perf &lt;- performance(test_pred_rpart, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
+
+rpart_roc_frame &lt;- data.frame(
+  model = &quot;rpart&quot;,
+  FPR = rpart_perf@x.values[[1]],
+  TPR = rpart_perf@y.values[[1]],
+  cut_point = rpart_perf@alpha.values[[1]])
+
+AUC &lt;- paste0(&quot;AUC is: &quot;, round(performance(test_pred_rpart, &quot;auc&quot;)@y.values[[1]], 2))
+
+rpart_roc_frame %&gt;%
+  ggplot() +
+  geom_line(aes(FPR, TPR, color = model), size = 2) +
+  scale_color_manual(values=c(&quot;darkgrey&quot;)) +
+  geom_abline(intercept = 0, slope = 1,  linetype = &quot;dotted&quot;, col = &quot;black&quot;) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, .1)) +
+  scale_x_continuous(limits = c(0, 1), breaks = seq(0, 1, .1)) +
+  xlab(&quot;False Positive Rate&quot;) + ylab(&quot;True Positive Rate&quot;) +
+  ggtitle(AUC) + theme_fivethirtyeight() +
+  theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="ml_files/figure-html/unnamed-chunk-7-1.png" width="288" /></p>
+<p>The AUC is very close to what we got via cross-validation indeed. Now we can leave this path and enter into the forest.</p>
+<p>For random forests, <code>mtry</code> sets the number of variables randomly chosen for a tree.</p>
+<pre class="r"><code>#choose the best in selectionFunction
+train_Control &lt;- trainControl(method = &quot;CV&quot;,
+                              number = 10,
+                              classProbs = TRUE,
+                              summaryFunction = twoClassSummary,
+                              selectionFunction = &quot;best&quot;,
+                              verboseIter = FALSE)</code></pre>
+<pre class="r"><code># random forest. small medium and big forest with many trees
+tune_grid_rf &lt;- data.frame(mtry = c(3:6))
+
+set.seed(1)
+rf_100_fit &lt;- train(Purchase ~ .,
+                    method = &quot;rf&quot;,
+                    data = data_train,
+                    metric = &quot;ROC&quot;,
+                    trControl = train_Control,
+                    tuneGrid = tune_grid_rf,
+                    ntree = 100,
+                    importance = T)
+
+set.seed(1)
+rf_200_fit &lt;- train(Purchase ~ .,
+                    method = &quot;rf&quot;,
+                    data = data_train,
+                    metric = &quot;ROC&quot;,
+                    trControl = train_Control,
+                    tuneGrid = tune_grid_rf,
+                    ntree = 200,
+                    importance = T)
+
+set.seed(1)
+rf_400_fit &lt;- train(Purchase ~ .,
+                    method = &quot;rf&quot;,
+                    data = data_train,
+                    metric = &quot;ROC&quot;,
+                    trControl = train_Control,
+                    tuneGrid = tune_grid_rf ,
+                    ntree = 400,
+                    importance = T)</code></pre>
+<p>These will be better then the single tree of course.</p>
+<p>Now time to train GBM: gradient boosting machine</p>
+<pre class="r"><code>#GBM
+tune_grid_gbm &lt;- expand.grid(n.trees = c(100, 200, 400), #how many tree to build
+                             interaction.depth = c(3:6), #controls how large trees
+                             shrinkage = c(0.001, 0.01, 0.1), #how conservative you are when building from the residual. 
+                             #keep in mind, it is lambda*g(X).
+                             n.minobsinnode = c(4, 8)) #how complex trees to build. ensure 4, 8 observations in your node.
+
+set.seed(1)
+gbm_030_fit &lt;- train(Purchase ~ .,
+                     data = data_train,
+                     method = &quot;gbm&quot;,
+                     metric = &quot;ROC&quot;,
+                     trControl = train_Control,
+                     tuneGrid = tune_grid_gbm,
+                     bag.fraction = 0.30,
+                     verbose = FALSE)
+
+set.seed(1)
+gbm_060_fit &lt;- train(Purchase ~ .,
+                     data = data_train,
+                     method = &quot;gbm&quot;,
+                     metric = &quot;ROC&quot;,
+                     trControl = train_Control,
+                     tuneGrid = tune_grid_gbm,
+                     bag.fraction = 0.60,
+                     verbose = FALSE)
+
+set.seed(1)
+gbm_080_fit &lt;- train(Purchase ~ .,
+                     data = data_train,
+                     method = &quot;gbm&quot;,
+                     metric = &quot;ROC&quot;,
+                     trControl = train_Control,
+                     tuneGrid = tune_grid_gbm,
+                     bag.fraction = 0.80,
+                     verbose = FALSE)</code></pre>
+<p>And here comes XGBoost… A celebrated implementation of the gradient boosting idea.</p>
+<pre class="r"><code>#XGBoost
+tune_grid_xgb &lt;- expand.grid(nrounds = 200, 
+                             max_depth = c(3:6),
+                             eta = c(0.02, 0.06), 
+                             gamma = 0,
+                             colsample_bytree = c(0.6, 0.8), 
+                             min_child_weight = 1, 
+                             subsample = c(0.4, 0.8))
+set.seed(1)
+xgboost_fit &lt;- train(Purchase ~ .,
+                     data = data_train,
+                     method = &quot;xgbTree&quot;,
+                     metric = &quot;ROC&quot;,
+                     trControl = train_Control,
+                     tuneGrid = tune_grid_xgb)</code></pre>
+<p>Now we will compare these different models with the resamples function. We can pass them to a list and then generate boxplots.</p>
+<pre class="r"><code>#make a list
+resamples_list &lt;- resamples(list(&quot;tree&quot; = simple_tree_model,
+                                   &quot;rf_100&quot; = rf_100_fit,
+                                   &quot;rf_200&quot; = rf_200_fit,
+                                   &quot;rf_400&quot; = rf_400_fit,
+                                   &quot;gbm_0.30&quot; = gbm_030_fit,
+                                   &quot;gbm_0.60&quot; = gbm_060_fit,
+                                   &quot;gbm_0.80&quot; = gbm_080_fit,
+                                   &quot;xgboost&quot; = xgboost_fit))
+
+#extract, factorize and plot
+resamples_list$values %&gt;%
+  gather(key = &quot;Resample&quot;, factor_key = F) %&gt;%
+  setnames(c(&quot;Model~Metric&quot;, &quot;Value&quot;)) %&gt;% #dplyr rename doesnt work here, just setname
+  mutate(model = str_split(`Model~Metric`, &quot;~&quot;, simplify = T)[,1],
+         metric = str_split(`Model~Metric`, &quot;~&quot;, simplify = T)[,2]) %&gt;%
+  mutate(model = factor(model, levels = c(&quot;tree&quot;, 
+                                          &quot;rf_100&quot;, &quot;rf_200&quot;, &quot;rf_400&quot;,
+                                          &quot;gbm_0.30&quot;, &quot;gbm_0.60&quot;, &quot;gbm_0.80&quot;, 
+                                          &quot;xgboost&quot;))) %&gt;%
+  ggplot(aes(x= model, y= Value, fill = model)) +
+    geom_boxplot() +
+    ggtitle(&quot;A Murder by Machine Learning on the screen, starring Xgboost &quot;) +
+    facet_grid(~metric) + theme_fivethirtyeight() +
+    theme(axis.text.x=element_blank()) + 
+    scale_fill_brewer(palette=&quot;Set3&quot;)</code></pre>
+<p><img src="ml_files/figure-html/unnamed-chunk-12-1.png" width="960" /></p>
+<p>Xgboost outperformed the others on ROC (almost 90%) and Specificity. We dig a bit deeper to see how it is performing on the test set.</p>
+<pre class="r"><code>#predict on the test set
+test_prob_xg &lt;- predict.train(xgboost_fit, newdata = data_test, type = &quot;prob&quot;)
+test_pred_xg &lt;- prediction(test_prob_xg$MM, data_test[[&quot;Purchase&quot;]])
+
+xg_perf &lt;- performance(test_pred_rpart, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
+
+xg_roc_frame &lt;- data.frame(
+  model = &quot;xgboost&quot;,
+  FPR = xg_perf@x.values[[1]],
+  TPR = xg_perf@y.values[[1]],
+  cut_point = xg_perf@alpha.values[[1]])
+
+AUC &lt;- paste0(&quot;AUC is: &quot;, round(performance(test_pred_xg, &quot;auc&quot;)@y.values[[1]], 2))
+
+xg_roc_frame %&gt;%
+  ggplot() +
+  geom_line(aes(FPR, TPR, color = model), size = 2) +
+  scale_color_manual(values=c(&quot;darkgrey&quot;)) +
+  geom_abline(intercept = 0, slope = 1,  linetype = &quot;dotted&quot;, col = &quot;black&quot;) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, .1)) +
+  scale_x_continuous(limits = c(0, 1), breaks = seq(0, 1, .1)) +
+  xlab(&quot;False Positive Rate&quot;) + ylab(&quot;True Positive Rate&quot;) +
+  ggtitle(AUC) + theme_fivethirtyeight() +
+  theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="ml_files/figure-html/unnamed-chunk-13-1.png" width="288" /></p>
+<p>It is performing quite good on test data as well. The result is very similar to the cross validation. Thanks to this study now we can predict consumer behaviour on some liquit poison advertised as orange juice.</p>
+<p>This is not a particularly large dataset hence, performance measures might have large variances. When we are summurizing our results we should:</p>
+<p>Keep It Simple &amp; Skeptic: <strong>KISS!</strong></p>
+</div>
+<div id="variable-importance" class="section level3">
+<h3>Variable importance</h3>
+<p>We will inspect variable importance plots for 3 models: <strong>RF with 400, GBM with 0.8 and XGB</strong>. We are curious if similar variables are found to be the most important for them.</p>
+<pre class="r"><code>p1 &lt;- ggplot(varImp(rf_400_fit))+ ggtitle(&#39;rf&#39;) + 
+  theme_fivethirtyeight() + 
+  theme(axis.text.x=element_blank())
+p2 &lt;- ggplot(varImp(gbm_080_fit))+ ggtitle(&#39;gbm&#39;) + 
+  theme_fivethirtyeight() + 
+  theme(axis.text.x=element_blank())
+p3 &lt;- ggplot(varImp(xgboost_fit))+ ggtitle(&#39;xgb&#39;) + 
+  theme_fivethirtyeight() + 
+  theme(axis.text.x=element_blank())
+
+grid.arrange(p1, p2, p3, ncol=3) </code></pre>
+<p><img src="ml_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
+<p>Very similar.</p>
+<p>Citrus Hill Loyalty is the most important variable in all of them. At the beginning the single tree also picked it as the most impontant and placed it to the top. In this project if our goal is to determine which customer will buy which liquit carcinogen substance then the most important variable will be the CH loyalty. Then comes the others like price and store related variables.</p>
+</div>
+<div id="variable-importance-profiles" class="section level3">
+<h3>3. Variable importance profiles</h3>
+<pre class="r"><code>data &lt;- data.table(Hitters)
+data &lt;- data[!is.na(Salary)]
+data[, log_salary := log(Salary)]
+data[, Salary := NULL]</code></pre>
+<pre class="r"><code>train_control &lt;- trainControl(method = &quot;none&quot;)</code></pre>
+<pre class="r"><code># random forest mtry 2 and 10
+set.seed(1)
+rf_model_2 &lt;- train(log_salary ~ .,
+                  method = &quot;rf&quot;,
+                  data = data,
+                  trControl = train_control,
+                  tuneGrid = data.frame(mtry = c(2)),
+                  importance = T # to calculate variable importance measures
+                  )
+set.seed(1)
+rf_model_10 &lt;- train(log_salary ~ .,
+                  method = &quot;rf&quot;,
+                  data = data,
+                  trControl = train_control,
+                  tuneGrid = data.frame(mtry = c(10)),
+                  importance = T # to calculate variable importance measures
+                  )
+
+p3 &lt;- ggplot(varImp(rf_model_2))+ ggtitle(&#39;Rf / mtry 2&#39;) + theme_fivethirtyeight()
+p4 &lt;- ggplot(varImp(rf_model_10))+ ggtitle(&#39;Rf /mtry 10&#39;) + theme_fivethirtyeight()
+
+
+grid.arrange(p4, p3, ncol=2) </code></pre>
+<p><img src="ml_files/figure-html/unnamed-chunk-17-1.png" width="768" /></p>
+<p>It is interesting to see the similarities… However in mtry 10 the decline in importance is sharper, meaning the first ones have higher relative importance.</p>
+<p>Obviously when we have a larger mtry, those variables are selected more often. Then their influence or weights are much greater. In mtry 2 case they cant dominate as they can’t be selected as much as the mtry 10 case.</p>
+<p>In the same vein, we will estimate two gbm models and set bag.fraction to 0.1 first and to 0.9 in the second. (keeping The tuneGrids the same)</p>
+<pre class="r"><code>#GBM
+tune_grid_gbm &lt;- expand.grid(n.trees = c(500), 
+                         interaction.depth = c(5), 
+                         shrinkage = c(0.1),
+                         n.minobsinnode = c(5))
+
+set.seed(1)
+gbm_01_fit &lt;- train(log_salary ~ .,
+                     data = data,
+                     method = &quot;gbm&quot;,
+                     #metric = &quot;ROC&quot;,
+                     trControl = train_control,
+                     tuneGrid = tune_grid_gbm,
+                     bag.fraction = 0.10,
+                     verbose = FALSE)
+
+set.seed(1)
+gbm_09_fit &lt;- train(log_salary ~ .,
+                     data = data,
+                     method = &quot;gbm&quot;,
+                     #metric = &quot;ROC&quot;,
+                     trControl = train_control,
+                     tuneGrid = tune_grid_gbm,
+                     bag.fraction = 0.90,
+                     verbose = FALSE)
+
+p5 &lt;- ggplot(varImp(gbm_01_fit))+ ggtitle(&#39;Gbm / bag frac 0.1&#39;) + theme_fivethirtyeight()
+p6 &lt;- ggplot(varImp(gbm_09_fit))+ ggtitle(&#39;Gbm / bag frac 0.9&#39;) + theme_fivethirtyeight()
+
+
+grid.arrange(p5, p6, ncol=2) </code></pre>
+<p><img src="ml_files/figure-html/unnamed-chunk-18-1.png" width="768" /></p>
+<p>Bag fraction is the fraction of the training set observations randomly selected to propose the next tree in the expansion (at each iteration).. When we select 0.1, we will use only 10% of the training data at each iteration! And keep in mind, almost <strong>anything</strong> can happen in a small sample size :)</p>
+<p>90% bag fraction intuition is a bit like RF model with mtry 10. In larger sample sizes (large bag fraction) the important variable can dominate. Larger the bag fraction, higher the relative importance. That’s why we have a more extreme case in the plot on the right hand side. In small sample (small bag fraction) other variables can have more chance and thus, we see the plot on the left hand side: See how PutOuts jumped to the first place. That is what we mean by saying <strong>anything</strong> can happen in a small sample size.</p>
+<p>Clearly there is a trade off here. We need to iterate and see based on our business objective. GBM can reach the desired accuracy with a larger number of base-learners and lower bag than the one with smaller amount of more carefully fitted base-learners with larger bag.</p>
+<p>additional resources used: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3885826/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3885826/</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -5,13 +5,14 @@ navbar:
   left:
   - text: final
     href: final.html
-  - text: textdata
+  - text: Textdata
     href: textdata.html
   - text: AirBnB
     href: AirBnB.html
   - text: Mental
     href: mental.html
-
+  - text: Machine Leaning
+    href: ml.html
   right:
   - icon: fa-github fa-lg
     href: http://github.com/cagdasyetkin

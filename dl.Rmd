@@ -7,7 +7,7 @@
 ##Chapter 1
 ###Deep learning with h2o
 
-This data is about patients taking an appointment from the doctors. They are labeled as 'no-show' when they have an appointment but never showed up. The original data is on Kaggle.
+This data is about patients taking an appointment from the doctors. We are going to predict the 'no-show' event which occurs when they have an appointment but never showed up. The original data is on Kaggle.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 library(ggplot2)
@@ -554,7 +554,7 @@ It is really very closed to the validation set performance of 71.2%!
 ##Chapter 2:
 ###Fashion image classification using keras
 
-Take the “Fashion MNIST dataset” where images of fashion items are to be classified in a similar manner to what we saw with handwritten digits. Images are in exactly the same format as we saw digits: 28x28 pixel grayscale images. The task is to build deep neural net models to predict image classes. The goal is to have as accurate classifier as possible: we are using accuracy as a measure of predictive power.
+[Take the “Fashion MNIST dataset”](https://github.com/zalandoresearch/fashion-mnist/blob/master/README.md "fashionMNIST"){target="_blank"} where images of fashion items are to be classified in a similar manner to what we saw with handwritten digits. Images are in exactly the same format as we saw digits: 28x28 pixel grayscale images. The task is to build deep neural net models to predict image classes. The goal is to have as accurate classifier as possible: we are using accuracy as a measure of predictive power.
 
 ```{r, results='hide'}
 library(keras)
@@ -581,7 +581,7 @@ show_mnist_image(x_train[35, , ])
 show_mnist_image(x_train[100, , ])
 ```
 
-But how many items do we have? OK it has a nice Github site. We have 10 classes again.
+We have 10 classes again just like the classic MNIST data. This time the classes are items like T-shirt, Bag, Dress, etc.
 
 ```{r}
 # reshape
@@ -615,7 +615,7 @@ model %>% compile(
   metrics = c('accuracy')
 )
 ```
-I used 5 epochs in the end. I tried 25, 30, 60 and 35 epochs also. I started to flatten out after 3 epochs already
+After I tried 25, 30, 60 and 35 epochs, I ended up using 5 epochs. It started to flatten out after 3 epochs already
 ```{r}
 history <- model %>% fit(
   x_train, y_train, #they are 2 separete objects! train train
@@ -707,7 +707,7 @@ plot(history)
 cnn_model %>% evaluate(x_test, y_test)
 ```
 
-CNN acc is 98.13% and loss is 5.7%. This is a much better result than deep neural net! Amazing!
+CNN acc is 98.13% and loss is 5.7%. This is a much better result than deep neural net! A clear victory CNN in image classification task.
 
 
 

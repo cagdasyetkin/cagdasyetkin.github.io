@@ -1,7 +1,3 @@
----
-
----
-
-
 The site contains my Data Projects and some tutorials
  
+<img src="images/index_images/MyCard.svg" alt="chimp" height="600" width="900">

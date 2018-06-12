@@ -239,7 +239,7 @@ $(document).ready(function () {
 <h2>Chapter 1</h2>
 <div id="deep-learning-with-h2o" class="section level3">
 <h3>Deep learning with h2o</h3>
-<p>This data is about patients taking an appointment from the doctors. They are labeled as ‘no-show’ when they have an appointment but never showed up. The original data is on Kaggle.</p>
+<p>This data is about patients taking an appointment from the doctors. We are going to predict the ‘no-show’ event which occurs when they have an appointment but never showed up. The original data is on Kaggle.</p>
 <pre class="r"><code>library(ggplot2)
 library(data.table)
 library(magrittr)
@@ -619,7 +619,7 @@ pandora(valid_performances)</code></pre>
 <p><img src="dl_files/figure-html/unnamed-chunk-31-1.png" width="912" /> The bests are around 69.6% - 70.04%</p>
 <pre class="r"><code># for the ensemble model
 print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.7105348</code></pre>
+<pre><code>## [1] 0.7099261</code></pre>
 <p><strong>an improvement</strong>! better then the individuals.</p>
 <p>The baseline meta-learner is a glm model. We can try GBM also:</p>
 <pre class="r"><code>ensemble_model_gbm &lt;- h2o.stackedEnsemble(
@@ -631,7 +631,7 @@ print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pr
                      deeplearning_model,
                      rf_model))</code></pre>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_gbm, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.6951573</code></pre>
+<pre><code>## [1] 0.6981105</code></pre>
 <p>But it gave a lower score. We can maybe give deep learning a chance:</p>
 <pre class="r"><code>ensemble_model_dl &lt;- h2o.stackedEnsemble(
   X, y,
@@ -642,17 +642,17 @@ print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pr
                      deeplearning_model,
                      rf_model))</code></pre>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_dl, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.6779634</code></pre>
+<pre><code>## [1] 0.7090463</code></pre>
 <p>The default glm metalearner is giving better result than deeplearning and gbm here. So let’s apply it to or test set:</p>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model, newdata = data_test)))</code></pre>
-<pre><code>## [1] 0.7092341</code></pre>
+<pre><code>## [1] 0.7092111</code></pre>
 <p>It is really very closed to the validation set performance of 71.2%!</p>
 </div>
 <div id="chapter-2" class="section level2">
 <h2>Chapter 2:</h2>
 <div id="fashion-image-classification-using-keras" class="section level3">
 <h3>Fashion image classification using keras</h3>
-<p>Take the “Fashion MNIST dataset” where images of fashion items are to be classified in a similar manner to what we saw with handwritten digits. Images are in exactly the same format as we saw digits: 28x28 pixel grayscale images. The task is to build deep neural net models to predict image classes. The goal is to have as accurate classifier as possible: we are using accuracy as a measure of predictive power.</p>
+<p><a href="https://github.com/zalandoresearch/fashion-mnist/blob/master/README.md" target="_blank" title="fashionMNIST">Take the “Fashion MNIST dataset”</a> where images of fashion items are to be classified in a similar manner to what we saw with handwritten digits. Images are in exactly the same format as we saw digits: 28x28 pixel grayscale images. The task is to build deep neural net models to predict image classes. The goal is to have as accurate classifier as possible: we are using accuracy as a measure of predictive power.</p>
 <pre class="r"><code>library(keras)
 fashion_mnist &lt;- dataset_fashion_mnist()
 x_train &lt;- fashion_mnist$train$x
@@ -669,7 +669,7 @@ show_mnist_image(x_train[18, , ])</code></pre>
 <p><img src="dl_files/figure-html/unnamed-chunk-40-1.png" width="192" /></p>
 <pre class="r"><code>show_mnist_image(x_train[100, , ])</code></pre>
 <p><img src="dl_files/figure-html/unnamed-chunk-41-1.png" width="192" /></p>
-<p>But how many items do we have? OK it has a nice Github site. We have 10 classes again.</p>
+<p>We have 10 classes again just like the classic MNIST data. This time the classes are items like T-shirt, Bag, Dress, etc.</p>
 <pre class="r"><code># reshape
 x_train &lt;- array_reshape(x_train, c(dim(x_train)[1], 784)) 
 x_test &lt;- array_reshape(x_test, c(dim(x_test)[1], 784)) 
@@ -704,7 +704,7 @@ model %&gt;%
   optimizer = optimizer_rmsprop(),
   metrics = c(&#39;accuracy&#39;)
 )</code></pre>
-<p>I used 5 epochs in the end. I tried 25, 30, 60 and 35 epochs also. I started to flatten out after 3 epochs already</p>
+<p>After I tried 25, 30, 60 and 35 epochs, I ended up using 5 epochs. It started to flatten out after 3 epochs already</p>
 <pre class="r"><code>history &lt;- model %&gt;% fit(
   x_train, y_train, #they are 2 separete objects! train train
   epochs = 5, batch_size = 128, #after how many gradient to be computed
@@ -783,7 +783,7 @@ cnn_model %&gt;%
 <pre class="r"><code>plot(history)</code></pre>
 <p><img src="dl_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <pre class="r"><code>cnn_model %&gt;% evaluate(x_test, y_test)</code></pre>
-<p>CNN acc is 98.13% and loss is 5.7%. This is a much better result than deep neural net! Amazing!</p>
+<p>CNN acc is 98.13% and loss is 5.7%. This is a much better result than deep neural net! A clear victory CNN in image classification task.</p>
 </div>
 
 

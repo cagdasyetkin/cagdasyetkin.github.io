@@ -15,6 +15,8 @@ navbar:
     href: ml.html
   - text: Deep Leaning
     href: dl.html
+  - text: Time Series
+    href: London_powermeters.html
   right:
   - icon: fa-github fa-lg
     href: http://github.com/cagdasyetkin

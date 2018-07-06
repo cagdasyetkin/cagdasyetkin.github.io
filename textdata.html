@@ -197,6 +197,9 @@ $(document).ready(function () {
 <li>
   <a href="dl.html">Deep Leaning</a>
 </li>
+<li>
+  <a href="London_powermeters.html">Time Series</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -649,13 +652,13 @@ frequency &lt;- bind_rows(mutate(tidy_Merville, author = &quot;Herman Merville&q
 ##  Pearson&#39;s product-moment correlation
 ## 
 ## data:  proportion and Jack London
-## t = 50.569, df = 8056, p-value &lt; 2.2e-16
+## t = 50.568, df = 8056, p-value &lt; 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
-##  0.4741102 0.5072614
+##  0.4741043 0.5072557
 ## sample estimates:
 ##       cor 
-## 0.4908635</code></pre>
+## 0.4908577</code></pre>
 <p>There is correlation but not so high…</p>
 <p>Now lets see tf-idf to see the most important words in these books.</p>
 <pre class="r"><code>LondonBooks &lt;- gutenberg_download(c(910, 215, 1164), meta_fields = &quot;title&quot;)

@@ -197,6 +197,9 @@ $(document).ready(function () {
 <li>
   <a href="dl.html">Deep Leaning</a>
 </li>
+<li>
+  <a href="London_powermeters.html">Time Series</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -619,7 +622,7 @@ pandora(valid_performances)</code></pre>
 <p><img src="dl_files/figure-html/unnamed-chunk-31-1.png" width="912" /> The bests are around 69.6% - 70.04%</p>
 <pre class="r"><code># for the ensemble model
 print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.7099261</code></pre>
+<pre><code>## [1] 0.7105554</code></pre>
 <p><strong>an improvement</strong>! better then the individuals.</p>
 <p>The baseline meta-learner is a glm model. We can try GBM also:</p>
 <pre class="r"><code>ensemble_model_gbm &lt;- h2o.stackedEnsemble(
@@ -631,7 +634,7 @@ print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pr
                      deeplearning_model,
                      rf_model))</code></pre>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_gbm, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.6981105</code></pre>
+<pre><code>## [1] 0.6973805</code></pre>
 <p>But it gave a lower score. We can maybe give deep learning a chance:</p>
 <pre class="r"><code>ensemble_model_dl &lt;- h2o.stackedEnsemble(
   X, y,
@@ -642,10 +645,10 @@ print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pr
                      deeplearning_model,
                      rf_model))</code></pre>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_dl, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.7090463</code></pre>
+<pre><code>## [1] 0.6969067</code></pre>
 <p>The default glm metalearner is giving better result than deeplearning and gbm here. So let’s apply it to or test set:</p>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model, newdata = data_test)))</code></pre>
-<pre><code>## [1] 0.7092111</code></pre>
+<pre><code>## [1] 0.7095682</code></pre>
 <p>It is really very closed to the validation set performance of 71.2%!</p>
 </div>
 <div id="chapter-2" class="section level2">

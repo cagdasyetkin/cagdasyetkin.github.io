@@ -8,6 +8,7 @@
 
 London, city of Sherlock, Harry Potter, Dorian Gray and many others...
 
+
 Our client is a mid size real estate company trying to enter into airbnb business in London. Their new revenue model is to build or purchase flats and houses, renovate them and then list on the website. They also want to expand the business to Budapest Hungary soon.
 
 Our task is to help them on the pricing issue by using the historical data publicly available online.

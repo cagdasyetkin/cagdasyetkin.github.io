@@ -22,7 +22,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -91,6 +93,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -339,6 +344,10 @@ simple_tree_model</code></pre>
 <p>According to oneSE rule, The simplest model within one standard error is the better choice. Thus, it picks cp 0.011 with AUC 0.85, although it is smaller than the first option above!</p>
 <p>How does our <strong>Kamikaze event</strong> tree look like?</p>
 <pre class="r"><code>rpart.plot(simple_tree_model[[&quot;finalModel&quot;]], type = 0)</code></pre>
+<pre><code>## Warning: Bad &#39;data&#39; field in model &#39;call&#39; field.
+##          To make this warning go away:
+##              Call rpart.plot with roundint=FALSE,
+##              or rebuild the rpart model with model=TRUE.</code></pre>
 <p><img src="ml_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
 <p>Looks like loyalty, price diff and special CH are important for our tree.</p>
 <p>Predicting a new observation is quite straight forward. We just follow the tree by using the rules. First decision is LoyalCH (Customer brand loyalty for Citrus Hill). If that score is greater than or equal to 0.45, we take the left branch. If not, then to the right. We use this method on each node to arrive to the final <strong>Kamikaze</strong> event: Intake of carcinogen substances into body using Citrus Hill or Minute Maid…</p>

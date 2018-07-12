@@ -3,5 +3,5 @@
 ---
 
 
-The site contains my Data Projects and some tutorials
+The site contains some of my Data Projects and some tutorials. I will continue adding more content regularly.
  

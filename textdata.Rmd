@@ -2,6 +2,9 @@
 
 ---
 
+This section consists of 2 Chapters. Chapter 1 talks about the fundamentals of text analysis using famous books from Tolkien, J.R.R Martin, Jack London and Herman Merville. Chapter 2 builds on these concepts and tells a thrilling story which was liked and retwitted by leading data scientists: Julia Silge and David Robinson on Twitter. Chapter 2 has also a Shiny App which lives in a server I fired up on AWS.
+
+
 ##Chapter 1
 ###Introuction to Unstructure Text Data Analysis using LDA
 

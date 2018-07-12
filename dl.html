@@ -22,7 +22,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -91,6 +93,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -622,7 +627,7 @@ pandora(valid_performances)</code></pre>
 <p><img src="dl_files/figure-html/unnamed-chunk-31-1.png" width="912" /> The bests are around 69.6% - 70.04%</p>
 <pre class="r"><code># for the ensemble model
 print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.7105554</code></pre>
+<pre><code>## [1] 0.7116316</code></pre>
 <p><strong>an improvement</strong>! better then the individuals.</p>
 <p>The baseline meta-learner is a glm model. We can try GBM also:</p>
 <pre class="r"><code>ensemble_model_gbm &lt;- h2o.stackedEnsemble(
@@ -634,7 +639,7 @@ print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pr
                      deeplearning_model,
                      rf_model))</code></pre>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_gbm, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.6973805</code></pre>
+<pre><code>## [1] 0.6961582</code></pre>
 <p>But it gave a lower score. We can maybe give deep learning a chance:</p>
 <pre class="r"><code>ensemble_model_dl &lt;- h2o.stackedEnsemble(
   X, y,
@@ -645,10 +650,10 @@ print(h2o.auc(h2o.performance(ensemble_model, newdata = data_valid)))</code></pr
                      deeplearning_model,
                      rf_model))</code></pre>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model_dl, newdata = data_valid)))</code></pre>
-<pre><code>## [1] 0.6969067</code></pre>
+<pre><code>## [1] 0.6976598</code></pre>
 <p>The default glm metalearner is giving better result than deeplearning and gbm here. So let’s apply it to or test set:</p>
 <pre class="r"><code>print(h2o.auc(h2o.performance(ensemble_model, newdata = data_test)))</code></pre>
-<pre><code>## [1] 0.7095682</code></pre>
+<pre><code>## [1] 0.710706</code></pre>
 <p>It is really very closed to the validation set performance of 71.2%!</p>
 </div>
 <div id="chapter-2" class="section level2">

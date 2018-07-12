@@ -22,7 +22,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -91,6 +93,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -235,6 +240,7 @@ $(document).ready(function () {
 
 <hr />
 <hr />
+<p>This section consists of 2 Chapters. Chapter 1 talks about the fundamentals of text analysis using famous books from Tolkien, J.R.R Martin, Jack London and Herman Merville. Chapter 2 builds on these concepts and tells a thrilling story which was liked and retwitted by leading data scientists: Julia Silge and David Robinson on Twitter. Chapter 2 has also a Shiny App which lives in a server I fired up on AWS.</p>
 <div id="chapter-1" class="section level2">
 <h2>Chapter 1</h2>
 <div id="introuction-to-unstructure-text-data-analysis-using-lda" class="section level3">
@@ -343,9 +349,12 @@ word_counts</code></pre>
 <p>‘ser’ means ‘sir’ in the world of Game of Thrones. We see this word ‘ser’ at the top.</p>
 <pre class="r"><code>#document term matrix
 chapters_dtm &lt;- word_counts %&gt;%
-  cast_dtm(document, word, n)
-
-chapters_dtm</code></pre>
+  cast_dtm(document, word, n)</code></pre>
+<pre><code>## Warning: Trying to compute distinct() for variables not found in the data:
+## - `row_col`, `column_col`
+## This is an error, but only a warning is raised for compatibility reasons.
+## The operation will return the input unchanged.</code></pre>
+<pre class="r"><code>chapters_dtm</code></pre>
 <pre><code>## &lt;&lt;DocumentTermMatrix (documents: 224, terms: 23982)&gt;&gt;
 ## Non-/sparse entries: 239860/5132108
 ## Sparsity           : 96%
